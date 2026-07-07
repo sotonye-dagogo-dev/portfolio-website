@@ -1,0 +1,924 @@
+<!-----------------------------------------------------------------------------
+  OD-1 — Home Page · Visual Contract
+  =============================================================================
+  Design for a senior full-stack developer & technical lead portfolio.
+  Single-file HTML — no framework dependencies.
+
+  Interaction affordances (already implemented as Angular directives;
+  annotated here as CSS keyframe equivalents for visual reference only):
+    [typing-effect]  → Hero tagline (lines 158–175)
+    [pulsating-effect]→ "Available for Work" badge (lines 178–185)
+    [animated-border] → Primary CTA button (lines 189–209)
+
+  All copy wrapped in [CONFIG:*] markers to map 1:1 to a config object.
+----------------------------------------------------------------------------->
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[CONFIG:site.title] · Portfolio Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ==================================================================
+       THEME TOKENS (maps 1:1 to tailwind.config.js + design-system.md)
+       ================================================================== */
+    :root {
+      --color-primary:       #ff6b6b;
+      --color-primary-dark:  #ff8787;
+      --color-accent:        #daa520;
+      --color-accent-hover:  #b8860b;
+      --color-bg:            #f3f4f6;
+      --color-surface:       #ffffff;
+      --color-surface-hover: #f0f0f0;
+      --color-text:          #111827;
+      --color-text-muted:    #6b7280;
+      --color-border:        #e5e7eb;
+      --radius:              8px;
+      --radius-lg:           12px;
+      --radius-xl:           16px;
+      --shadow-sm:           0 1px 3px rgba(0,0,0,.08);
+      --shadow-md:           0 4px 12px rgba(0,0,0,.1);
+      --shadow-lg:           0 8px 30px rgba(0,0,0,.12);
+      --space-xs:            4px;
+      --space-sm:            8px;
+      --space-md:            16px;
+      --space-lg:            24px;
+      --space-xl:            32px;
+      --space-2xl:           48px;
+      --space-3xl:           64px;
+      --font-sans:           'Roboto', system-ui, sans-serif;
+      --font-mono:           'JetBrains Mono', 'Courier New', monospace;
+    }
+
+    [data-theme="dark"] {
+      --color-primary:       #ff8787;
+      --color-accent:        #daa520;
+      --color-accent-hover:  #e6b800;
+      --color-bg:            #1f2937;
+      --color-surface:       #374151;
+      --color-surface-hover: #4b5563;
+      --color-text:          #f9fafb;
+      --color-text-muted:    #9ca3af;
+      --color-border:        #4b5563;
+      --shadow-sm:           0 1px 3px rgba(0,0,0,.3);
+      --shadow-md:           0 4px 12px rgba(0,0,0,.35);
+      --shadow-lg:           0 8px 30px rgba(0,0,0,.4);
+    }
+
+    /* ==================================================================
+       RESET / BASE
+       ================================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      transition: background .3s ease, color .3s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a     { color: inherit; text-decoration: none; }
+    img   { max-width: 100%; display: block; }
+
+    /* ==================================================================
+       LAYOUT WRAPPER
+       ================================================================== */
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    /* ==================================================================
+       SECTION HEADERS (hidden labels for config mapping)
+       ================================================================== */
+    .config-placeholder { display: none; }
+
+    /* ==================================================================
+       THEME TOGGLE
+       ================================================================== */
+    .theme-toggle {
+      position: fixed;
+      top: var(--space-lg);
+      right: var(--space-lg);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, transform .2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .theme-toggle:hover { transform: scale(1.1); }
+
+    /* ==================================================================
+       NAV
+       ================================================================== */
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-xl);
+      padding: var(--space-lg) 0 var(--space-3xl);
+      font-weight: 500;
+      font-size: .9rem;
+      letter-spacing: .02em;
+    }
+    .nav a {
+      color: var(--color-text-muted);
+      transition: color .2s;
+      position: relative;
+    }
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width .25s;
+    }
+    .nav a:hover { color: var(--color-text); }
+    .nav a:hover::after { width: 100%; }
+
+    /* ==================================================================
+       HERO
+       ================================================================== */
+    .hero {
+      text-align: center;
+      padding: var(--space-3xl) 0 var(--space-2xl);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero__name {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1.1;
+      margin-bottom: var(--space-md);
+    }
+
+    .hero__name .last-name {
+      color: var(--color-accent);
+    }
+
+    /* [typing-effect] – Hero tagline uses a blinking cursor simulated
+       via the ::after pseudo-element. The Angular directive
+       (appTypingEffect) animates the text reveal character by character. */
+    .hero__tagline-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      color: var(--color-text-muted);
+      font-weight: 300;
+      min-height: 1.8em;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero__tagline {
+      border-right: 2px solid var(--color-accent);
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing-blink 1s step-end infinite;
+      padding-right: 2px;
+    }
+
+    @keyframes typing-blink {
+      50% { border-color: transparent; }
+    }
+
+    /* [pulsating-effect] – Availability badge. The Angular directive
+       (appPulsatingEffect) plays a scale + opacity loop on the ring. */
+    .hero__availability {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background: rgba(34, 197, 94, .12);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, .25);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 500;
+      margin-bottom: var(--space-xl);
+    }
+
+    .hero__availability-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, .6); }
+      50%      { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+    }
+
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    /* [animated-border] – Primary CTA. The Angular directive
+       (appAnimatedBorder) wraps the element in a box with a rotating
+       conic-gradient border. This CSS version uses the same visual. */
+    .btn-cta-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 36px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      background: var(--color-surface);
+      color: var(--color-text);
+      border: none;
+      z-index: 0;
+      transition: transform .2s;
+      overflow: hidden;
+    }
+
+    .btn-cta-primary::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: calc(var(--radius) + 2px);
+      background: conic-gradient(
+        var(--color-accent),
+        var(--color-primary),
+        var(--color-accent),
+        var(--color-primary),
+        var(--color-accent)
+      );
+      z-index: -2;
+      animation: border-spin 3s linear infinite;
+    }
+
+    .btn-cta-primary::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: var(--radius);
+      background: var(--color-bg);
+      z-index: -1;
+      transition: background .2s;
+    }
+
+    .btn-cta-primary:hover { transform: translateY(-2px); }
+    .btn-cta-primary:hover::after { background: var(--color-surface); }
+
+    @keyframes border-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .btn-cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      background: transparent;
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+      transition: all .2s;
+    }
+
+    .btn-cta-secondary:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-cta-secondary .arrow {
+      display: inline-block;
+      transition: transform .2s;
+    }
+    .btn-cta-secondary:hover .arrow { transform: translateX(4px); }
+
+    /* ==================================================================
+       STAT STRIP
+       ================================================================== */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+      padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--space-3xl);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item__value {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--color-accent);
+      line-height: 1.2;
+    }
+
+    .stat-item__label {
+      font-size: .85rem;
+      color: var(--color-text-muted);
+      margin-top: var(--space-xs);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* ==================================================================
+       TECH STACK MARQUEE / PILLS
+       ================================================================== */
+    .tech-stack-section {
+      margin-bottom: var(--space-3xl);
+    }
+
+    .tech-stack-section__heading {
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    .tech-stack-marquee {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    }
+
+    .tech-stack-track {
+      display: flex;
+      gap: var(--space-sm);
+      width: max-content;
+      animation: marquee-scroll 30s linear infinite;
+    }
+
+    .tech-stack-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee-scroll {
+      to { transform: translateX(-50%); }
+    }
+
+    /* Monospace accents for tech-stack labels only (per spec) */
+    .tech-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 999px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      font-family: var(--font-mono);    /* ← monospace accents per spec */
+      font-size: .8rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all .2s;
+      cursor: default;
+    }
+
+    .tech-pill:hover {
+      border-color: var(--color-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tech-pill__color {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ==================================================================
+       FEATURED FLAGSHIP PROJECT CARD
+       ================================================================== */
+    .featured-project {
+      margin-bottom: var(--space-3xl);
+    }
+
+    .featured-project__heading {
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    .featured-project-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      background: var(--color-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      border: 1px solid var(--color-border);
+      transition: all .3s;
+      overflow: hidden;
+    }
+
+    .featured-project-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .featured-project-card__image {
+      aspect-ratio: 16 / 10;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--color-surface-hover), var(--color-border));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      font-size: .85rem;
+      font-family: var(--font-mono);
+      overflow: hidden;
+    }
+
+    .featured-project-card__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .featured-project-card__flag {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+
+    .featured-project-card__title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: var(--space-sm);
+    }
+
+    .featured-project-card__description {
+      color: var(--color-text-muted);
+      font-size: .95rem;
+      line-height: 1.7;
+      margin-bottom: var(--space-lg);
+    }
+
+    .featured-project-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .featured-project-card__tag {
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+    }
+
+    .featured-project-card__links {
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    .featured-project-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      transition: gap .2s;
+    }
+
+    .featured-project-card__link:hover { gap: 10px; }
+
+    /* ==================================================================
+       QUICK-NAV CARDS
+       ================================================================== */
+    .quick-nav-section {
+      margin-bottom: var(--space-3xl);
+    }
+
+    .quick-nav-section__heading {
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-md);
+    }
+
+    .quick-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-md);
+    }
+
+    .quick-nav-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      text-align: center;
+      cursor: pointer;
+      transition: all .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quick-nav-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transition: transform .3s;
+      transform-origin: left;
+    }
+
+    .quick-nav-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-accent);
+    }
+
+    .quick-nav-card:hover::before { transform: scaleX(1); }
+
+    .quick-nav-card__icon {
+      font-size: 1.75rem;
+      margin-bottom: var(--space-sm);
+      line-height: 1;
+    }
+
+    .quick-nav-card__title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: var(--space-xs);
+    }
+
+    .quick-nav-card__description {
+      font-size: .8rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==================================================================
+       FOOTER
+       ================================================================== */
+    .footer {
+      text-align: center;
+      padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      font-size: .85rem;
+    }
+
+    /* ==================================================================
+       RESPONSIVE
+       ================================================================== */
+    @media (max-width: 900px) {
+      .quick-nav-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .featured-project-card {
+        grid-template-columns: 1fr;
+      }
+      .featured-project-card__image {
+        aspect-ratio: 16 / 8;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 0 var(--space-md); }
+      .nav { gap: var(--space-md); flex-wrap: wrap; }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
+      .quick-nav-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero__actions { flex-direction: column; }
+      .btn-cta-primary, .btn-cta-secondary { width: 100%; justify-content: center; }
+    }
+
+    @media (max-width: 400px) {
+      .quick-nav-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       CONFIG OBJECT (hidden — documents every placeholder slot)
+       ================================================================ -->
+  <!--
+    SiteConfig = {
+      name:          string,       // [CONFIG:hero.name]
+      tagline:       string,       // [CONFIG:hero.tagline]
+      availability:  string,       // [CONFIG:hero.availability]
+      stats: [                    // [CONFIG:stats]
+        { label: string, value: string },
+        ...
+      ],
+      techStack: [string],        // [CONFIG:techStack] – technology names
+      featuredProject: {          // [CONFIG:featuredProject]
+        title:       string,
+        description: string,
+        tags:        string[],
+        githubUrl?:  string,
+        liveUrl?:    string,
+        imageUrl?:   string
+      },
+      quickNav: [                 // [CONFIG:quickNav]
+        { title: string, description: string, route: string, icon: string },
+        ...
+      ]
+    }
+  -->
+
+  <div class="config-placeholder">
+    <!-- [CONFIG:site.title] Portfolio Website -->
+    <!-- [CONFIG:hero.name.first]  Sotonye   (first name, accent colored) -->
+    <!-- [CONFIG:hero.name.last]   Dagogo    (last name, gold accent) -->
+    <!-- [CONFIG:hero.tagline]     Full-Stack Developer & Technical Lead -->
+    <!-- [CONFIG:hero.availability] Available for new opportunities -->
+    <!-- [CONFIG:hero.cta.primary] View My Work (→ /projects) -->
+    <!-- [CONFIG:hero.cta.secondary] My Journey  (→ /experience) -->
+  </div>
+
+  <!-- ================================================================
+       NAV
+       ================================================================ -->
+  <nav class="nav">
+    <a href="#home" style="color:var(--color-accent);font-weight:700;">Home</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#automation">Automation</a>
+    <a href="#certificates">Certificates</a>
+  </nav>
+
+  <!-- ================================================================
+       THEME TOGGLE
+       ================================================================ -->
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span id="theme-icon">&#9790;</span>
+  </button>
+
+  <!-- ================================================================
+       PAGE CONTENT
+       ================================================================ -->
+  <main class="page">
+
+    <!-- =============================================================
+         HERO
+         ============================================================= -->
+    <section class="hero" id="home">
+      <h1 class="hero__name">
+        <span>[CONFIG:hero.name.first]</span>
+        <span class="last-name">[CONFIG:hero.name.last]</span>
+      </h1>
+
+      <div class="hero__tagline-wrapper">
+        <!-- [typing-effect] — Applied via appTypingEffect directive.
+             Angular directive types out the tagline char by char, then
+             optionally loops. Visual: blinking cursor (CSS ::after above). -->
+        <span class="hero__tagline">[CONFIG:hero.tagline]</span>
+      </div>
+
+      <!-- [pulsating-effect] — Applied via appPulsatingEffect directive.
+           Angular directive adds a scale/opacity loop to the dot + ring. -->
+      <div class="hero__availability">
+        <span class="hero__availability-dot"></span>
+        [CONFIG:hero.availability]
+      </div>
+
+      <div class="hero__actions">
+        <!-- [animated-border] — Applied via appAnimatedBorder directive.
+             Angular directive wraps element in conic-gradient rotating border.
+             Primary CTA uses this treatment to signal importance. -->
+        <a href="/projects" class="btn-cta-primary">
+          [CONFIG:hero.cta.primary]
+        </a>
+        <a href="/experience" class="btn-cta-secondary">
+          [CONFIG:hero.cta.secondary]
+          <span class="arrow">&rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         STAT STRIP
+         ============================================================= -->
+    <section class="stats">
+      <!-- [CONFIG:stats[0]] -->
+      <div class="stat-item">
+        <div class="stat-item__value">[CONFIG:stats.projects]</div>
+        <div class="stat-item__label">Projects</div>
+      </div>
+      <!-- [CONFIG:stats[1]] -->
+      <div class="stat-item">
+        <div class="stat-item__value">[CONFIG:stats.technologies]</div>
+        <div class="stat-item__label">Technologies</div>
+      </div>
+      <!-- [CONFIG:stats[2]] -->
+      <div class="stat-item">
+        <div class="stat-item__value">[CONFIG:stats.yearsExp]</div>
+        <div class="stat-item__label">Years Experience</div>
+      </div>
+      <!-- [CONFIG:stats[3]] -->
+      <div class="stat-item">
+        <div class="stat-item__value">[CONFIG:stats.certificates]</div>
+        <div class="stat-item__label">Certificates</div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         TECH STACK MARQUEE / PILLS
+         ============================================================= -->
+    <section class="tech-stack-section">
+      <h2 class="tech-stack-section__heading">[CONFIG:techStack.heading]</h2>
+      <div class="tech-stack-marquee">
+        <div class="tech-stack-track" id="tech-track">
+          <!-- Pills are cloned by JS for seamless scroll -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         FEATURED FLAGSHIP PROJECT CARD
+         ============================================================= -->
+    <section class="featured-project">
+      <h2 class="featured-project__heading">[CONFIG:featuredProject.heading]</h2>
+      <div class="featured-project-card">
+        <div class="featured-project-card__image">
+          [CONFIG:featuredProject.imagePlaceholder]
+        </div>
+        <div class="featured-project-card__body">
+          <span class="featured-project-card__flag">[CONFIG:featuredProject.flag]</span>
+          <h3 class="featured-project-card__title">[CONFIG:featuredProject.title]</h3>
+          <p class="featured-project-card__description">
+            [CONFIG:featuredProject.description]
+          </p>
+          <div class="featured-project-card__tags">
+            <!-- [CONFIG:featuredProject.tags] -->
+            <span class="featured-project-card__tag">[TAG]</span>
+            <span class="featured-project-card__tag">[TAG]</span>
+            <span class="featured-project-card__tag">[TAG]</span>
+            <span class="featured-project-card__tag">[TAG]</span>
+          </div>
+          <div class="featured-project-card__links">
+            <a href="#" class="featured-project-card__link">
+              [CONFIG:featuredProject.cta.live] &rarr;
+            </a>
+            <a href="#" class="featured-project-card__link">
+              [CONFIG:featuredProject.cta.github] &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================
+         QUICK-NAV CARDS
+         ============================================================= -->
+    <section class="quick-nav-section">
+      <h2 class="quick-nav-section__heading">[CONFIG:quickNav.heading]</h2>
+      <div class="quick-nav-grid">
+        <!-- [CONFIG:quickNav[0]] → About -->
+        <div class="quick-nav-card">
+          <div class="quick-nav-card__icon">&#128100;</div>
+          <div class="quick-nav-card__title">[CONFIG:quickNav.about.title]</div>
+          <div class="quick-nav-card__description">[CONFIG:quickNav.about.description]</div>
+        </div>
+        <!-- [CONFIG:quickNav[1]] → Experience -->
+        <div class="quick-nav-card">
+          <div class="quick-nav-card__icon">&#128188;</div>
+          <div class="quick-nav-card__title">[CONFIG:quickNav.experience.title]</div>
+          <div class="quick-nav-card__description">[CONFIG:quickNav.experience.description]</div>
+        </div>
+        <!-- [CONFIG:quickNav[2]] → Projects -->
+        <div class="quick-nav-card">
+          <div class="quick-nav-card__icon">&#128640;</div>
+          <div class="quick-nav-card__title">[CONFIG:quickNav.projects.title]</div>
+          <div class="quick-nav-card__description">[CONFIG:quickNav.projects.description]</div>
+        </div>
+        <!-- [CONFIG:quickNav[3]] → Automation -->
+        <div class="quick-nav-card">
+          <div class="quick-nav-card__icon">&#9881;</div>
+          <div class="quick-nav-card__title">[CONFIG:quickNav.automation.title]</div>
+          <div class="quick-nav-card__description">[CONFIG:quickNav.automation.description]</div>
+        </div>
+        <!-- [CONFIG:quickNav[4]] → Certificates -->
+        <div class="quick-nav-card">
+          <div class="quick-nav-card__icon">&#127942;</div>
+          <div class="quick-nav-card__title">[CONFIG:quickNav.certificates.title]</div>
+          <div class="quick-nav-card__description">[CONFIG:quickNav.certificates.description]</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="footer">
+    &copy; [CONFIG:footer.copyright]
+    &mdash; Built with [CONFIG:footer.builtWith]
+  </footer>
+
+  <!-- ================================================================
+       THEME TOGGLE SCRIPT
+       ================================================================ -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      icon.textContent = isDark ? '\u2609' : '\u264E';
+    }
+
+    // ---- Inline theme check ----
+    (function() {
+      const html = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      if (html.getAttribute('data-theme') === 'dark') {
+        icon.textContent = '\u2609';
+      } else {
+        icon.textContent = '\u264E';
+      }
+    })();
+
+    // ---- Tech-stack marquee (duplicate for seamless scroll) ----
+    (function() {
+      const track = document.getElementById('tech-track');
+      const pills = [
+        { label: '[CONFIG:techStack.0]', color: '#3178C6' },
+        { label: '[CONFIG:techStack.1]', color: '#F7DF1E' },
+        { label: '[CONFIG:techStack.2]', color: '#339933' },
+        { label: '[CONFIG:techStack.3]', color: '#DD0031' },
+        { label: '[CONFIG:techStack.4]', color: '#4479A1' },
+        { label: '[CONFIG:techStack.5]', color: '#764ABC' },
+        { label: '[CONFIG:techStack.6]', color: '#E0234E' },
+        { label: '[CONFIG:techStack.7]', color: '#1572B6' },
+        { label: '[CONFIG:techStack.8]', color: '#F05032' },
+        { label: '[CONFIG:techStack.9]', color: '#F24E1E' },
+        { label: '[CONFIG:techStack.10]', color: '#38B2AC' },
+        { label: '[CONFIG:techStack.11]', color: '#06B6D4' },
+      ];
+
+      function createPill(p) {
+        const el = document.createElement('span');
+        el.className = 'tech-pill';
+        el.innerHTML = '<span class="tech-pill__color" style="background:' + p.color + '"></span>' + p.label;
+        return el;
+      }
+
+      pills.forEach(p => track.appendChild(createPill(p)));
+      // Duplicate for seamless scroll
+      pills.forEach(p => track.appendChild(createPill(p)));
+    })();
+  </script>
+
+</body>
+</html>

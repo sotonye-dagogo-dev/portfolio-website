@@ -34,6 +34,25 @@
 
 ---
 
+## 2026-07-07 — OD-1: Home Page Design
+
+**Summary:**
+Created the first visual design contract (OD-1 Home) following the portfolio revamp plan. The design features hero with name/tagline/availability badge, stat strip, tech-stack marquee, featured project card, and quick-nav cards. All copy is wrapped in `[CONFIG:*]` markers for 1:1 config mapping. Dark/light theme toggle included via CSS custom properties. Existing interaction directives (typing-effect, animated-border, pulsating-effect) annotated as CSS equivalents.
+
+**Completed:**
+- `.ai-system/designs/od-1-home.html` — full home page visual contract
+- Updated `.ai-system/designs/README.md` with OD file index and interaction reference table
+- Updated repo-map, dependency-graph, project-plan, task-queue, and dev-history per `update-ai-system.md`
+
+**Key Changes:**
+- Portfolio revamp phase initiated (Phase 2 in project-plan)
+- Designs directory created with README and first OD file
+
+**Next Sprint Focus:**
+OD-2: About page design contract
+
+---
+
 ## 2026-07-07 — Project Initialization
 
 **Summary:**
