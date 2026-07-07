@@ -183,6 +183,37 @@ OD-3: Experience page design contract
 
 ---
 
+## 2026-07-07 — Implementation Sprint: Content Architecture + All 6 Pages
+
+**Summary:**
+Full implementation of the portfolio revamp based on the 7 OD design contracts. Created a config-driven content layer (ContentService with static configs + optional generated.json merge), added two new pages (Experience, Automation) with routes, and refactored the remaining four pages (Home, About, Projects, Certificates) to consume the ContentService. Also performed Angular 18→19 upgrade, FontAwesome 0.x→1.x migration, and synced OD-7 theme tokens to tailwind.config.js and styles.scss. Created an enrichment script at `scripts/enrichment.js` that reads project repo slugs from config and fetches GitHub stats. Build succeeds with 6 prerendered static routes and zero errors.
+
+**Completed:**
+- Angular 18.0.0 → 19.2.25 upgrade (ng update @angular/cli@19 @angular/core@19)
+- FontAwesome 0.15.0 → 1.x migration
+- ContentService with 7 config files and types
+- Home page refactored (hero, stats, tech marquee, featured project, quick-nav cards — OD-1)
+- About page refactored (philosophy-first, how-I-build grid, contact, currently strip — OD-2)
+- Experience page created (vertical timeline, 7 entries, current-role pulsating dot — OD-3)
+- Projects page refactored (4 tiers: flagship/automation teaser/applied/archive accordion — OD-4)
+- Automation page created (flow diagram, 3 feature cards, philosophy strip — OD-5)
+- Certificates page refactored (three category sections, image gallery — OD-6)
+- Nav/footer updated with all 6 nav links, ContentService-driven (OD-7)
+- Theme tokens synced: tailwind.config.js + styles.scss CSS custom properties (OD-7)
+- Enrichment script at `scripts/enrichment.js`
+- `public/content/` directory created for generated.json output
+
+**Key Changes:**
+- ContentService established as single source of truth for all page content (static config fallback + HTTP enrichment merge, never throws)
+- Projects page uses 4-tier layout matching OD-4 (flagship with [animated-border], teaser with [pulsating-effect], archive accordion)
+- Four existing directives preserved and correctly imported across all pages
+- provideAnimations() added to app.config.ts for route animations
+
+**Next Sprint Focus:**
+Phase 4: Quality & Polish (responsive design, accessibility, tests, performance)
+
+---
+
 ## 2026-07-07 — Project Initialization
 
 **Summary:**

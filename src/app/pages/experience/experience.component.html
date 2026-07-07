@@ -1,0 +1,34 @@
+<div class="page">
+  <header class="page-header">
+    <p class="page-header__label">Experience</p>
+    <h1 class="page-header__title">Career Timeline</h1>
+    <p class="page-header__subtitle">Engineering, leadership, and building at scale</p>
+  </header>
+
+  <section class="timeline">
+    <div *ngFor="let entry of content.experiences; let i = index"
+         class="timeline__entry"
+         [class.timeline__entry--current]="entry.isCurrent">
+      <div class="timeline__dot"></div>
+      <div class="timeline__card">
+        <div class="timeline__current-badge" *ngIf="entry.isCurrent">
+          <span class="dot" appPulsatingEffect></span>
+          Current
+        </div>
+        <div class="timeline__header">
+          <div>
+            <h2 class="timeline__role">{{ entry.role }}</h2>
+            <p class="timeline__organization">{{ entry.organization }}</p>
+          </div>
+          <span class="timeline__date">{{ entry.dateRange }}</span>
+        </div>
+        <div class="timeline__description">
+          <p *ngFor="let desc of entry.description">{{ desc }}</p>
+        </div>
+        <div class="timeline__tags">
+          <span class="timeline__tag" *ngFor="let tag of entry.tags">{{ tag }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

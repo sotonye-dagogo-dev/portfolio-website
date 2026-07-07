@@ -1,23 +1,50 @@
 .footer {
-  @apply bg-surface-light dark:bg-surface-dark text-text-light dark:text-text-dark p-4;
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 16px;
 }
 
 .footer-container {
-  @apply container mx-auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .copyright {
-  @apply text-sm;
+  font-size: .85rem;
+  text-align: center;
 }
 
 .social-links {
-  @apply flex-center place-self-stretch space-x-4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
 .social-link {
-  @apply text-text-light dark:text-text-dark hover:text-primary-hover;
+  color: var(--color-text-muted);
+  transition: color .2s;
+
+  &:hover {
+    color: #daa520;
+  }
 }
 
 .toTheTop {
-  @apply absolute right-4 text-3xl p-0 leading-none box-border rounded-full text-text-light dark:text-text-dark shadow-md shadow-text-muted-light hover:shadow-none transition-all duration-200;
+  position: absolute;
+  right: 16px;
+  font-size: 1.75rem;
+  padding: 0;
+  line-height: 1;
+  box-sizing: border-box;
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all .2s;
+
+  &:hover {
+    color: #daa520;
+  }
 }

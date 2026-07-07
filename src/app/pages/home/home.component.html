@@ -1,123 +1,96 @@
-<div class="home-container">
-    <div class="grid-three-column home-grid">
-        
-        <!-- Left Sidebar -->
-        <div class="sidebar-left">
-            <ng-container *ngFor="let section of leftSidebar; trackBy: trackByFn">
-                
-                <!-- Tech Stack Section -->
-                <div *ngIf="section.type === 'tech-stack'" class="mb-6">
-                    <h2 class="text-xl font-bold text-text-light dark:text-text-dark mb-4">{{ section.title }}</h2>
-                    <app-tech-stack displayMode="pills"></app-tech-stack>
-                </div>
+<div class="page">
+  <!-- HERO -->
+  <section class="hero">
+    <h1 class="hero__name">
+      <span>{{ content.site.firstName }}</span>
+      <span class="hero__name-last">{{ content.site.lastName }}</span>
+    </h1>
 
-            </ng-container>
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <ng-container *ngFor="let section of mainContent; trackBy: trackByFn">
-                
-                <!-- Profile Card -->
-                <div *ngIf="section.type === 'profile'" class="profile-card home-profile-card">
-                    <img [src]="section.data.avatar" 
-                         alt="{{section.data.name}}" 
-                         class="profile-card__avatar" 
-                         appImageViewer
-                         [fullImage]="section.data.avatar">
-                    <h1 class="profile-card__name">{{ section.data.name }}</h1>
-                    <p class="profile-card__tagline" appTypingEffect [config]="{loop: true, fontFamily: 'Courier New, Courier, monospace'}">{{ section.data.tagline }}</p>
-                    <div class="profile-card__status">
-                        <div class="w-2 h-2 bg-green-500 rounded-full mr-2" appPulsatingEffect></div>
-                        {{ section.data.availability }}
-                    </div>
-                </div>
-
-                <!-- Daily Tools Section using Card Component -->
-                <app-card appAnimatedBorder [config]="{animationDuration: '4s'}" *ngIf="section.type === 'daily-tools'" 
-                          [title]="section.title"
-                          class="daily-tools-card">
-                    <div class="daily-tools__grid">
-                        <div *ngFor="let tool of section.data" class="daily-tools__item">
-                            <img [src]="tool.icon" 
-                                 alt="{{tool.name}}" 
-                                 [title]="tool.name" 
-                                 class="daily-tools__icon" 
-                                 appImageViewer
-                                 [fullImage]="tool.icon">
-                            <span class="daily-tools__name">{{ tool.name }}</span>
-                        </div>
-                    </div>
-                </app-card>
-
-                <!-- Quick Navigation Cards -->
-                <div *ngIf="section.type === 'quick-nav'" class="quick-nav__grid">
-                    <app-card *ngFor="let nav of section.data; trackBy: trackByFn" 
-                              class="quick-nav-card group cursor-pointer"
-                              [routerLink]="nav.route">
-                        <div class="quick-nav__header">
-                            <h3 class="quick-nav__title">{{ nav.title }}</h3>
-                            <div class="quick-nav__icon">
-                                {{ nav.icon }}
-                            </div>
-                        </div>
-                        <p class="quick-nav__description">{{ nav.description }}</p>
-                        <div class="quick-nav__count">{{ nav.count }}</div>
-                    </app-card>
-                </div>
-
-            </ng-container>
-        </div>
-
-        <!-- Right Sidebar -->
-        <div class="sidebar-right">
-            <ng-container *ngFor="let section of rightSidebar; trackBy: trackByFn">
-                
-                <!-- Contact Links using Card Component -->
-                <app-card *ngIf="section.type === 'contact-links'" 
-                          [title]="section.title"
-                          class="home-contact-links">
-                    <div class="contact-links__list">
-                        <a *ngFor="let link of section.data" 
-                           [href]="link.link" 
-                           target="_blank" 
-                           class="contact-links__link"
-                           [title]="link.title">
-                            <fa-icon [icon]="link.icon" [ngClass]="link.class"></fa-icon>
-                            <span class="ml-2 text-sm">{{ link.title }}</span>
-                            <span *ngIf="link.title === 'X '" class="text-xs">(fka Twitter)</span>
-                        </a>
-                    </div>
-                </app-card>
-
-                <!-- Featured Project using Card Component -->
-                <app-card appAnimatedBorder [config]="{animationDuration: '4s'}" *ngIf="section.type === 'featured-project'"
-                          [imageSrc]="section.data.image"
-                          [imageAlt]="section.data.title"
-                          [title]="section.data.title"
-                          class="home-featured-project">
-                <h3 class="text-sm font-semibold text-purple-600">(Featured Project)</h3>
-                    <p class="featured-project__description">{{ section.data.description }}</p>
-                    <a [href]="section.data.liveLink" 
-                       target="_blank" 
-                       class="featured-project__button inline-block mt-4">
-                        View Project
-                    </a>
-                </app-card>
-
-                <!-- Stats using Card Component -->
-                <app-card *ngIf="section.type === 'stats'" 
-                          [title]="section.title"
-                          class="stats-card">
-                    <div class="stats__list">
-                        <div *ngFor="let stat of section.data" class="stats__item">
-                            <span class="stats__label">{{ stat.label }}</span>
-                            <span class="stats__value">{{ stat.value }}</span>
-                        </div>
-                    </div>
-                </app-card>
-
-            </ng-container>
-        </div>
+    <div class="hero__tagline-wrapper">
+      <span class="hero__tagline" appTypingEffect [config]="{loop: true, fontFamily: 'Courier New, Courier, monospace'}">
+        {{ content.site.tagline }}
+      </span>
     </div>
+
+    <div class="hero__availability">
+      <span class="hero__availability-dot" appPulsatingEffect></span>
+      {{ content.site.availability }}
+    </div>
+
+    <div class="hero__actions">
+      <a [routerLink]="content.site.cta.primary.route" class="btn-cta-primary" appAnimatedBorder [config]="{animationDuration: '3s'}">
+        {{ content.site.cta.primary.label }}
+      </a>
+      <a [routerLink]="content.site.cta.secondary.route" class="btn-cta-secondary">
+        {{ content.site.cta.secondary.label }}
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- STAT STRIP -->
+  <section class="stats">
+    <div class="stat-item" *ngFor="let stat of content.stats">
+      <div class="stat-item__value">{{ stat.value }}</div>
+      <div class="stat-item__label">{{ stat.label }}</div>
+    </div>
+  </section>
+
+  <!-- TECH STACK MARQUEE -->
+  <section class="tech-stack-section">
+    <h2 class="tech-stack-section__heading">Technology Stack</h2>
+    <div class="tech-stack-marquee">
+      <div class="tech-stack-track">
+        <span class="tech-pill" *ngFor="let tech of content.techStack">
+          <span class="tech-pill__color" [style.background]="tech.color"></span>
+          {{ tech.name }}
+        </span>
+        <span class="tech-pill" *ngFor="let tech of content.techStack">
+          <span class="tech-pill__color" [style.background]="tech.color"></span>
+          {{ tech.name }}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED FLAGSHIP PROJECT -->
+  <section class="featured-project" *ngIf="content.featuredProject">
+    <h2 class="featured-project__heading">Flagship Project</h2>
+    <div class="featured-project-card" appAnimatedBorder [config]="{animationDuration: '4s'}">
+      <div class="featured-project-card__image">
+        <img [src]="content.featuredProject.image" [alt]="content.featuredProject.title" />
+      </div>
+      <div class="featured-project-card__body">
+        <span class="featured-project-card__flag">Featured</span>
+        <h3 class="featured-project-card__title">{{ content.featuredProject.title }}</h3>
+        <p class="featured-project-card__description">{{ content.featuredProject.description }}</p>
+        <div class="featured-project-card__tags">
+          <span class="featured-project-card__tag" *ngFor="let tag of content.featuredProject.techStack">{{ tag }}</span>
+        </div>
+        <div class="featured-project-card__links">
+          <a [href]="content.featuredProject.liveLink" target="_blank" rel="noopener" class="featured-project-card__link" *ngIf="content.featuredProject.liveLink">
+            Live Demo &rarr;
+          </a>
+          <a [href]="content.featuredProject.githubLink" target="_blank" rel="noopener" class="featured-project-card__link" *ngIf="content.featuredProject.githubLink && !content.featuredProject.isCaseStudy">
+            GitHub &rarr;
+          </a>
+          <span class="featured-project-card__link featured-project-card__link--disabled" *ngIf="content.featuredProject.isCaseStudy">
+            Case Study &rarr;
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK NAV CARDS -->
+  <section class="quick-nav-section">
+    <h2 class="quick-nav-section__heading">Explore</h2>
+    <div class="quick-nav-grid">
+      <a class="quick-nav-card" *ngFor="let nav of content.quickNav" [routerLink]="nav.route">
+        <div class="quick-nav-card__icon">{{ nav.icon }}</div>
+        <div class="quick-nav-card__title">{{ nav.title }}</div>
+        <div class="quick-nav-card__description">{{ nav.description }}</div>
+      </a>
+    </div>
+  </section>
 </div>

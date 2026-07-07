@@ -32,16 +32,19 @@
 
 ## Phase 3 — Portfolio Revamp (Implementation)
 
-- [ ] Content module (`src/app/content/`) with types, configs, ContentService
-- [ ] Hero + stat strip (home component)
-- [ ] Tech-stack marquee + pills (home component)
-- [ ] Featured project card + quick-nav cards (home component)
-- [ ] New Experience page + route
-- [ ] New Automation page + route
-- [ ] Projects page tiered layout
-- [ ] About page rewrite
-- [ ] Certificates page restyle
-- [ ] Shared nav/footer update
+- [x] Content module (`src/app/content/`) with types, configs, ContentService
+- [x] Hero + stat strip (home component)
+- [x] Tech-stack marquee + pills (home component)
+- [x] Featured project card + quick-nav cards (home component)
+- [x] New Experience page + route
+- [x] New Automation page + route
+- [x] Projects page tiered layout
+- [x] About page rewrite (philosophy-first, how-I-build, contact, currently)
+- [x] Certificates page restyle
+- [x] Shared nav/footer update (all 6 links, footer driven by ContentService)
+- [x] Angular 18→19 upgrade + FontAwesome 1.x migration
+- [x] Theme tokens synced between tailwind.config.js, styles.scss, and OD-7
+- [x] Enrichment script (scripts/enrichment.js) for GitHub API data
 
 ---
 
@@ -66,10 +69,7 @@
 ## Completed
 
 - [x] .ai-system bootstrap
-- [x] OD-1 home page design contract
-- [x] OD-2 about page design contract
-- [x] OD-3 experience page design contract
-- [x] OD-4 projects page design contract
-- [x] OD-5 automation & AI systems page design contract
-- [x] OD-6 certificates page design contract
-- [x] OD-7 shared shell design contract
+- [x] All 7 OD design contracts (OD-1 through OD-7)
+- [x] Phase 3 full implementation (content architecture, all 6 pages, enrichment script)
+- [x] Angular 19 upgrade + FontAwesome 1.x
+- [x] OD design tokens synced to actual code (tailwind.config.js, styles.scss)

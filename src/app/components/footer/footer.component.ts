@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ContactLinks } from '../../pages/about/about.component';
 import { CommonModule } from '@angular/common';
+import { ContentService } from '../../content/content.service';
 import { faChevronCircleUp } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-footer',
   standalone: true,
   imports: [FontAwesomeModule, CommonModule],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
-  
   year = new Date().getFullYear();
   toTheTop = faChevronCircleUp;
 
-  socialLinks = ContactLinks;
+  constructor(public content: ContentService) {}
 
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });

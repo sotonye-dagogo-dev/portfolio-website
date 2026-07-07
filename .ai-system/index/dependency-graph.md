@@ -1,7 +1,7 @@
 # Dependency Graph
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-7 shell)
+> - last-updated-by: opencode (implementation sprint)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: auto-regenerable — can be derived from import analysis tools. Manual content only for conventions and rules that cannot be inferred from code.
 
@@ -14,29 +14,54 @@
 ```
 AppComponent
   → NavbarComponent
-  → RouterOutlet (Home | About | Projects | Certificates)
-  → Animation Services
-  → ThemeToggleComponent
+  → FooterComponent
+  → RouterOutlet (Home | About | Experience | Projects | Automation | Certificates)
+  → provideAnimations (app.config.ts)
+  → ContentService
 
 HomeComponent
-  → CardComponent
-  → TechStackComponent
+  → ContentService
   → TypingEffectDirective
   → AnimatedBorderDirective
   → PulsatingEffectDirective
   → ImageViewerDirective
-  → ContentService (planned)
+
+AboutComponent
+  → ContentService
+  → PulsatingEffectDirective
+
+ExperienceComponent
+  → ContentService
+  → PulsatingEffectDirective
+  → AnimatedBorderDirective
+
+ProjectsComponent
+  → ContentService
+  → AnimatedBorderDirective
+  → PulsatingEffectDirective
+  → ImageViewerDirective
+
+AutomationComponent
+  → ContentService
+  → PulsatingEffectDirective
+  → AnimatedBorderDirective
+
+CertificatesComponent
+  → ContentService
+  → ImageViewerDirective
+  → AnimatedBorderDirective
+  → TypingEffectDirective
 
 NavbarComponent
-  → ThemeToggleComponent
   → Angular Router (navigation)
   → Routes (Home, About, Experience, Projects, Automation, Certificates)
 
-ProjectsComponent
-  → GalleryAnimation
-  → FadeAnimation
-  → SlideAnimation
-  → ContentService (planned)
+ContentService
+  → Static config imports (site.config, experience.config, projects.config, etc.)
+  → HttpClient (generated.json enrichment merge, optional)
+
+FooterComponent
+  → ContentService
 
 Express Server (server.ts)
   → Angular SSR engine
@@ -55,11 +80,14 @@ Angular SSR
 |---------|---------|---------|
 | @angular/core | Frontend framework | All components |
 | @angular/router | Client-side routing | Navbar, pages |
-| @angular/animations | Animation support | animations/ |
+| @angular/animations | Animation support | app.config.ts (provideAnimations) |
 | @angular/common | Common directives, platform check | All components |
 | @fortawesome/angular-fontawesome | Icons | Theme toggle, contact links |
+| @fortawesome/fontawesome-svg-core | Core FA | |
+| @fortawesome/free-brands-svg-icons | Brand icons | Social/contact links |
 | express | Backend server | server.ts |
-| tailwindcss | Utility CSS | Global styles |
+| tailwindcss | Utility CSS | tailwind.config.js, styles.scss |
+| @angular/platform-browser/animations | SSR animation support | app.config.ts |
 
 ---
 

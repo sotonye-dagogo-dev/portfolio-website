@@ -46,7 +46,6 @@ export interface TechCategory {
 
 @Component({
     selector: 'app-tech-stack',
-    standalone: true,
     imports: [CommonModule, ImageViewerDirective],
     templateUrl: './tech-stack.component.html',
     styleUrl: './tech-stack.component.scss'

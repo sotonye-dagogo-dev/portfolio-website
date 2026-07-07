@@ -5,15 +5,14 @@ import { Router, RouterModule } from '@angular/router';
 import routeConfig from '../../app.routes';
 
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ThemeToggleComponent,
-    RouterModule
-  ],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+    selector: 'app-navbar',
+    imports: [
+        CommonModule,
+        ThemeToggleComponent,
+        RouterModule
+    ],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
   constructor(private elementRef: ElementRef, private router: Router) {}

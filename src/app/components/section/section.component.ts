@@ -5,7 +5,6 @@ import { fadeAnimation } from '../../animations/fade.animation';
 
 @Component({
     selector: 'app-section',
-    standalone: true,
     imports: [CommonModule, TypingEffectDirective],
     animations: [fadeAnimation],
     templateUrl: './section.component.html',
