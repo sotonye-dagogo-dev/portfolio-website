@@ -1,7 +1,7 @@
 # Development History
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-5 automation)
+> - last-updated-by: oc-design (OD-6 certificates)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: historical entries do not go stale
 
@@ -117,6 +117,30 @@ Created the Automation & AI Systems page visual contract (OD-5) — a dedicated 
 
 **Next Sprint Focus:**
 OD-6: Certificates page design contract
+
+---
+
+## 2026-07-07 — OD-6: Certificates Page Design
+
+**Summary:**
+Created the Certificates page visual contract (OD-6), restyling the existing gallery/grid behavior to match the OD-1 through OD-5 visual system. The design features a page header with label, title, and [typing-effect] subtitle, followed by three category sections (Frontend, Backend, Fullstack) each with carousel navigation buttons and an item count badge. Certificate cards are arranged in a responsive 3-column grid with image thumbnails annotated with [image-viewer] (click-to-expand overlay), title, 2-line description, tech-stack pills, and [animated-border] "View Certificate" action buttons. Matches the established visual system exactly — same theme tokens, spacing scale, nav with active state, footer, and theme toggle.
+
+**Completed:**
+- `.ai-system/designs/od-6-certificates.html` — full Certificates page visual contract
+- Updated `.ai-system/designs/README.md` — OD-6 marked Done
+- Updated project-plan.md — OD-6 marked complete
+- Updated dev-history.md, repo-map.md per `update-ai-system.md`
+
+**Key Changes:**
+- OD-6 design contract added to `.ai-system/designs/`
+- Three-tier category layout (Frontend/Backend/Fullstack) with carousel navigation
+- [image-viewer] annotated on certificate thumbnails
+- [animated-border] annotated on action buttons
+- [typing-effect] annotated on page subtitle
+- All copy wrapped in `[CONFIG:*]` markers for the Certificates config object schema
+
+**Next Sprint Focus:**
+OD-7: Shared Shell design contract (nav / footer / theme)
 
 ---
 

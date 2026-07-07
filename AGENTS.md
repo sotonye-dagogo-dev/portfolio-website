@@ -100,3 +100,18 @@ link). Style should read as "engineering systems," more technical/diagrammatic t
 Projects page. Output as a single named HTML file to the designs folder.
 
 save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
+
+## Open Design session (ephemeral — auto-generated for this run)
+An `open_design` MCP server is available. Active Open Design
+project id: `bf36084a-d3f5-4081-a85d-814464d686e3`.
+Use `create_artifact` on that project to produce the requested
+design. Brief:
+
+utilize the .ai-system files, particularly .ai-system/docs/portfolio-revamp.md, .ai-context.md and execute the below
+
+Design/refresh the Certificates page to match the new visual system established in
+OD-1 through OD-5 (same nav, footer, theme tokens, spacing scale). Keep the existing
+gallery/grid behavior; only restyle to match. Output as a single named HTML file to the
+designs folder.
+
+save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
