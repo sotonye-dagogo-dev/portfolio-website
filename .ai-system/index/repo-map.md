@@ -1,7 +1,7 @@
 # Repository Map
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-5 automation)
+> - last-updated-by: oc-design (OD-6 certificates)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: auto-regenerable — can be derived from `tree` command. Manual content only where intent cannot be derived from structure.
 
@@ -39,7 +39,7 @@ portfolio-website/
 │   └── favicon_io/          → Favicon assets
 │
 ├── .ai-system/              → AI-assisted development system
-│   ├── designs/             → Visual design contracts (OD-1 through OD-7, HTML)
+│   ├── designs/             → Visual design contracts (OD-1 through OD-6 done, OD-7 pending, HTML)
 │   ├── docs/                → Design/planning docs (portfolio-revamp-package.md)
 ├── .github/workflows/       → GitHub Actions CI/CD workflows
 ├── server.ts                → Express server
