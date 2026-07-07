@@ -1,7 +1,7 @@
 # Project Plan
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-3 experience)
+> - last-updated-by: oc-design (OD-4 projects)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: re-verify if project scope or phase changes
 
@@ -23,7 +23,7 @@
 - [x] OD-1: Home page design contract (`.ai-system/designs/od-1-home.html`)
 - [x] OD-2: About page design contract
 - [x] OD-3: Experience page design contract
-- [ ] OD-4: Projects page design contract
+- [x] OD-4: Projects page design contract
 - [ ] OD-5: Automation page design contract
 - [ ] OD-6: Certificates page design contract
 - [ ] OD-7: Shared shell design contract
@@ -69,3 +69,4 @@
 - [x] OD-1 home page design contract
 - [x] OD-2 about page design contract
 - [x] OD-3 experience page design contract
+- [x] OD-4 projects page design contract

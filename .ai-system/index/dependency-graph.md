@@ -1,7 +1,7 @@
 # Dependency Graph
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-1 home)
+> - last-updated-by: oc-design (OD-4 projects)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: auto-regenerable — can be derived from import analysis tools. Manual content only for conventions and rules that cannot be inferred from code.
 
