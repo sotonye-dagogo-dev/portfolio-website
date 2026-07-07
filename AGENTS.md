@@ -115,3 +115,26 @@ gallery/grid behavior; only restyle to match. Output as a single named HTML file
 designs folder.
 
 save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
+
+## Open Design session (ephemeral — auto-generated for this run)
+An `open_design` MCP server is available. Active Open Design
+project id: `aef8befe-d29b-4614-b972-69be08303609`.
+Use `create_artifact` on that project to produce the requested
+design. Brief:
+
+utilize the .ai-system files, particularly .ai-system/docs/portfolio-revamp.md, .ai-context.md and execute the below
+
+Design the shared navigation bar and footer used across all pages, plus a documented
+theme-token reference (colors, spacing scale, type scale, radius, shadow) so every other
+OD file stays visually consistent. Nav items: Home, About, Experience, Projects,
+Automation, Certificates. Include the dark/light theme toggle affordance. Output as a
+single named HTML file to the designs folder.
+
+Also document, as a short reference table alongside the theme tokens, the four existing
+interaction directives already implemented in the codebase and where each is used across
+the site: typing-effect (hero tagline), animated-border (primary CTAs, flagship project
+cards), pulsating-effect (availability badge), and image-viewer (project thumbnails,
+click-to-expand). This keeps every OD file and OpenCode referencing the same set of
+effects instead of inventing new ones per page.
+
+save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
