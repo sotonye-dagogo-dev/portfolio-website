@@ -1,8 +1,8 @@
 # Repository Map
 
 > **Metadata**
-> - last-updated-by: (set on first update)
-> - last-verified-against-code: (set after map review)
+> - last-updated-by: oc-design (OD-1 home)
+> - last-verified-against-code: 2026-07-07
 > - staleness-policy: auto-regenerable — can be derived from `tree` command. Manual content only where intent cannot be derived from structure.
 
 > **Overview:** Visual map of the project folder structure with purpose descriptions. Updated when the folder structure changes. This file is **auto-regenerable** — use tool-based discovery for ground truth, and treat manual entries here as supplementary context, not primary navigation.
@@ -17,8 +17,10 @@ portfolio-website/
 ├── src/                     → Angular frontend source code
 │   ├── app/
 │   │   ├── animations/      → Reusable Angular animations
-│   │   ├── components/      → Reusable UI components (navbar)
-│   │   ├── pages/           → Route-level page components (projects)
+│   │   ├── components/      → Reusable UI components (navbar, card, tech-stack)
+│   │   ├── directives/      → Custom Angular directives (typing-effect, animated-border, pulsating-effect, image-viewer)
+│   │   ├── pages/           → Route-level page components (home, about, projects, certificates)
+│   │   ├── content/         → Planned config-driven content layer (site.config.ts, content.service.ts)
 │   │   └── app.component.*  → Root application component
 │   ├── main.ts              → Angular app bootstrap
 │   ├── main.server.ts       → Angular SSR server entry
@@ -37,6 +39,8 @@ portfolio-website/
 │   └── favicon_io/          → Favicon assets
 │
 ├── .ai-system/              → AI-assisted development system
+│   ├── designs/             → Visual design contracts (OD-1 through OD-7, HTML)
+│   ├── docs/                → Design/planning docs (portfolio-revamp-package.md)
 ├── .github/workflows/       → GitHub Actions CI/CD workflows
 ├── server.ts                → Express server
 ├── package.json             → Dependencies and scripts
@@ -52,11 +56,14 @@ portfolio-website/
 | Directory | Purpose | Key Files |
 |-----------|---------|-----------|
 | `src/app/` | Angular application source | app.component.ts, main.ts |
-| `src/app/components/` | Reusable UI components | navbar/ |
-| `src/app/pages/` | Route-level page components | projects/ |
+| `src/app/components/` | Reusable UI components | navbar/, card/, tech-stack/, section/ |
+| `src/app/directives/` | Custom interaction directives | typing-effect/, animated-border/, pulsating-effect/, image-viewer/ |
+| `src/app/pages/` | Route-level page components | home/, about/, projects/, certificates/ |
+| `src/app/content/` | Planned config-driven data layer | site.config.ts, content.service.ts (future) |
 | `src/app/animations/` | Animation utilities | fade.animation.ts, slide.animation.ts |
 | `public/` | Static assets and images | Various project/certificate images |
 | `.ai-system/` | AI development framework | protocols/, agents/, commands/ |
+| `.ai-system/designs/` | Visual design contracts (HTML) | od-1-home.html → od-7-shell.html |
 
 ---
 

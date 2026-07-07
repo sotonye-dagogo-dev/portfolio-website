@@ -1,8 +1,8 @@
 # Project Plan
 
 > **Metadata**
-> - last-updated-by: (set on first update)
-> - last-verified-against-code: (set after plan review)
+> - last-updated-by: oc-design (OD-1 home)
+> - last-verified-against-code: 2026-07-07
 > - staleness-policy: re-verify if project scope or phase changes
 
 > **Overview:** High-level feature checklist organized by development phase. See `planning/task-queue.md` for granular, sprint-level tasks.
@@ -18,28 +18,39 @@
 
 ---
 
-## Phase 2 — Core Features
+## Phase 2 — Portfolio Revamp (Design)
 
-- [ ] Portfolio project showcase
-- [ ] Certifications display
-- [ ] Tech stack visualization
-- [ ] Contact / about section
+- [x] OD-1: Home page design contract (`.ai-system/designs/od-1-home.html`)
+- [ ] OD-2: About page design contract
+- [ ] OD-3: Experience page design contract
+- [ ] OD-4: Projects page design contract
+- [ ] OD-5: Automation page design contract
+- [ ] OD-6: Certificates page design contract
+- [ ] OD-7: Shared shell design contract
 
 ---
 
-## Phase 3 — Secondary Features
+## Phase 3 — Portfolio Revamp (Implementation)
 
-- [ ] Responsive design improvements
-- [ ] Animation enhancements
-- [ ] Performance optimization
+- [ ] Content module (`src/app/content/`) with types, configs, ContentService
+- [ ] Hero + stat strip (home component)
+- [ ] Tech-stack marquee + pills (home component)
+- [ ] Featured project card + quick-nav cards (home component)
+- [ ] New Experience page + route
+- [ ] New Automation page + route
+- [ ] Projects page tiered layout
+- [ ] About page rewrite
+- [ ] Certificates page restyle
+- [ ] Shared nav/footer update
 
 ---
 
 ## Phase 4 — Quality & Polish
 
-- [ ] Unit test coverage for core modules
+- [ ] Unit test coverage for content module
+- [ ] Responsive design verification
 - [ ] Accessibility audit
-- [ ] SEO optimization
+- [ ] Performance optimization
 
 ---
 
@@ -55,3 +66,4 @@
 ## Completed
 
 - [x] .ai-system bootstrap
+- [x] OD-1 home page design contract

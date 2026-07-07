@@ -1,8 +1,8 @@
 # Project Decisions
 
 > **Metadata**
-> - last-updated-by: (set on first entry)
-> - last-verified-against-code: (set after decision review)
+> - last-updated-by: oc-design (OD-1 home)
+> - last-verified-against-code: 2026-07-07
 > - staleness-policy: each entry has its own staleness — check supersedes links
 
 > **Overview:** Log of significant architectural, technical, and product decisions. Agents consult this before proposing changes to avoid contradicting prior reasoning. Uses supersedes/superseded-by links so contradictory entries are explicitly resolved rather than both appearing equally valid.
@@ -34,4 +34,22 @@
 
 ## Decisions
 
-[Entries added here as decisions are made]
+## Design-Contract-First Workflow
+
+**Decision:** Create standalone HTML visual contracts (OD files) before any Angular implementation code. Each contract serves as the single source of truth for the page's layout, spacing, colour usage, and copy.
+**Date:** 2026-07-07
+**Made by:** oc-design (Open Design)
+**Supersedes:** None
+**Superseded by:** None
+
+**Reason:**
+The portfolio revamp package specifies this exact workflow — design in Open Design, save HTML to `.ai-system/designs/`, then Open Code implements from those contracts. This separates visual decisions from implementation decisions, reduces back-and-forth, and keeps a permanent visual record.
+
+**Alternatives Considered:**
+- Directly editing Angular components — rejected because it conflates visual design with implementation, making iteration slower.
+- Using a design tool outside the repo — rejected because the HTML contracts live version-controlled alongside the code.
+
+**Implications:**
+- Every OD file must be self-contained (no external CSS/JS deps) so it renders in any browser without a build step.
+- Angular implementation must not introduce visual tokens that aren't in the OD file's CSS custom properties.
+- Implementation agents must reference both the OD file and the existing directive source when building a page.
