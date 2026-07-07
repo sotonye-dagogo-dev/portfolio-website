@@ -1,7 +1,7 @@
 # Development History
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-4 projects)
+> - last-updated-by: oc-design (OD-5 automation)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: historical entries do not go stale
 
@@ -94,6 +94,29 @@ Created the Projects page visual contract (OD-4) with four distinct visual tiers
 
 **Next Sprint Focus:**
 OD-5: Automation & AI Systems page design contract
+
+---
+
+## 2026-07-07 — OD-5: Automation & AI Systems Page Design
+
+**Summary:**
+Created the Automation & AI Systems page visual contract (OD-5) — a dedicated page for engineering tooling and AI-assisted development workflow. The top section features a horizontal flow diagram (PRD → Roadmap → Design → Prompts → Open Design → Open Code) with monospace-styled nodes and arrow connectors, the "Open Design" node marked as active with [pulsating-effect] annotation. Below, three feature cards (.ai-system-template, default-template, .github-workflows) presented in a compact, code-like grid with prominent monospace labels, tech-stack pill tags, and GitHub repo links. Style is deliberately more technical/diagrammatic than the Projects page. Matches OD-1/OD-2/OD-3/OD-4 visual system exactly.
+
+**Completed:**
+- `.ai-system/designs/od-5-automation.html` — full Automation & AI Systems page visual contract
+- Updated `.ai-system/designs/README.md` — OD-5 marked Done
+- Updated project-plan.md — OD-5 marked complete
+- Updated dev-history.md per `update-ai-system.md`
+
+**Key Changes:**
+- OD-5 design contract added to `.ai-system/designs/`
+- Flow diagram pattern established (6-step workflow with active-node [pulsating-effect])
+- Feature card pattern established (compact 3-column grid with monospace-heavy styling)
+- [typing-effect] annotated on philosophy strip, [pulsating-effect] annotated on active flow node
+- All copy wrapped in `[CONFIG:*]` markers for the Automation config object schema
+
+**Next Sprint Focus:**
+OD-6: Certificates page design contract
 
 ---
 

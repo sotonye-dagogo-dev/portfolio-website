@@ -83,3 +83,20 @@ animated-border treatment to visually distinguish them from Applied Engineering 
 Archive cards. Note in the file where each applies.
 
 save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
+
+## Open Design session (ephemeral — auto-generated for this run)
+An `open_design` MCP server is available. Active Open Design
+project id: `c248e0d6-f2eb-458b-90cd-3bb3385f0f6e`.
+Use `create_artifact` on that project to produce the requested
+design. Brief:
+
+utilize the .ai-system files, particularly .ai-system/docs/portfolio-revamp.md, .ai-context.md and execute the below
+
+Design a page dedicated to engineering tooling and AI-assisted development workflow.
+Top: a simple horizontal flow diagram — PRD -> Roadmap -> Design -> Prompts -> Open
+Design -> Open Code. Below: three feature cards for .ai-system-template,
+default-template, and .github-workflows (name, one-line purpose, tech tags, GitHub
+link). Style should read as "engineering systems," more technical/diagrammatic than the
+Projects page. Output as a single named HTML file to the designs folder.
+
+save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
