@@ -26,3 +26,19 @@ the hero tagline, an animated-border treatment on the primary CTA button, and a 
 pulsating-effect on the "available for work" badge. Note in the file where each applies.
 
 save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
+
+## Open Design session (ephemeral — auto-generated for this run)
+An `open_design` MCP server is available. Active Open Design
+project id: `48400ced-7c2e-4d57-9e1e-c10808a45bf9`.
+Use `create_artifact` on that project to produce the requested
+design. Brief:
+
+utilize the .ai-system files, particularly .ai-system/docs/portfolio-revamp.md, .ai-context.md and execute the below
+
+Design the About page. Sections: bio (engineering philosophy first — metadata-driven,
+config-first, AI-assisted delivery — before biography details), a "how I build" list
+(OOP class-based services, universal component wrappers, single-source-of-truth config),
+contact/social links row, and a small "currently" strip (current roles/availability).
+Same visual system as OD-1. Output as a single named HTML file to the same designs folder.
+
+save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
