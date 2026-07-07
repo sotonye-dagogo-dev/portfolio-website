@@ -2,7 +2,7 @@
 
 > **Metadata**
 > - last-updated-by: (set on first entry)
-> - last-verified-against-code: (set after each entry)
+> - last-verified-against-code: 2026-07-07
 > - staleness-policy: historical entries do not go stale
 
 > **Overview:** Chronological log of completed development work. Each sprint ends with a summary entry. Agents add entries after completing tasks. Useful for understanding what has been built, when decisions were made, and what patterns have emerged.
@@ -50,6 +50,27 @@ Created the first visual design contract (OD-1 Home) following the portfolio rev
 
 **Next Sprint Focus:**
 OD-3: Experience page design contract
+
+---
+
+## 2026-07-07 — OD-3: Experience Page Design
+
+**Summary:**
+Created the Experience page visual contract (OD-3) following the portfolio revamp plan. The design features a vertical timeline with 7 entries (HICC → Liquiditti → Along → Roxo's Ornaments → Julius Berger → Transact Store → NPA), each showing role, organization, date range, 2-3 line description, and tech/scope tag pills. Active roles (Along, Transact Store) carry a [pulsating-effect] green dot indicator with "CURRENT" badge. The timeline uses a vertical line with gold-accent dots that expand on hover, card-style entries with hover elevation, and a monospace-styled date badge. Matches OD-1/OD-2 visual system exactly — same theme tokens, spacing scale, nav, footer, and theme toggle.
+
+**Completed:**
+- `.ai-system/designs/od-3-experience.html` — full Experience page visual contract (vertical timeline)
+- Updated `.ai-system/designs/README.md` — OD-3 marked Done
+- Updated project-plan.md — OD-3 marked complete
+
+**Key Changes:**
+- OD-3 design contract added to `.ai-system/designs/`
+- 7 timeline entries with config-driven placeholders for all copy
+- [pulsating-effect] annotated on current-role indicators
+- All copy wrapped in `[CONFIG:*]` markers for the Experience config object schema
+
+**Next Sprint Focus:**
+OD-4: Projects page design contract (tiered layout)
 
 ---
 

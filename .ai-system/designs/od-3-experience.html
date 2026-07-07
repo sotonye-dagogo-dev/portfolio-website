@@ -1,0 +1,735 @@
+<!-----------------------------------------------------------------------------
+  OD-3 — Experience / Timeline Page · Visual Contract
+  =============================================================================
+  Design for a senior full-stack developer & technical lead portfolio's
+  Experience page. Single-file HTML — no framework dependencies.
+
+  Interaction affordances (already implemented as Angular directives;
+  annotated here as CSS keyframe equivalents for visual reference only):
+    [pulsating-effect]→ "current" indicators on active roles (lines 260-270)
+
+  All copy wrapped in [CONFIG:*] markers to map 1:1 to a config object.
+----------------------------------------------------------------------------->
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[CONFIG:site.title] · Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ==================================================================
+       THEME TOKENS (maps 1:1 to tailwind.config.js + design-system.md)
+       Identical to OD-1/OD-2 for visual consistency.
+       ================================================================== */
+    :root {
+      --color-primary:       #ff6b6b;
+      --color-primary-dark:  #ff8787;
+      --color-accent:        #daa520;
+      --color-accent-hover:  #b8860b;
+      --color-bg:            #f3f4f6;
+      --color-surface:       #ffffff;
+      --color-surface-hover: #f0f0f0;
+      --color-text:          #111827;
+      --color-text-muted:    #6b7280;
+      --color-border:        #e5e7eb;
+      --radius:              8px;
+      --radius-lg:           12px;
+      --radius-xl:           16px;
+      --shadow-sm:           0 1px 3px rgba(0,0,0,.08);
+      --shadow-md:           0 4px 12px rgba(0,0,0,.1);
+      --shadow-lg:           0 8px 30px rgba(0,0,0,.12);
+      --space-xs:            4px;
+      --space-sm:            8px;
+      --space-md:            16px;
+      --space-lg:            24px;
+      --space-xl:            32px;
+      --space-2xl:           48px;
+      --space-3xl:           64px;
+      --font-sans:           'Roboto', system-ui, sans-serif;
+      --font-mono:           'JetBrains Mono', 'Courier New', monospace;
+    }
+
+    [data-theme="dark"] {
+      --color-primary:       #ff8787;
+      --color-accent:        #daa520;
+      --color-accent-hover:  #e6b800;
+      --color-bg:            #1f2937;
+      --color-surface:       #374151;
+      --color-surface-hover: #4b5563;
+      --color-text:          #f9fafb;
+      --color-text-muted:    #9ca3af;
+      --color-border:        #4b5563;
+      --shadow-sm:           0 1px 3px rgba(0,0,0,.3);
+      --shadow-md:           0 4px 12px rgba(0,0,0,.35);
+      --shadow-lg:           0 8px 30px rgba(0,0,0,.4);
+    }
+
+    /* ==================================================================
+       RESET / BASE
+       ================================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      transition: background .3s ease, color .3s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a     { color: inherit; text-decoration: none; }
+    img   { max-width: 100%; display: block; }
+
+    /* ==================================================================
+       LAYOUT WRAPPER
+       ================================================================== */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    /* ==================================================================
+       SECTION HEADERS (hidden labels for config mapping)
+       ================================================================== */
+    .config-placeholder { display: none; }
+
+    /* ==================================================================
+       THEME TOGGLE
+       ================================================================== */
+    .theme-toggle {
+      position: fixed;
+      top: var(--space-lg);
+      right: var(--space-lg);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, transform .2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .theme-toggle:hover { transform: scale(1.1); }
+
+    /* ==================================================================
+       NAV
+       ================================================================== */
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-xl);
+      padding: var(--space-lg) 0 var(--space-3xl);
+      font-weight: 500;
+      font-size: .9rem;
+      letter-spacing: .02em;
+    }
+    .nav a {
+      color: var(--color-text-muted);
+      transition: color .2s;
+      position: relative;
+    }
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width .25s;
+    }
+    .nav a:hover { color: var(--color-text); }
+    .nav a:hover::after { width: 100%; }
+
+    .nav a.active {
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+    .nav a.active::after { width: 100%; }
+
+    /* ==================================================================
+       PAGE HEADER
+       ================================================================== */
+    .page-header {
+      text-align: center;
+      margin-bottom: var(--space-3xl);
+    }
+
+    .page-header__label {
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+
+    .page-header__title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+    }
+
+    .page-header__subtitle {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      font-weight: 300;
+      margin-top: var(--space-sm);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ==================================================================
+       TIMELINE
+       ================================================================== */
+    .timeline {
+      position: relative;
+      margin-bottom: var(--space-3xl);
+    }
+
+    /* Vertical line */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--color-border);
+    }
+
+    .timeline__entry {
+      position: relative;
+      padding-left: 72px;
+      padding-bottom: var(--space-2xl);
+    }
+
+    .timeline__entry:last-child {
+      padding-bottom: 0;
+    }
+
+    /* Timeline dot on the line */
+    .timeline__dot {
+      position: absolute;
+      left: 18px;
+      top: 6px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--color-surface);
+      border: 3px solid var(--color-accent);
+      z-index: 1;
+      transition: all .3s;
+    }
+
+    .timeline__entry:hover .timeline__dot {
+      background: var(--color-accent);
+      box-shadow: 0 0 0 4px rgba(218, 165, 32, .15);
+    }
+
+    /* Current-role dot with [pulsating-effect] */
+    .timeline__entry--current .timeline__dot {
+      background: #22c55e;
+      border-color: #22c55e;
+      animation: pulse-timeline-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-timeline-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, .5); }
+      50%      { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+    }
+
+    /* Card body */
+    .timeline__card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      transition: all .3s;
+    }
+
+    .timeline__entry:hover .timeline__card {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .timeline__entry--current .timeline__card {
+      border-color: rgba(34, 197, 94, .3);
+    }
+
+    .timeline__entry--current:hover .timeline__card {
+      border-color: #22c55e;
+    }
+
+    /* Entry header row */
+    .timeline__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .timeline__role {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .timeline__organization {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      margin-top: 2px;
+    }
+
+    .timeline__date {
+      font-size: .82rem;
+      font-family: var(--font-mono);
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+
+    .timeline__entry--current .timeline__date {
+      border-color: rgba(34, 197, 94, .25);
+      color: #22c55e;
+      background: rgba(34, 197, 94, .08);
+    }
+
+    /* Current badge */
+    .timeline__current-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #22c55e;
+      margin-bottom: var(--space-sm);
+    }
+
+    /* [pulsating-effect] — Applied via appPulsatingEffect directive.
+         Angular directive adds a scale/opacity loop on the dot. */
+    .timeline__current-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, .6); }
+      50%      { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+    }
+
+    /* Description */
+    .timeline__description {
+      font-size: .92rem;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: var(--space-md);
+    }
+
+    .timeline__description p {
+      margin-bottom: var(--space-sm);
+    }
+
+    .timeline__description p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Tags (tech or scope) */
+    .timeline__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .timeline__tag {
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      transition: all .2s;
+    }
+
+    .timeline__tag:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    /* ==================================================================
+       CONNECTION LINE CONTINUATION (dotted for gaps)
+       ================================================================== */
+    .timeline__connector {
+      position: absolute;
+      left: 38px;
+      top: 28px;
+      bottom: 0;
+      width: 2px;
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--color-border) 0px,
+        var(--color-border) 4px,
+        transparent 4px,
+        transparent 8px
+      );
+    }
+
+    /* ==================================================================
+       FOOTER
+       ================================================================== */
+    .footer {
+      text-align: center;
+      padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      font-size: .85rem;
+    }
+
+    /* ==================================================================
+       RESPONSIVE
+       ================================================================== */
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 18px;
+      }
+      .timeline__entry {
+        padding-left: 50px;
+      }
+      .timeline__dot {
+        left: 8px;
+        width: 20px;
+        height: 20px;
+      }
+      .timeline__header {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+      .timeline__date {
+        align-self: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 0 var(--space-md); }
+      .nav { gap: var(--space-md); flex-wrap: wrap; }
+      .timeline__card {
+        padding: var(--space-md);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       CONFIG OBJECT (hidden — documents every placeholder slot)
+       ================================================================ -->
+  <!--
+    ExperienceConfig = {
+      pageHeader: {
+        label:      string,       // [CONFIG:pageHeader.label]
+        title:      string,       // [CONFIG:pageHeader.title]
+        subtitle:   string        // [CONFIG:pageHeader.subtitle]
+      },
+      entries: [                   // [CONFIG:entries] — ordered most recent first
+        {
+          role:         string,    // [CONFIG:entries[N].role]
+          organization: string,    // [CONFIG:entries[N].organization]
+          dateRange:    string,    // [CONFIG:entries[N].dateRange]
+          description:  string[],  // [CONFIG:entries[N].description]
+          tags:         string[],  // [CONFIG:entries[N].tags]
+          isCurrent:    boolean    // [CONFIG:entries[N].isCurrent]
+        },
+        ...
+      ]
+    }
+  -->
+
+  <div class="config-placeholder">
+    <!-- [CONFIG:site.title] Portfolio Website -->
+    <!-- [CONFIG:pageHeader.label]    Experience -->
+    <!-- [CONFIG:pageHeader.title]    Career Timeline -->
+    <!-- [CONFIG:pageHeader.subtitle] A decade of engineering, leadership, and building at scale -->
+  </div>
+
+  <!-- ================================================================
+       NAV
+       ================================================================ -->
+  <nav class="nav">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/experience" class="active">Experience</a>
+    <a href="/projects">Projects</a>
+    <a href="/automation">Automation</a>
+    <a href="/certificates">Certificates</a>
+  </nav>
+
+  <!-- ================================================================
+       THEME TOGGLE
+       ================================================================ -->
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span id="theme-icon">&#9790;</span>
+  </button>
+
+  <!-- ================================================================
+       PAGE CONTENT
+       ================================================================ -->
+  <main class="page">
+
+    <!-- =============================================================
+         PAGE HEADER
+         ============================================================= -->
+    <header class="page-header">
+      <p class="page-header__label">[CONFIG:pageHeader.label]</p>
+      <h1 class="page-header__title">[CONFIG:pageHeader.title]</h1>
+      <p class="page-header__subtitle">[CONFIG:pageHeader.subtitle]</p>
+    </header>
+
+    <!-- =============================================================
+         TIMELINE
+         ============================================================= -->
+    <section class="timeline">
+
+      <!-- [CONFIG:entries[0] — HICC / Technical Lead ] -->
+      <div class="timeline__entry">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <div class="timeline__header">
+            <div>
+              <h2 class="timeline__role">[CONFIG:entries.0.role]</h2>
+              <p class="timeline__organization">[CONFIG:entries.0.organization]</p>
+            </div>
+            <span class="timeline__date">[CONFIG:entries.0.dateRange]</span>
+          </div>
+          <div class="timeline__description">
+            <p>[CONFIG:entries.0.description.0]</p>
+            <p>[CONFIG:entries.0.description.1]</p>
+          </div>
+          <div class="timeline__tags">
+            <span class="timeline__tag">[CONFIG:entries.0.tags.0]</span>
+            <span class="timeline__tag">[CONFIG:entries.0.tags.1]</span>
+            <span class="timeline__tag">[CONFIG:entries.0.tags.2]</span>
+            <span class="timeline__tag">[CONFIG:entries.0.tags.3]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- [CONFIG:entries[1] — Liquiditti / Software Developer (NYSC) ] -->
+      <div class="timeline__entry">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <div class="timeline__header">
+            <div>
+              <h2 class="timeline__role">[CONFIG:entries.1.role]</h2>
+              <p class="timeline__organization">[CONFIG:entries.1.organization]</p>
+            </div>
+            <span class="timeline__date">[CONFIG:entries.1.dateRange]</span>
+          </div>
+          <div class="timeline__description">
+            <p>[CONFIG:entries.1.description.0]</p>
+            <p>[CONFIG:entries.1.description.1]</p>
+          </div>
+          <div class="timeline__tags">
+            <span class="timeline__tag">[CONFIG:entries.1.tags.0]</span>
+            <span class="timeline__tag">[CONFIG:entries.1.tags.1]</span>
+            <span class="timeline__tag">[CONFIG:entries.1.tags.2]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- [CONFIG:entries[2] — Along / Founder & Technical Lead (current) ] -->
+      <div class="timeline__entry timeline__entry--current">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <!-- [pulsating-effect] — Applied via appPulsatingEffect directive.
+               Angular directive adds a scale/opacity loop on the dot + ring. -->
+          <div class="timeline__current-badge">
+            <span class="dot"></span>
+            [CONFIG:currentBadge.label]
+          </div>
+          <div class="timeline__header">
+            <div>
+              <h2 class="timeline__role">[CONFIG:entries.2.role]</h2>
+              <p class="timeline__organization">[CONFIG:entries.2.organization]</p>
+            </div>
+            <span class="timeline__date">[CONFIG:entries.2.dateRange]</span>
+          </div>
+          <div class="timeline__description">
+            <p>[CONFIG:entries.2.description.0]</p>
+            <p>[CONFIG:entries.2.description.1]</p>
+          </div>
+          <div class="timeline__tags">
+            <span class="timeline__tag">[CONFIG:entries.2.tags.0]</span>
+            <span class="timeline__tag">[CONFIG:entries.2.tags.1]</span>
+            <span class="timeline__tag">[CONFIG:entries.2.tags.2]</span>
+            <span class="timeline__tag">[CONFIG:entries.2.tags.3]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- [CONFIG:entries[3] — Roxo's Ornaments / Fullstack Developer ] -->
+      <div class="timeline__entry">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <div class="timeline__header">
+            <div>
+              <h2 class="timeline__role">[CONFIG:entries.3.role]</h2>
+              <p class="timeline__organization">[CONFIG:entries.3.organization]</p>
+            </div>
+            <span class="timeline__date">[CONFIG:entries.3.dateRange]</span>
+          </div>
+          <div class="timeline__description">
+            <p>[CONFIG:entries.3.description.0]</p>
+            <p>[CONFIG:entries.3.description.1]</p>
+          </div>
+          <div class="timeline__tags">
+            <span class="timeline__tag">[CONFIG:entries.3.tags.0]</span>
+            <span class="timeline__tag">[CONFIG:entries.3.tags.1]</span>
+            <span class="timeline__tag">[CONFIG:entries.3.tags.2]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- [CONFIG:entries[4] — Julius Berger / Trainee ] -->
+      <div class="timeline__entry">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <div class="timeline__header">
+            <div>
+              <h2 class="timeline__role">[CONFIG:entries.4.role]</h2>
+              <p class="timeline__organization">[CONFIG:entries.4.organization]</p>
+            </div>
+            <span class="timeline__date">[CONFIG:entries.4.dateRange]</span>
+          </div>
+          <div class="timeline__description">
+            <p>[CONFIG:entries.4.description.0]</p>
+            <p>[CONFIG:entries.4.description.1]</p>
+          </div>
+          <div class="timeline__tags">
+            <span class="timeline__tag">[CONFIG:entries.4.tags.0]</span>
+            <span class="timeline__tag">[CONFIG:entries.4.tags.1]</span>
+            <span class="timeline__tag">[CONFIG:entries.4.tags.2]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- [CONFIG:entries[5] — Transact Store / Founder (current) ] -->
+      <div class="timeline__entry timeline__entry--current">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <!-- [pulsating-effect] — Applied via appPulsatingEffect directive. -->
+          <div class="timeline__current-badge">
+            <span class="dot"></span>
+            [CONFIG:currentBadge.label]
+          </div>
+          <div class="timeline__header">
+            <div>
+              <h2 class="timeline__role">[CONFIG:entries.5.role]</h2>
+              <p class="timeline__organization">[CONFIG:entries.5.organization]</p>
+            </div>
+            <span class="timeline__date">[CONFIG:entries.5.dateRange]</span>
+          </div>
+          <div class="timeline__description">
+            <p>[CONFIG:entries.5.description.0]</p>
+            <p>[CONFIG:entries.5.description.1]</p>
+          </div>
+          <div class="timeline__tags">
+            <span class="timeline__tag">[CONFIG:entries.5.tags.0]</span>
+            <span class="timeline__tag">[CONFIG:entries.5.tags.1]</span>
+            <span class="timeline__tag">[CONFIG:entries.5.tags.2]</span>
+            <span class="timeline__tag">[CONFIG:entries.5.tags.3]</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- [CONFIG:entries[6] — NPA / Intern ] -->
+      <div class="timeline__entry">
+        <div class="timeline__dot"></div>
+        <div class="timeline__card">
+          <div class="timeline__header">
+            <div>
+              <h2 class="timeline__role">[CONFIG:entries.6.role]</h2>
+              <p class="timeline__organization">[CONFIG:entries.6.organization]</p>
+            </div>
+            <span class="timeline__date">[CONFIG:entries.6.dateRange]</span>
+          </div>
+          <div class="timeline__description">
+            <p>[CONFIG:entries.6.description.0]</p>
+            <p>[CONFIG:entries.6.description.1]</p>
+          </div>
+          <div class="timeline__tags">
+            <span class="timeline__tag">[CONFIG:entries.6.tags.0]</span>
+            <span class="timeline__tag">[CONFIG:entries.6.tags.1]</span>
+            <span class="timeline__tag">[CONFIG:entries.6.tags.2]</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="footer">
+    &copy; [CONFIG:footer.copyright]
+    &mdash; Built with [CONFIG:footer.builtWith]
+  </footer>
+
+  <!-- ================================================================
+       THEME TOGGLE SCRIPT
+       ================================================================ -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      icon.textContent = isDark ? '\u2609' : '\u264E';
+    }
+
+    (function() {
+      const html = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      if (html.getAttribute('data-theme') === 'dark') {
+        icon.textContent = '\u2609';
+      } else {
+        icon.textContent = '\u264E';
+      }
+    })();
+  </script>
+
+</body>
+</html>
