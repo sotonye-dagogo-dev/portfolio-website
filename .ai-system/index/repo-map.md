@@ -1,7 +1,7 @@
 # Repository Map
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-7 shell)
+> - last-updated-by: opencode (implementation sprint)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: auto-regenerable — can be derived from `tree` command. Manual content only where intent cannot be derived from structure.
 
@@ -17,10 +17,10 @@ portfolio-website/
 ├── src/                     → Angular frontend source code
 │   ├── app/
 │   │   ├── animations/      → Reusable Angular animations
-│   │   ├── components/      → Reusable UI components (navbar, card, tech-stack)
+│   │   ├── components/      → Reusable UI components (navbar, card, tech-stack, section, footer)
 │   │   ├── directives/      → Custom Angular directives (typing-effect, animated-border, pulsating-effect, image-viewer)
-│   │   ├── pages/           → Route-level page components (home, about, projects, certificates)
-│   │   ├── content/         → Planned config-driven content layer (site.config.ts, content.service.ts)
+│   │   ├── pages/           → Route-level page components (home, about, experience, projects, automation, certificates)
+│   │   ├── content/         → Config-driven content layer (types.ts, *.config.ts, content.service.ts)
 │   │   └── app.component.*  → Root application component
 │   ├── main.ts              → Angular app bootstrap
 │   ├── main.server.ts       → Angular SSR server entry
@@ -37,6 +37,9 @@ portfolio-website/
 │   ├── miniProjects/        → Mini project images
 │   ├── pythonProjects/      → Python project images
 │   └── favicon_io/          → Favicon assets
+│
+├── scripts/                 → Standalone utility scripts
+│   └── enrichment.js        → GitHub API enrichment script (feeds content.generated.json)
 │
 ├── .ai-system/              → AI-assisted development system
 │   ├── designs/             → Visual design contracts (OD-1 through OD-7 done, HTML)
@@ -56,10 +59,11 @@ portfolio-website/
 | Directory | Purpose | Key Files |
 |-----------|---------|-----------|
 | `src/app/` | Angular application source | app.component.ts, main.ts |
-| `src/app/components/` | Reusable UI components | navbar/, card/, tech-stack/, section/ |
+| `src/app/components/` | Reusable UI components | navbar/, card/, tech-stack/, section/, footer/ |
 | `src/app/directives/` | Custom interaction directives | typing-effect/, animated-border/, pulsating-effect/, image-viewer/ |
-| `src/app/pages/` | Route-level page components | home/, about/, projects/, certificates/ |
-| `src/app/content/` | Planned config-driven data layer | site.config.ts, content.service.ts (future) |
+| `src/app/pages/` | Route-level page components | home/, about/, experience/, projects/, automation/, certificates/ |
+| `src/app/content/` | Config-driven content layer (static + enrichment merge) | types.ts, *.config.ts, content.service.ts |
+| `scripts/` | Standalone utility scripts | enrichment.js |
 | `src/app/animations/` | Animation utilities | fade.animation.ts, slide.animation.ts |
 | `public/` | Static assets and images | Various project/certificate images |
 | `.ai-system/` | AI development framework | protocols/, agents/, commands/ |

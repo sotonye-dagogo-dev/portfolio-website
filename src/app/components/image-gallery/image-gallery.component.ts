@@ -15,7 +15,6 @@ export interface GalleryCategory {
 
 @Component({
     selector: 'app-image-gallery',
-    standalone: true,
     imports: [
         CommonModule,
         FontAwesomeModule,

@@ -4,10 +4,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-theme-toggle',
-  standalone: true,
-  templateUrl: './theme-toggle.component.html',
-  imports: [FontAwesomeModule]
+    selector: 'app-theme-toggle',
+    templateUrl: './theme-toggle.component.html',
+    imports: [FontAwesomeModule]
 })
 export class ThemeToggleComponent implements OnInit {
   darkMode = false;

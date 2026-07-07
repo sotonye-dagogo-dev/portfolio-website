@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { ContentService } from '../../content/content.service';
 import { PulsatingEffectDirective } from '../../directives/pulsating-effect/pulsating-effect.directive';
 
 @Component({
-  selector: 'app-about',
+  selector: 'app-experience',
   standalone: true,
-  imports: [CommonModule, RouterModule, PulsatingEffectDirective],
-  templateUrl: './about.component.html',
-  styleUrl: './about.component.scss',
+  imports: [CommonModule, PulsatingEffectDirective],
+  templateUrl: './experience.component.html',
+  styleUrl: './experience.component.scss',
 })
-export class AboutComponent {
+export class ExperienceComponent {
   constructor(public content: ContentService) {}
 }

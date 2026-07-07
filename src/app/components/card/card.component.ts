@@ -3,12 +3,11 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { imageExpandAnimation } from '../../animations/gallery.animation';
 
 @Component({
-  selector: 'app-card',
-  standalone: true,
-  imports: [CommonModule],
-  animations: [imageExpandAnimation],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.scss'
+    selector: 'app-card',
+    imports: [CommonModule],
+    animations: [imageExpandAnimation],
+    templateUrl: './card.component.html',
+    styleUrl: './card.component.scss'
 })
 
 export class CardComponent {

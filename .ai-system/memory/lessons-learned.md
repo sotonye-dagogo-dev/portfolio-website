@@ -58,3 +58,17 @@ Designing any list/showcase page where items differ significantly in scope or ma
 
 **Supersedes:** None
 **Superseded by:** None
+
+## Static Config Fallback + JSON Enrichment Merge
+
+**Context:**
+Implementing the content architecture for the portfolio revamp. Needed to ship with compile-time default content while allowing an optional runtime-generated.json to enrich specific fields without forking the entire config.
+
+**What We Learned:**
+Loading static configs via TypeScript imports gives type safety and compile-time guarantees. Adding a `mergeWithGenerated()` method that does a field-by-field deep merge from `public/content/content.generated.json` (fetched via HttpClient) allows enrichment without breaking the static defaults. The merge is lenient — if the file is missing, malformed, or a fetch fails, the service silently falls back to static configs. This pattern avoids the "all-or-nothing" problem of a single JSON file and keeps the type system intact.
+
+**Apply When:**
+Any project where you need both compile-time default content and optional runtime enrichment. Use static TypeScript objects for the defaults, then layer enrichment on top via a non-throwing merge function. Never let a missing enrichment file break the page.
+
+**Supersedes:** None
+**Superseded by:** None
