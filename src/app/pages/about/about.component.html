@@ -1,56 +1,61 @@
-<app-section title="About Me" subtitle="Software Developer">
-  <div>
-    <div class="profile-container">
-      <div class="profile-image-container">
-        <img src="profile-picture.jpg" alt="Profile Picture" class="profile-image" appImageViewer
-          [fullImage]="'profile-picture.jpg'">
-        <h3 class="profile-name">DAGOGO Sotonye A.</h3>
-      </div>
-      <div class="profile-description">
-        <p *ngFor="let text of bioParagraphs; index as i">{{text}}</p>
-      </div>
-    </div>
-  </div>
+<div class="page">
+  <header class="page-header">
+    <p class="page-header__label">About</p>
+    <h1 class="page-header__title">Engineering Philosophy &amp; Background</h1>
+  </header>
 
-  <div class="experience-section">
-    <div class="experience-container">
-      <app-card title="Experience">
-        <ul class="work-experience">
-          <li class="items-center justify-center gap-2 my-2 p-1 flex-col">
-            <span *ngFor="let work of workExperiences; index as i">
-              <fa-icon [icon]="faYY"></fa-icon> {{work}} <fa-icon [icon]="faYY"></fa-icon>
-            </span>
-          </li>
-          <li>Numerous certifications from
-            <a href="https://www.freecodecamp.org/Sotonye" class="px-2">
-              <img src="https://img.shields.io/badge/-FCC-black?style=flat&logo=freecodecamp&logoColor=white"
-                alt="freecodecamp" appImageViewer
-                [fullImage]="'https://img.shields.io/badge/-FCC-black?style=flat&logo=freecodecamp&logoColor=white'">
-            </a>
-          </li>
-          <li>Learnt a lot from
-            <a href="https://github.com/bradtraversy" class="px-2">
-              <img src="traversy-media.jpg" alt="Traversy Media" width="20" height="20" appImageViewer
-                [fullImage]="'traversy-media.jpg'">
-            </a>
-          </li>
-        </ul>
-      </app-card>
-      <app-card title="CV">
-        <div class="cv">
-          <p>Have a look at it here:</p>
-          <a target="_blank" rel="noopener"
-            href="https://1drv.ms/b/c/740863ef2517674a/EaMpTQia4ElEkdFEa9aUcd8Ba7Ro4xAWfl_rsC8eA_AzLg?e=ojDtx2">
-            <img src="CV_preview.jpg" alt="CV Preview" width="150" class="rounded-md border-solid border-2"
-              appImageViewer [fullImage]="'CV_preview.jpg'">
-            View CV
-          </a>
+  <section class="bio">
+    <div class="bio__philosophy">
+      <span class="bio__philosophy-tag">Engineering Philosophy</span>
+      <div class="bio__philosophy-grid">
+        <div class="bio__principle" *ngFor="let principle of content.about.philosophy">
+          <div class="bio__principle-icon">{{ principle.icon }}</div>
+          <h3 class="bio__principle-title">{{ principle.title }}</h3>
+          <p class="bio__principle-desc">{{ principle.description }}</p>
         </div>
-      </app-card>
+      </div>
     </div>
 
-    <app-card title="Tech Stack">
-      <app-tech-stack displayMode="cards"></app-tech-stack>
-    </app-card>
-  </div>
-</app-section>
+    <div class="bio__details">
+      <p *ngFor="let para of content.about.bioParagraphs">{{ para }}</p>
+    </div>
+  </section>
+
+  <section class="how-i-build" *ngIf="content.about.howIBuild.length">
+    <h2 class="how-i-build__heading">How I Build</h2>
+    <div class="how-i-build__list">
+      <div class="how-i-build__item" *ngFor="let item of content.about.howIBuild">
+        <div class="how-i-build__item-icon">{{ item.icon }}</div>
+        <div class="how-i-build__item-body">
+          <h3 class="how-i-build__item-title">{{ item.title }}</h3>
+          <p class="how-i-build__item-desc">{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2 class="contact__heading">Connect</h2>
+    <div class="contact__row">
+      <a *ngFor="let link of content.about.contactLinks" [href]="link.url" class="contact__link" target="_blank" rel="noopener">
+        <span class="contact__link-icon">{{ link.icon === 'github' ? '&#120143;' : link.icon === 'linkedin' ? '&#9654;' : link.icon === 'email' ? '&#9993;' : '&#120143;' }}</span>
+        {{ link.label }}
+      </a>
+    </div>
+  </section>
+
+  <section class="currently" *ngIf="content.about.currently.length">
+    <div class="currently__strip">
+      <ng-container *ngFor="let item of content.about.currently; let last = last">
+        <div class="currently__item">
+          <span class="currently__dot" *ngIf="item.label === 'Availability'" appPulsatingEffect></span>
+          <div>
+            <p class="currently__label">{{ item.label }}</p>
+            <p class="currently__value">{{ item.value }}</p>
+          </div>
+        </div>
+        <div class="currently__divider" *ngIf="!last"></div>
+      </ng-container>
+    </div>
+  </section>
+</div>

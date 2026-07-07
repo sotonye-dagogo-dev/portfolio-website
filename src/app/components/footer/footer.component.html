@@ -1,11 +1,10 @@
 <footer class="footer">
   <div class="footer-container">
-    <p class="copyright">Sotonye Dagogo &copy; {{ year }}.</p>
+    <p class="copyright">{{ content.site.footer.copyright }}.</p>
     <div class="flex gap-2 justify-center items-center w-full">
       <div class="social-links">
-        <a *ngFor="let link of socialLinks; index as i" target="_blank" [href]="link.link" rel="noopener"
-          class="social-link">
-          <fa-icon [icon]="link.icon">{{link.title}}</fa-icon>
+        <a *ngFor="let link of content.about.contactLinks" target="_blank" [href]="link.url" rel="noopener" class="social-link">
+          {{ link.label }}
         </a>
       </div>
       <button type="button" class="toTheTop" (click)="scrollToTop()">

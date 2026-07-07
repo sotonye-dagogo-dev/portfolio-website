@@ -1,8 +1,8 @@
 # Project Plan
 
 > **Metadata**
-> - last-updated-by: (set on first update)
-> - last-verified-against-code: (set after plan review)
+> - last-updated-by: oc-design (OD-7 shell)
+> - last-verified-against-code: 2026-07-07
 > - staleness-policy: re-verify if project scope or phase changes
 
 > **Overview:** High-level feature checklist organized by development phase. See `planning/task-queue.md` for granular, sprint-level tasks.
@@ -18,28 +18,42 @@
 
 ---
 
-## Phase 2 — Core Features
+## Phase 2 — Portfolio Revamp (Design)
 
-- [ ] Portfolio project showcase
-- [ ] Certifications display
-- [ ] Tech stack visualization
-- [ ] Contact / about section
+- [x] OD-1: Home page design contract (`.ai-system/designs/od-1-home.html`)
+- [x] OD-2: About page design contract
+- [x] OD-3: Experience page design contract
+- [x] OD-4: Projects page design contract
+- [x] OD-5: Automation page design contract
+- [x] OD-6: Certificates page design contract
+- [x] OD-7: Shared shell design contract
 
 ---
 
-## Phase 3 — Secondary Features
+## Phase 3 — Portfolio Revamp (Implementation)
 
-- [ ] Responsive design improvements
-- [ ] Animation enhancements
-- [ ] Performance optimization
+- [x] Content module (`src/app/content/`) with types, configs, ContentService
+- [x] Hero + stat strip (home component)
+- [x] Tech-stack marquee + pills (home component)
+- [x] Featured project card + quick-nav cards (home component)
+- [x] New Experience page + route
+- [x] New Automation page + route
+- [x] Projects page tiered layout
+- [x] About page rewrite (philosophy-first, how-I-build, contact, currently)
+- [x] Certificates page restyle
+- [x] Shared nav/footer update (all 6 links, footer driven by ContentService)
+- [x] Angular 18→19 upgrade + FontAwesome 1.x migration
+- [x] Theme tokens synced between tailwind.config.js, styles.scss, and OD-7
+- [x] Enrichment script (scripts/enrichment.js) for GitHub API data
 
 ---
 
 ## Phase 4 — Quality & Polish
 
-- [ ] Unit test coverage for core modules
+- [ ] Unit test coverage for content module
+- [ ] Responsive design verification
 - [ ] Accessibility audit
-- [ ] SEO optimization
+- [ ] Performance optimization
 
 ---
 
@@ -55,3 +69,7 @@
 ## Completed
 
 - [x] .ai-system bootstrap
+- [x] All 7 OD design contracts (OD-1 through OD-7)
+- [x] Phase 3 full implementation (content architecture, all 6 pages, enrichment script)
+- [x] Angular 19 upgrade + FontAwesome 1.x
+- [x] OD design tokens synced to actual code (tailwind.config.js, styles.scss)

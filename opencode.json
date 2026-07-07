@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "open_design": {
+      "type": "local",
+      "command": [
+        "/usr/local/bin/node",
+        "/home/runner/work/_temp/open-design/apps/daemon/dist/cli.js",
+        "mcp",
+        "--daemon-url",
+        "http://127.0.0.1:7457"
+      ],
+      "enabled": true,
+      "environment": {
+        "OD_DATA_DIR": "/home/runner/work/_temp/od-data"
+      }
+    }
+  }
+}

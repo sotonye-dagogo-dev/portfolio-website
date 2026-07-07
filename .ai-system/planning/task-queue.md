@@ -1,8 +1,8 @@
 # Development Task Queue
 
 > **Metadata**
-> - last-updated-by: (set on first update)
-> - last-verified-against-code: (set after task-list review)
+> - last-updated-by: oc-design (OD-1 home)
+> - last-verified-against-code: 2026-07-07
 > - staleness-policy: re-verify before each session
 
 > **Overview:** Sprint-level task queue with complexity tagging. Agents execute tasks top to bottom within the current sprint. Each task is sized so it can be completed in a single session.
@@ -30,8 +30,9 @@ Tags help agents self-select whether a task needs the full `execute-feature.md` 
 |------|------|--------|
 | [M] | Bootstrap .ai-system from template | [x] |
 | [S] | Populate .ai-context.md with project details | [x] |
-| [S] | Review and populate project-context.md | [ ] |
-| [M] | Audit existing components and update repo-map.md | [ ] |
+| [M] | OD-1: Design home page (`.ai-system/designs/od-1-home.html`) | [x] |
+| [S] | Review design-system.md and fill in project tokens | [ ] |
+| [M] | Audit existing components and update repo-map.md | [x] |
 
 ---
 
@@ -39,8 +40,12 @@ Tags help agents self-select whether a task needs the full `execute-feature.md` 
 
 | Size | Task |
 |------|------|
-| [S] | Review design-system.md and fill in project tokens |
-| [M] | Run initial test suite and populate test-results.md |
+| [M] | OD-2: Design About page |
+| [M] | OD-3: Design Experience page |
+| [M] | OD-4: Design Projects page |
+| [M] | OD-5: Design Automation page |
+| [S] | OD-6: Design Certificates page |
+| [M] | OD-7: Design shared shell (nav/footer/theme) |
 
 ---
 
@@ -48,9 +53,10 @@ Tags help agents self-select whether a task needs the full `execute-feature.md` 
 
 | Size | Task |
 |------|------|
-| [M] | Add new portfolio project component |
+| [L] | Phase 3 implementation — content module, page refactors |
+| [M] | Run initial test suite and populate test-results.md |
 | [S] | Improve mobile responsive layout |
-| [L] | Add animations to page transitions |
+| [L] | Add page transition animations |
 
 ---
 
@@ -60,9 +66,13 @@ Tags help agents self-select whether a task needs the full `execute-feature.md` 
 |------|-----------|
 | Bootstrap .ai-system from template | [x] |
 | Populate .ai-context.md with project details | [x] |
+| OD-1: Design home page | [x] |
+| Audit existing components and update repo-map.md | [x] |
 
 ---
 
 ## Notes
 
-Initial sprint focused on establishing the .ai-system framework and project documentation.
+Sprint 2 focused on creating the first Open Design contract (OD-1 Home).
+Remaining OD-2 through OD-7 are queued for upcoming sprints.
+Implementation phase starts after all design contracts are finalised.

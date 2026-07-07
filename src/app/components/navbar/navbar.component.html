@@ -2,15 +2,18 @@
   <div class="nav-container">
     <div class="brand-container">
       <a routerLink="/" class="brand-link">Sotonye</a>
-      <!-- Theme Toggle -->
       <app-theme-toggle></app-theme-toggle>
     </div>
 
     <div class="nav-links">
-      <a *ngFor="let route of routes; index as i" routerLink="{{route.path}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="nav-link">{{route.title}}</a>
+      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Home</a>
+      <a routerLink="/about" routerLinkActive="active-link" class="nav-link">About</a>
+      <a routerLink="/experience" routerLinkActive="active-link" class="nav-link">Experience</a>
+      <a routerLink="/projects" routerLinkActive="active-link" class="nav-link">Projects</a>
+      <a routerLink="/automation" routerLinkActive="active-link" class="nav-link">Automation</a>
+      <a routerLink="/certificates" routerLinkActive="active-link" class="nav-link">Certificates</a>
     </div>
 
-    <!-- Hamburger Icon -->
     <button type="button" id="menu-btn" class="block mt-2 hamburger md:hidden focus:outline-none" (click)="toggleMenu()">
       <span class="hamburger-top"></span>
       <span class="hamburger-middle"></span>
@@ -18,11 +21,14 @@
     </button>
   </div>
 
-  <!-- Mobile Menu -->
   <div class="md:hidden">
     <div id="mobile-menu" class="mobile-menu flex hidden slide-out">
-      <a *ngFor="let route of routes; index as i" routerLink="{{route.path}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
-        class="nav-link">{{route.title}}</a>
+      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Home</a>
+      <a routerLink="/about" routerLinkActive="active-link" class="nav-link">About</a>
+      <a routerLink="/experience" routerLinkActive="active-link" class="nav-link">Experience</a>
+      <a routerLink="/projects" routerLinkActive="active-link" class="nav-link">Projects</a>
+      <a routerLink="/automation" routerLinkActive="active-link" class="nav-link">Automation</a>
+      <a routerLink="/certificates" routerLinkActive="active-link" class="nav-link">Certificates</a>
     </div>
   </div>
 </nav>
