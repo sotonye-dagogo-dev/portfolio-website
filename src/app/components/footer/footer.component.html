@@ -1,15 +1,5 @@
 <footer class="footer">
   <div class="footer-container">
-    <p class="copyright">{{ content.site.footer.copyright }}.</p>
-    <div class="flex gap-2 justify-center items-center w-full">
-      <div class="social-links">
-        <a *ngFor="let link of content.about.contactLinks" target="_blank" [href]="link.url" rel="noopener" class="social-link">
-          {{ link.label }}
-        </a>
-      </div>
-      <button type="button" class="toTheTop" (click)="scrollToTop()">
-        <fa-icon [icon]="toTheTop">To The Top</fa-icon>
-      </button>
-    </div>
+    <p class="copyright">&copy; {{ content.site.footer.copyright }} &mdash; Built with {{ content.site.footer.builtWith }}</p>
   </div>
 </footer>

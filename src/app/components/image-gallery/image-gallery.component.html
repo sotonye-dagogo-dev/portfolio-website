@@ -22,9 +22,9 @@
                     </app-tech-stack>
 
                     <div class="item-actions">
-                        <a *ngIf="category.items[getCurrentIndex(i)]?.githubLink && category.items[getCurrentIndex(i)]?.githubLink !== 'private-repo'"
+                        <a *ngIf="category.items[getCurrentIndex(i)]?.githubLink"
                             [href]="category.items[getCurrentIndex(i)]?.githubLink" 
-                            [target]="category.items[getCurrentIndex(i)]?.githubLink !== 'private-repo' ? '_blank' : '_self'" rel="noreferrer"
+                            target="_blank" rel="noreferrer"
                             appAnimatedBorder [config]="{borderRadius: '9999px'}">
                             <fa-icon [icon]="faGithub"></fa-icon>
                             Source Code

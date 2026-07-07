@@ -1,7 +1,7 @@
 # Development History
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-7 shell)
+> - last-updated-by: opencode (implementation verification)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: historical entries do not go stale
 
@@ -211,6 +211,28 @@ Full implementation of the portfolio revamp based on the 7 OD design contracts. 
 
 **Next Sprint Focus:**
 Phase 4: Quality & Polish (responsive design, accessibility, tests, performance)
+
+---
+
+## 2026-07-07 — Implementation Verification & Design Alignment
+
+**Summary:**
+Verified the full Angular implementation against the 7 OD design contracts. Fixed the `private-repo` workaround in the image-gallery component (replaced with proper `isCaseStudy` check). Refactored the navbar styling to match OD-7's simpler centered nav with underline hover effects. Refactored the footer to match OD-7's minimal design (copyright + built-with). All 6 pages already consume ContentService correctly. Build verified with 6 prerendered static routes and zero errors.
+
+**Completed:**
+- Removed `private-repo` string workaround from image-gallery component
+- Navbar restyled to match OD-7 (centered links, underline hover, active state)
+- Footer simplified to match OD-7 (copyright + built-with, scroll-to-top removed)
+- Build verified with zero errors
+- Updated .ai-system/designs/README.md with verification status
+
+**Key Changes:**
+- Navbar: removed glass-morphism Tailwind classes, added clean centered nav with underline animation
+- Footer: removed social links and scroll-to-top, simplified to match OD-7 contract
+- image-gallery: replaced `githubLink !== 'private-repo'` with simple existence check
+
+**Next Sprint Focus:**
+Feature complete — future work: responsive polish, accessibility audit, test coverage.
 
 ---
 
