@@ -1,5 +1,6 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr/node';
+import { render } from '@netlify/angular-runtime/common-engine.js';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
@@ -11,18 +12,8 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 
 const commonEngine = new CommonEngine();
 
-export async function ngApp(req: Request): Promise<Response> {
-  const html = await commonEngine.render({
-    bootstrap,
-    documentFilePath: indexHtml,
-    url: `${req.url}`,
-    publicPath: browserDistFolder,
-    providers: [{ provide: APP_BASE_HREF, useValue: req.url }],
-  });
-
-  return new Response(html, {
-    headers: { 'Content-Type': 'text/html' },
-  });
+export async function netlifyCommonEngineHandler(request: Request, context: any): Promise<Response> {
+  return await render(commonEngine);
 }
 
 export function app(): express.Express {
