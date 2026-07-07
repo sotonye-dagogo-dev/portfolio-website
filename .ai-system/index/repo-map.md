@@ -1,7 +1,7 @@
 # Repository Map
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-1 home)
+> - last-updated-by: oc-design (OD-3 experience)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: auto-regenerable — can be derived from `tree` command. Manual content only where intent cannot be derived from structure.
 

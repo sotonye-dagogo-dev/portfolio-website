@@ -42,3 +42,21 @@ contact/social links row, and a small "currently" strip (current roles/availabil
 Same visual system as OD-1. Output as a single named HTML file to the same designs folder.
 
 save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
+
+## Open Design session (ephemeral — auto-generated for this run)
+An `open_design` MCP server is available. Active Open Design
+project id: `3fac882c-18c6-49aa-af9a-5b80e5b6443f`.
+Use `create_artifact` on that project to produce the requested
+design. Brief:
+
+utilize the .ai-system files, particularly .ai-system/docs/portfolio-revamp.md, .ai-context.md and execute the below
+
+Design a vertical timeline/Experience page. Each entry: role, organization, date range,
+2-3 line description, and a small tag list (tech or scope). Entries, most recent first:
+HICC (Technical Lead), Liquiditti Platforms &
+Solutions (Software Developer, NYSC), Along (Founder & Technical Lead, 2024-Present),
+Roxo's Ornaments (Fullstack Developer), Julius Berger (Trainee), Transact Store
+(Founder, 2022-Present), NPA (Intern). Support a "current" indicator on active roles.
+Output as a single named HTML file to the designs folder.
+
+save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
