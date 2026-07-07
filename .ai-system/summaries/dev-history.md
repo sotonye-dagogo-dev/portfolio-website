@@ -49,7 +49,25 @@ Created the first visual design contract (OD-1 Home) following the portfolio rev
 - Designs directory created with README and first OD file
 
 **Next Sprint Focus:**
-OD-2: About page design contract
+OD-3: Experience page design contract
+
+---
+
+## 2026-07-07 — OD-2: About Page Design
+
+**Summary:**
+Created the About page visual contract (OD-2) following the portfolio revamp plan. The design features a philosophy-first bio section (metadata-driven, config-first, AI-assisted delivery pillars as cards), biography details paragraph area, a "how I build" 2x2 grid (OOP services, universal wrappers, single-source-of-truth config, plus one extra slot), contact/social links row with pill-style buttons, and a "currently" strip with availability dot (+ pulsating-effect annotation), role, and location. Matches OD-1 visual system exactly — same theme tokens, spacing scale, nav, footer, and theme toggle.
+
+**Completed:**
+- `.ai-system/designs/od-2-about.html` — full About page visual contract
+- Updated `.ai-system/designs/README.md` — OD-2 marked Done
+
+**Key Changes:**
+- OD-2 design contract added to `.ai-system/designs/`
+- All copy wrapped in `[CONFIG:*]` markers for the About config object schema
+
+**Next Sprint Focus:**
+OD-3: Experience page design contract
 
 ---
 

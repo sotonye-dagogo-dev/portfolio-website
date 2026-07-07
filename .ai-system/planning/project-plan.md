@@ -1,7 +1,7 @@
 # Project Plan
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-1 home)
+> - last-updated-by: oc-design (OD-2 about)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: re-verify if project scope or phase changes
 
@@ -21,7 +21,7 @@
 ## Phase 2 — Portfolio Revamp (Design)
 
 - [x] OD-1: Home page design contract (`.ai-system/designs/od-1-home.html`)
-- [ ] OD-2: About page design contract
+- [x] OD-2: About page design contract
 - [ ] OD-3: Experience page design contract
 - [ ] OD-4: Projects page design contract
 - [ ] OD-5: Automation page design contract
@@ -67,3 +67,4 @@
 
 - [x] .ai-system bootstrap
 - [x] OD-1 home page design contract
+- [x] OD-2 about page design contract
