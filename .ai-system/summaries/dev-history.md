@@ -1,7 +1,7 @@
 # Development History
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-6 certificates)
+> - last-updated-by: oc-design (OD-7 shell)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: historical entries do not go stale
 
@@ -141,6 +141,27 @@ Created the Certificates page visual contract (OD-6), restyling the existing gal
 
 **Next Sprint Focus:**
 OD-7: Shared Shell design contract (nav / footer / theme)
+
+---
+
+## 2026-07-07 — OD-7: Shared Shell Design (Nav / Footer / Theme)
+
+**Summary:**
+Created the Shared Shell visual contract (OD-7) — the canonical reference for the nav bar, footer, and theme token system used across all pages. The file documents the complete CSS custom property set (colors with light/dark variants, spacing scale, type scale, radius, shadows, font faces) in visual table form so every OD file stays consistent. Also includes a comprehensive interaction-directives reference table listing the four existing Angular affordances (typing-effect, animated-border, pulsating-effect, image-viewer) with their OD usage locations.
+
+**Completed:**
+- `.ai-system/designs/od-7-shell.html` — shared shell visual contract with nav, footer, theme toggle, token tables, and directive reference
+- Updated `.ai-system/designs/README.md` — OD-7 marked Done
+
+**Key Changes:**
+- OD-7 design contract added to `.ai-system/designs/`
+- Theme tokens formally documented with light/dark comparison tables and visual swatches
+- Interaction directives formally documented with per-OD usage tags
+- Spacing scale and type scale added as CSS custom properties (--space-*, --type-*) for consistency across all future OD files
+- All copy wrapped in `[CONFIG:*]` markers for the Shell config object schema
+
+**Next Sprint Focus:**
+Begin Angular implementation of the shared shell (nav component, footer component, theme service, and theme-toggle component)
 
 ---
 
