@@ -1,7 +1,7 @@
 # Development History
 
 > **Metadata**
-> - last-updated-by: (set on first entry)
+> - last-updated-by: oc-design (OD-4 projects)
 > - last-verified-against-code: 2026-07-07
 > - staleness-policy: historical entries do not go stale
 
@@ -71,6 +71,29 @@ Created the Experience page visual contract (OD-3) following the portfolio revam
 
 **Next Sprint Focus:**
 OD-4: Projects page design contract (tiered layout)
+
+---
+
+## 2026-07-07 — OD-4: Projects Page Design
+
+**Summary:**
+Created the Projects page visual contract (OD-4) with four distinct visual tiers: Flagship Platforms (animated-border cards with [animated-border] annotation), Automation & AI Systems teaser card (linking to a dedicated page, with [pulsating-effect] badge), Applied Engineering (standard cards), and a collapsed Archive/Early Projects accordion (collapsed by default with a count badge showing hidden item count). Each project card includes image/thumbnail slot with [image-viewer] annotation (click-to-expand), title, 2-line description, tech-stack pills, and GitHub + live-demo links (with disabled styling for case studies with no public link). Matches OD-1/OD-2/OD-3 visual system exactly.
+
+**Completed:**
+- `.ai-system/designs/od-4-projects.html` — full Projects page visual contract (tiered layout)
+- Updated `.ai-system/designs/README.md` — OD-4 marked Done
+- Updated project-plan.md — OD-4 marked complete
+- Updated repo-map, dependency-graph, system-architecture, dev-history, and lessons-learned per `update-ai-system.md`
+
+**Key Changes:**
+- OD-4 design contract added to `.ai-system/designs/`
+- Four-tier layout pattern established for project showcase
+- All interaction affordances annotated ([image-viewer], [animated-border], [pulsating-effect])
+- Archive accordion with JS toggle and aria-expanded state for accessibility
+- All copy wrapped in `[CONFIG:*]` markers for the Projects config object schema
+
+**Next Sprint Focus:**
+OD-5: Automation & AI Systems page design contract
 
 ---
 

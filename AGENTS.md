@@ -60,3 +60,26 @@ Roxo's Ornaments (Fullstack Developer), Julius Berger (Trainee), Transact Store
 Output as a single named HTML file to the designs folder.
 
 save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
+
+## Open Design session (ephemeral — auto-generated for this run)
+An `open_design` MCP server is available. Active Open Design
+project id: `1f7baa26-03d9-496c-b1ab-d1dac64df8ec`.
+Use `create_artifact` on that project to produce the requested
+design. Brief:
+
+utilize the .ai-system files, particularly .ai-system/docs/portfolio-revamp.md, .ai-context.md and execute the below
+
+Design the Projects page with four tiers as distinct visual groups (not a flat grid):
+Flagship Platforms, Automation & AI Systems teaser card linking to its own page,
+Applied Engineering, and a collapsed "Archive / Early Projects" accordion (collapsed by
+default, count badge showing how many items are hidden). Each project card: image/
+thumbnail slot, title, 2-line description, tech-stack pills, GitHub + live-demo links
+(optional per card — some are case studies with no public link). Output as a single
+named HTML file to the designs folder.
+
+Reuse existing interaction affordances: thumbnails should be annotated as using the
+image-viewer directive (click-to-expand), and Flagship-tier cards should carry the
+animated-border treatment to visually distinguish them from Applied Engineering /
+Archive cards. Note in the file where each applies.
+
+save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md

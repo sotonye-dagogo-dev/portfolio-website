@@ -1,7 +1,7 @@
 # System Architecture
 
 > **Metadata**
-> - last-updated-by: bootstrap-project
+> - last-updated-by: oc-design (OD-4 projects)
 > - last-verified-against-code: (set when architecture matches actual code)
 > - staleness-policy: re-verify before trusting if any architecture-affecting commits have been made since last-verified-against-code
 
