@@ -1,8 +1,8 @@
 # Project Plan
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-7 shell)
-> - last-verified-against-code: 2026-07-07
+> - last-updated-by: opencode (design-redesign)
+> - last-verified-against-code: 2026-07-08
 > - staleness-policy: re-verify if project scope or phase changes
 
 > **Overview:** High-level feature checklist organized by development phase. See `planning/task-queue.md` for granular, sprint-level tasks.
@@ -27,6 +27,10 @@
 - [x] OD-5: Automation page design contract
 - [x] OD-6: Certificates page design contract
 - [x] OD-7: Shared shell design contract
+- [x] **Complete visual redesign** (all 7 OD files + od-system.html) inspired by yasffiralmeida.com and wegems.co
+  - New accent: `#d4a040` (gold), new typefaces: Inter + Playfair Display + JetBrains Mono
+  - Horizontal gallery sliders, marquee, 3D card tilt, parallax sections, back-to-top
+  - `od-system.html` created as canonical design system reference
 
 ---
 
@@ -70,6 +74,8 @@
 
 - [x] .ai-system bootstrap
 - [x] All 7 OD design contracts (OD-1 through OD-7)
+- [x] od-system.html design system reference
+- [x] Phase 2 redesign — all 8 files updated with new visual system (gold accent, Inter+Playfair+JetBrains, marquee, sliders, 3D cards)
 - [x] Phase 3 full implementation (content architecture, all 6 pages, enrichment script)
 - [x] Angular 19 upgrade + FontAwesome 1.x
 - [x] OD design tokens synced to actual code (tailwind.config.js, styles.scss)

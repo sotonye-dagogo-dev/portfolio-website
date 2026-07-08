@@ -1,8 +1,8 @@
 # Development Task Queue
 
 > **Metadata**
-> - last-updated-by: oc-design (OD-1 home)
-> - last-verified-against-code: 2026-07-07
+> - last-updated-by: opencode (design-redesign)
+> - last-verified-against-code: 2026-07-08
 > - staleness-policy: re-verify before each session
 
 > **Overview:** Sprint-level task queue with complexity tagging. Agents execute tasks top to bottom within the current sprint. Each task is sized so it can be completed in a single session.
@@ -30,9 +30,10 @@ Tags help agents self-select whether a task needs the full `execute-feature.md` 
 |------|------|--------|
 | [M] | Bootstrap .ai-system from template | [x] |
 | [S] | Populate .ai-context.md with project details | [x] |
-| [M] | OD-1: Design home page (`.ai-system/designs/od-1-home.html`) | [x] |
-| [S] | Review design-system.md and fill in project tokens | [ ] |
+| [M] | OD-1 through OD-7: Design all 7 pages + od-system.html | [x] |
+| [S] | Review design-system.md and fill in project tokens | [x] |
 | [M] | Audit existing components and update repo-map.md | [x] |
+| [XL] | Full visual redesign — all 8 files overhauled (new tokens, marquee, sliders, 3D cards, parallax) | [x] |
 
 ---
 
@@ -40,12 +41,14 @@ Tags help agents self-select whether a task needs the full `execute-feature.md` 
 
 | Size | Task |
 |------|------|
-| [M] | OD-2: Design About page |
-| [M] | OD-3: Design Experience page |
-| [M] | OD-4: Design Projects page |
-| [M] | OD-5: Design Automation page |
-| [S] | OD-6: Design Certificates page |
-| [M] | OD-7: Design shared shell (nav/footer/theme) |
+| [L] | Sync theme tokens from od-system.html into actual codebase (styles.scss, tailwind.config.js) |
+| [M] | Update font stack from Roboto → Inter + Playfair Display |
+| [S] | Update color accent from #daa520 → #d4a040 |
+| [M] | Implement horizontal gallery sliders (projects, certificates) |
+| [M] | Add marquee component to home page |
+| [S] | Add back-to-top button |
+| [M] | Add 3D card tilt effect to project cards |
+| [M] | Add scroll-based reveal animations and parallax sections |
 
 ---
 

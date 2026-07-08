@@ -1,8 +1,8 @@
 # Development History
 
 > **Metadata**
-> - last-updated-by: opencode (implementation verification)
-> - last-verified-against-code: 2026-07-07
+> - last-updated-by: opencode (design-redesign)
+> - last-verified-against-code: 2026-07-08
 > - staleness-policy: historical entries do not go stale
 
 > **Overview:** Chronological log of completed development work. Each sprint ends with a summary entry. Agents add entries after completing tasks. Useful for understanding what has been built, when decisions were made, and what patterns have emerged.
@@ -233,6 +233,36 @@ Verified the full Angular implementation against the 7 OD design contracts. Fixe
 
 **Next Sprint Focus:**
 Feature complete — future work: responsive polish, accessibility audit, test coverage.
+
+---
+
+## 2026-07-08 — Full Visual Redesign (Design System Refresh)
+
+**Summary:**
+Completed a comprehensive visual redesign of all 7 OD design contracts and created `od-system.html` as a canonical design system reference, inspired by yasffiralmeida.com (primary) and wegems.co (supporting). The new visual system features a gold accent (`#d4a040`), three-typeface hierarchy (Inter for body/UI, Playfair Display for decorative headings, JetBrains Mono for tech labels), generous whitespace, horizontal gallery sliders with scroll-snap navigation, marquee tracks for tech stacks, 3D card tilt on hover, parallax sections, scrolling text effects, and a back-to-top button. Dark/light theme toggle via `[data-theme]` CSS custom properties with system-style transition. All four existing interaction affordances (typing-effect, animated-border, pulsating-effect, image-viewer) preserved and annotated in each file. Every copy string remains wrapped in `[CONFIG:*]` markers for 1:1 config mapping.
+
+**Completed:**
+- `od-system.html` — design system reference (tokens, components, directives table, theme demo)
+- `od-1-home.html` — redesigned hero, stat strip, tech marquee, featured project, quick-nav cards
+- `od-2-about.html` — redesigned philosophy grid, how-I-build list, contact row, currently strip
+- `od-3-experience.html` — redesigned vertical timeline with current-role pulsing dots
+- `od-4-projects.html` — redesigned four-tier project layout with horizontal slider gallery
+- `od-5-automation.html` — redesigned flow diagram with active node, 3-column feature cards
+- `od-6-certificates.html` — redesigned horizontal slider galleries per category
+- `od-7-shell.html` — updated shell with new tokens, directives reference table
+- Updated `.ai-system/designs/README.md` — od-system.html added, directive reference updated
+- Updated `repo-map.md`, `design-system.md`, `project-plan.md`, `task-queue.md`, `dev-history.md`, `session-log.md` per `update-ai-system.md`
+
+**Key Changes:**
+- New accent color: `#d4a040` (gold), replacing `#daa520`
+- New typefaces: Inter (body), Playfair Display (headings), JetBrains Mono (tech labels) — replaces Roboto-only
+- New design system file: `od-system.html` with live theme demo
+- New components documented: marquee, horizontal gallery/sliders, back-to-top, 3D card tilt, parallax
+- Revised spacing scale: `--space-2xs` (2px) through `--space-5xl` (128px)
+- Revised border radii: `--radius-sm` (6px), `--radius` (8px), `--radius-lg` (12px), `--radius-xl` (16px), `--radius-2xl` (24px)
+
+**Next Sprint Focus:**
+Sync new design tokens into actual codebase (styles.scss, tailwind.config.js) — update accent to #d4a040, replace Roboto with Inter + Playfair Display, implement marquee, horizontal sliders, 3D card tilt, scroll reveal animations, and back-to-top button.
 
 ---
 
