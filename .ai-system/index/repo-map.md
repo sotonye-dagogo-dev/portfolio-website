@@ -1,8 +1,8 @@
 # Repository Map
 
 > **Metadata**
-> - last-updated-by: opencode (implementation verification)
-> - last-verified-against-code: 2026-07-07
+> - last-updated-by: opencode (design-redesign)
+> - last-verified-against-code: 2026-07-08
 > - staleness-policy: auto-regenerable — can be derived from `tree` command. Manual content only where intent cannot be derived from structure.
 
 > **Overview:** Visual map of the project folder structure with purpose descriptions. Updated when the folder structure changes. This file is **auto-regenerable** — use tool-based discovery for ground truth, and treat manual entries here as supplementary context, not primary navigation.
@@ -42,7 +42,7 @@ portfolio-website/
 │   └── enrichment.js        → GitHub API enrichment script (feeds content.generated.json)
 │
 ├── .ai-system/              → AI-assisted development system
-│   ├── designs/             → Visual design contracts (OD-1 through OD-7 done, HTML)
+│   ├── designs/             → Visual design contracts (OD-1 through OD-7 + od-system.html redesigned)
 │   ├── docs/                → Design/planning docs (portfolio-revamp-package.md)
 ├── .github/workflows/       → GitHub Actions CI/CD workflows
 ├── server.ts                → Express server
@@ -67,7 +67,7 @@ portfolio-website/
 | `src/app/animations/` | Animation utilities | fade.animation.ts, slide.animation.ts |
 | `public/` | Static assets and images | Various project/certificate images |
 | `.ai-system/` | AI development framework | protocols/, agents/, commands/ |
-| `.ai-system/designs/` | Visual design contracts (HTML) | od-1-home.html → od-7-shell.html |
+| `.ai-system/designs/` | Visual design contracts (HTML) | od-1-home.html → od-7-shell.html, od-system.html |
 
 ---
 

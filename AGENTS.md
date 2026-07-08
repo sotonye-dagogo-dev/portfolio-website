@@ -138,3 +138,45 @@ click-to-expand). This keeps every OD file and OpenCode referencing the same set
 effects instead of inventing new ones per page.
 
 save output to .ai-system/designs and update .ai-system/designs/README, then execute command update-ai-system.md
+
+## Open Design session (ephemeral — auto-generated for this run)
+An `open_design` MCP server is available. Active Open Design
+project id: `2a6f20e2-af44-4238-9fc6-d7e4b9d7986e`.
+Use `create_artifact` on that project to produce the requested
+design. Brief:
+
+we're redesigning again please
+
+Design and revamp still needs to be redone. Get inspo from these sources:
+https://www.yasffiralmeida.com/?ref=onepagelove (absolutely love this, take this as main inspiration and take as much from this as possible while still maintaining some authenticity and all):
+```
+Features
+[Marquee][Back To Top][Long Scrolling][Parallax Scrolling][Project Overlay][Scrolling Text][Whitespace]
+Category
+[Portfolio]
+Style
+[Scroll Effects], [Typographic]
+Typeface
+[Ampersand], [Canela], [Inter]
+Tech
+[shadcn/ui], [Tailwind CSS]
+```
+https://wegems.co/?ref=onepagelove (very nice as well, basically a supporting inspiration): 
+```
+Features
+[Marquee][Availability][Back To Top][Long Scrolling][Parallax Scrolling][Project Overlay][Scrolling Text][Whitespace]
+Category
+[Portfolio]
+Style
+[Scroll Effects], [Typographic]
+Typeface
+[Ampersand], [Canela], [Inter]
+Tech
+[shadcn/ui], [Tailwind CSS]
+```
+
+Additional notes: 
+Even though I attached links to and brief descriptions of the inspiration, I still want you visiting those sites and interacting with them to get a visual image
+galleries should be horizontal with sliders to navigate between items such as projects, certificates, etc (other form of items), to-the-top, etc, 3D animations/effects and smoothly similar to the main inspiration
+
+I want you outputting a html file that displays the design system considering the different themes also including tokens, components, etc. All the other html files in the ai-system/designs directory also get updated/redesigned based on this directive and new design system
