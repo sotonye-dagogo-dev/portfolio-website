@@ -2,7 +2,7 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (interaction-effects-sprint)
+> - last-updated-by: opencode (design-token-polish-sprint)
 > - last-verified-against-code: 2026-07-15
 > - staleness-policy: historical entries do not go stale
 
@@ -368,3 +368,43 @@ Added four new interaction effects inspired by yasffiralmeida.com — a loading 
 
 **Next Sprint Focus:**
 Ensure `.reveal-blur` elements are observed by the IntersectionObserver after route changes (confirm `observeRevealElements` selector includes them).
+
+---
+
+## 2026-07-15 — Design Token Polish & Layout Refinements
+
+**Summary:**
+Applied a comprehensive polish pass across all pages. Reduced spacing scale (space-2xl through space-5xl tightened by 15–35%), page-header padding reduced. Home page hero layout formalized as `.hero-layout` grid (1fr auto) with stats as a sticky sidebar. About page switched to full-width layout with zigzag bio paragraphs at 70% width. Hero background opacity increased, scroll parallax enhanced with rotate (capped at 8deg). Navbar glassmorphism tuned (opacity 0.6, blur 20px, saturate 1.4). Mobile menu drawer also uses glassmorphism. Image viewer z-index changed to inline style to stay above navbar. `.reveal-blur` CSS transition now includes `opacity: 0` and observer query confirmed includes `.reveal-blur`. Removed all emoji icons from config files, replaced with mono labels and structural symbols. Updated About philosophy text references to "AI design tools/AI coding agents". Updated Automation flow labels to "Visual Contract"/"Implementation". Updated footer builtWith to "AI-Assisted Delivery". Added contact-link icons in About component with mono box styling.
+
+**Completed:**
+
+- Spacing scale tightened: space-2xl 48→40, space-3xl 64→48, space-4xl 96→64, space-5xl 128→80
+- Page-header padding reduced from -5xl/-3xl to -4xl/-2xl (mobile similarly reduced)
+- Home hero: `.hero-layout` grid (1fr auto) with stats as sticky sidebar; mobile collapses to horizontal row
+- About page: full-width layout, `.bio-text` max-width 900px, zigzag paragraphs (70% width, alternating margin-left auto + text-align right)
+- Hero background opacity: 0.06→0.12 (dark 0.08→0.2)
+- Scroll parallax now applies rotate(tilt_deg) capped at 8deg
+- Navbar glassmorphism: background opacity 0.85→0.6, blur 16→20px, saturate 1.2→1.4
+- Mobile menu drawer: now glassmorphism (rgba + backdrop-filter) instead of solid surface
+- `.reveal-blur` CSS: includes `opacity: 0` transition; observer query includes `.reveal-blur`
+- Image viewer: z-index changed from Tailwind z-50 class to inline `style.zIndex = '99999'`
+- All emoji icons replaced with mono labels across site.config.ts, about.config.ts, automation.config.ts
+- About bio text: "Open Design/Open Code" → "AI design tools/AI coding agents"
+- About how-i-build: description cleanup
+- Automation flow labels: "Open Design"/"Open Code" → "Visual Contract"/"Implementation"
+- Automation component subtitle: "Open Design to Open Code" → "visual contract to implementation"
+- Projects teaser text: "ai-system tooling" → "system tooling"
+- Footer builtWith: "Open Design" → "AI-Assisted Delivery"
+- About component: contact links now render icon in a mono box before label text
+
+**Key Changes:**
+
+- Spacing scale reduced across the board for a tighter, more polished layout
+- Hero layout formalized as named grid pattern (`.hero-layout`) with integrated stats sidebar
+- Parallax enhanced with rotational component for added depth
+- Glassmorphism applied to mobile menu drawer for visual consistency with navbar
+- All emoji/HTML-entity icons systematically replaced with text-based mono labels
+- Contact links enriched with custom icon rendering matching the mono-box design system
+
+**Next Sprint Focus:**
+Continue responsive polish, accessibility audit, and test coverage.

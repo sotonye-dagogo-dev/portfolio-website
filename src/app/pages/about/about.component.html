@@ -1,11 +1,13 @@
-<div class="page page-sm">
+<div class="page">
   <header class="page-header">
     <p class="page-header__label reveal">About</p>
     <h1 class="page-header__title reveal-left">Engineering Philosophy &amp; Background</h1>
   </header>
 
   <section class="bio-text reveal">
-    <p class="reveal-blur" *ngFor="let para of content.about.bioParagraphs">{{ para }}</p>
+    <div class="bio-paragraph" *ngFor="let para of content.about.bioParagraphs; let i = index" [class.bio-paragraph--right]="i % 2 === 1">
+      <p class="reveal-blur">{{ para }}</p>
+    </div>
   </section>
 
   <section class="principle-grid stagger-children reveal">
@@ -31,6 +33,7 @@
 
   <section class="contact-row reveal">
     <a *ngFor="let link of content.about.contactLinks" [href]="link.url" class="contact-link" target="_blank" rel="noopener" appMagneticBtn>
+      <span class="contact-link__icon">{{ link.icon }}</span>
       {{ link.label }}
     </a>
   </section>

@@ -49,8 +49,8 @@
 
 @media (max-width: 480px) {
   .footer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: var(--space-sm);
-    flex-direction: column;
-    align-items: center;
   }
 }

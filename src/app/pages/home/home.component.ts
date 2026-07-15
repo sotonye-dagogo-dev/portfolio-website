@@ -42,6 +42,7 @@ export class HomeComponent {
     const heroBg = document.querySelector('.hero-bg') as HTMLElement;
     if (!heroBg) return;
     const offset = window.scrollY * 0.35;
-    heroBg.style.transform = 'translateY(' + offset + 'px)';
+    const tilt = Math.min(window.scrollY * 0.03, 8);
+    heroBg.style.transform = 'translateY(' + offset + 'px) rotate(' + tilt + 'deg)';
   }
 }

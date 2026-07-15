@@ -17,8 +17,9 @@ export class ImageViewerDirective {
 
     private openViewer() {
         // Create viewer container
-        this.viewer = document.createElement('div');
-        this.viewer.className = 'fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50';
+    this.viewer = document.createElement('div');
+    this.viewer.className = 'fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center';
+    this.viewer.style.zIndex = '99999';
 
         // Create image element
         const img = document.createElement('img');

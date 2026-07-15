@@ -2,17 +2,23 @@
   font-size: var(--type-base);
   color: var(--muted);
   line-height: 1.8;
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   margin-bottom: var(--space-3xl);
 }
 
-.bio-text p {
-  margin-bottom: var(--space-md);
+.bio-paragraph {
+  max-width: 70%;
+  margin-bottom: var(--space-lg);
 }
 
-.bio-text p:last-child {
+.bio-paragraph p {
   margin-bottom: 0;
+}
+
+.bio-paragraph--right {
+  margin-left: auto;
+  text-align: right;
 }
 
 .principle-grid {
@@ -136,6 +142,22 @@
   transition: all .3s var(--ease-expo);
   color: inherit;
   text-decoration: none;
+}
+
+.contact-link__icon {
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  font-weight: 600;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-glow);
+  border-radius: var(--radius);
+  color: var(--accent);
+  text-transform: uppercase;
 }
 
 .contact-link:hover {

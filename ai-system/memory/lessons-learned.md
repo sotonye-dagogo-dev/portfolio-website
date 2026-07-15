@@ -1,7 +1,7 @@
 # Lessons Learned
 
 > **Metadata**
-> - last-updated-by: opencode (interaction-effects-sprint)
+> - last-updated-by: opencode (design-token-polish-sprint)
 > - last-verified-against-code: 2026-07-15
 > - staleness-policy: each entry has its own staleness — check supersedes links
 
@@ -83,6 +83,20 @@ In an Angular SPA, `IntersectionObserver` instances created in the root componen
 
 **Apply When:**
 Using `IntersectionObserver` in a root-level Angular component for scroll-reveal effects on route-level content. Always subscribe to `NavigationEnd` and re-observe after a short delay. If new scroll-reveal classes are added (e.g., `.reveal-blur`), update the query selector in `observeRevealElements()` to include them.
+
+**Supersedes:** None
+**Superseded by:** None
+
+## Verify Observer Query Selector After Adding New Reveal Classes
+
+**Context:**
+During the design token polish sprint, we added `opacity: 0` to `.reveal-blur` CSS and verified the IntersectionObserver selector. The selector was initially `'.reveal, .reveal-left, .reveal-right, .stagger-children'` — `.reveal-blur` was missing from the query, meaning elements with *only* the `.reveal-blur` class would never become visible.
+
+**What We Learned:**
+When adding a new CSS scroll-reveal class, you must update both the CSS transition definition **and** the IntersectionObserver query selector in `app.component.ts`'s `observeRevealElements()` method. The selector must explicitly include the new class. Elements with only the new reveal class (no other `.reveal*` class) will be invisible until the selector is updated.
+
+**Apply When:**
+Adding any new scroll-reveal class (e.g., a new `.reveal-*` variant). Always update `observeRevealElements()` selector in the same commit that adds the CSS. Check whether existing elements use only the new class or are paired with an already-observed class — only the former will break.
 
 **Supersedes:** None
 **Superseded by:** None
