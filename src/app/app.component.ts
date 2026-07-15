@@ -128,7 +128,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private observeRevealElements(): void {
     if (!this.revealObserver) return;
-    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children').forEach((el) => {
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children, .reveal-blur').forEach((el) => {
       this.revealObserver!.observe(el);
     });
   }

@@ -5,13 +5,13 @@ export const automationFlow: FlowNode[] = [
   { label: 'Roadmap', title: 'Planning', status: '', active: false },
   { label: 'Design', title: 'Architecture', status: '', active: false },
   { label: 'Prompts', title: 'AI Generation', status: '', active: false },
-  { label: 'Open Design', title: 'Visual Contract', status: '', active: false },
-  { label: 'Open Code', title: 'Implementation', status: '', active: false },
+  { label: 'Visual Contract', title: 'Design Output', status: '', active: false },
+  { label: 'Implementation', title: 'Code', status: '', active: false },
 ];
 
 export const automationFeatures: AutomationFeature[] = [
   {
-    icon: '&#9881;',
+    icon: '~',
     name: 'ai-system-template',
     purpose: 'Standardized AI system directory structure for consistent agent handoff and documentation across all projects.',
     tags: ['Template', 'AI', 'Documentation'],
@@ -19,7 +19,7 @@ export const automationFeatures: AutomationFeature[] = [
     repoUrl: 'https://github.com/Sotonye0808/ai-system-template',
   },
   {
-    icon: '&#9632;',
+    icon: '[ ]',
     name: 'default-template',
     purpose: 'Zero-config starter template with pre-configured AI agent instructions, CI/CD, and design system integration.',
     tags: ['Starter', 'Boilerplate', 'CLI'],
@@ -27,7 +27,7 @@ export const automationFeatures: AutomationFeature[] = [
     repoUrl: 'https://github.com/Sotonye0808/default-template',
   },
   {
-    icon: '&#9881;',
+    icon: '{ }',
     name: '.github-workflows',
     purpose: 'Reusable CI/CD workflows for automated testing, deployment, and AI-assisted code review pipelines.',
     tags: ['CI/CD', 'GitHub Actions', 'Automation'],

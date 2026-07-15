@@ -2,7 +2,7 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (interaction-effects-sprint)
+> - last-updated-by: opencode (design-token-polish-sprint)
 > - last-verified-against-code: 2026-07-15
 > - staleness-policy: re-verify if project scope or phase changes
 
@@ -59,6 +59,23 @@
 - [ ] Responsive design verification
 - [ ] Accessibility audit
 - [ ] Performance optimization
+
+---
+
+## Phase 7 — Design Token Refinements & Layout Polish
+
+- [x] Spacing scale tightened (space-2xl through space-5xl reduced 15–35%)
+- [x] Page-header padding reduced (desktop + mobile)
+- [x] Home hero: `.hero-layout` grid with integrated stats sidebar
+- [x] About page: full-width layout, zigzag bio paragraphs
+- [x] Hero background opacity increased + scroll parallax with rotate tilt
+- [x] Navbar glassmorphism tuned (opacity, blur, saturate)
+- [x] Mobile menu drawer: glassmorphism instead of solid surface
+- [x] `.reveal-blur` CSS `opacity: 0` + observer query updated
+- [x] Image viewer z-index: inline style `99999` to stay above navbar
+- [x] Emoji-to-mono-label migration across all config files
+- [x] Copy updates: automation flow labels, footer builtWith, projects teaser, about philosophy
+- [x] About contact links: icon rendering with mono box styling
 
 ---
 

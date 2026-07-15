@@ -1,40 +1,41 @@
 <div class="page">
-  <!-- HERO -->
+  <!-- HERO + STATS SIDEBAR -->
   <section class="hero" id="home">
     <div class="hero-bg" id="hero-bg">
       <img src="profile-picture.jpg" alt="" appImageFade />
     </div>
-    <div class="hero-content">
-      <p class="hero-tag reveal">Full-Stack Developer &amp; Technical Lead</p>
-      <h1 class="hero-name reveal-left" style="transition-delay:.1s">
-        <span>{{ content.site.firstName }}</span>
-        <span class="accent">{{ content.site.lastName }}</span>
-      </h1>
-      <div class="hero-tagline-wrapper">
-        <p class="hero-tagline">
-          <span class="typing-text" appTypingEffect>{{ content.site.tagline }}</span>
-        </p>
+    <div class="hero-layout">
+      <div class="hero-content">
+        <p class="hero-tag reveal">Full-Stack Developer &amp; Technical Lead</p>
+        <h1 class="hero-name reveal-left" style="transition-delay:.1s">
+          <span>{{ content.site.firstName }}</span>
+          <span class="accent">{{ content.site.lastName }}</span>
+        </h1>
+        <div class="hero-tagline-wrapper">
+          <p class="hero-tagline">
+            <span class="typing-text" appTypingEffect>{{ content.site.tagline }}</span>
+          </p>
+        </div>
+        <div class="availability-badge reveal" style="transition-delay:.2s">
+          <span class="availability-dot" appPulsatingEffect></span>
+          {{ content.site.availability }}
+        </div>
+        <div class="hero-actions reveal" style="transition-delay:.3s">
+          <a [routerLink]="content.site.cta.primary.route" class="btn btn-primary" appAnimatedBorder appMagneticBtn>
+            {{ content.site.cta.primary.label }} &rarr;
+          </a>
+          <a [routerLink]="content.site.cta.secondary.route" class="btn btn-outline" appMagneticBtn>
+            {{ content.site.cta.secondary.label }} &rarr;
+          </a>
+        </div>
       </div>
-      <div class="availability-badge reveal" style="transition-delay:.2s">
-        <span class="availability-dot" appPulsatingEffect></span>
-        {{ content.site.availability }}
-      </div>
-      <div class="hero-actions reveal" style="transition-delay:.3s">
-        <a [routerLink]="content.site.cta.primary.route" class="btn btn-primary" appAnimatedBorder appMagneticBtn>
-          {{ content.site.cta.primary.label }} &rarr;
-        </a>
-        <a [routerLink]="content.site.cta.secondary.route" class="btn btn-outline" appMagneticBtn>
-          {{ content.site.cta.secondary.label }} &rarr;
-        </a>
-      </div>
-    </div>
-  </section>
 
-  <!-- STAT STRIP -->
-  <section class="stats stagger-children reveal">
-    <div class="stat-item" *ngFor="let stat of content.stats">
-      <div class="stat-item__value">{{ stat.value }}</div>
-      <div class="stat-item__label">{{ stat.label }}</div>
+      <aside class="stats-sidebar reveal">
+        <div class="stat-item" *ngFor="let stat of content.stats">
+          <div class="stat-item__value">{{ stat.value }}</div>
+          <div class="stat-item__label">{{ stat.label }}</div>
+        </div>
+      </aside>
     </div>
   </section>
 
