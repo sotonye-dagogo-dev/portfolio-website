@@ -116,7 +116,11 @@ export class AppComponent implements OnInit, OnDestroy {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            this.revealObserver?.unobserve(entry.target);
+            if (!entry.target.classList.contains('reveal-blur')) {
+              this.revealObserver?.unobserve(entry.target);
+            }
+          } else if (entry.target.classList.contains('reveal-blur')) {
+            entry.target.classList.remove('visible');
           }
         });
       },

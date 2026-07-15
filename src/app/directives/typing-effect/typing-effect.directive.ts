@@ -14,6 +14,7 @@ export interface TypingEffectConfig {
   mode?: 'typewriter' | 'blurReveal';
   revealGroup?: number; // characters per reveal step (default 3)
   blurAmount?: string; // max blur amount (default '10px')
+  scrollDriven?: boolean; // blur reveal driven by scroll position instead of timer
 }
 
 @Directive({
@@ -36,7 +37,8 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
     loopDelay: 5,
     mode: 'typewriter',
     revealGroup: 3,
-    blurAmount: '10px'
+    blurAmount: '10px',
+    scrollDriven: false
   }
 
   activeConfig: TypingEffectConfig = {};
@@ -54,6 +56,7 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
   private animationInterval: any = null;
   private containerWidth: number = 0;
   private maxVisibleChars: number = 0;
+  private scrollHandler: (() => void) | null = null;
 
   isBrowser!: boolean;
 
@@ -106,6 +109,10 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
     if (this.animationInterval) {
       clearInterval(this.animationInterval);
     }
+    if (this.scrollHandler) {
+      window.removeEventListener('scroll', this.scrollHandler);
+      this.scrollHandler = null;
+    }
   }
 
   private captureOriginalStyles() {
@@ -131,7 +138,8 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
       loopDelay: this.config.loopDelay ?? this.defaultConfig.loopDelay,
       mode: this.config.mode ?? this.defaultConfig.mode,
       revealGroup: this.config.revealGroup ?? this.defaultConfig.revealGroup,
-      blurAmount: this.config.blurAmount ?? this.defaultConfig.blurAmount
+      blurAmount: this.config.blurAmount ?? this.defaultConfig.blurAmount,
+      scrollDriven: this.config.scrollDriven ?? this.defaultConfig.scrollDriven
     }
   }
 
@@ -355,6 +363,12 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
 
   private startBlurReveal() {
     if (!this.isBrowser) return;
+
+    if (this.activeConfig.scrollDriven) {
+      this.startScrollDrivenBlurReveal();
+      return;
+    }
+
     const element = this.el.nativeElement;
     const groupSize = this.activeConfig.revealGroup!;
     const blurAmount = this.activeConfig.blurAmount!;
@@ -397,6 +411,59 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
       revealIndex = end;
     };
     this.animationInterval = setInterval(reveal, stepMs);
+  }
+
+  private startScrollDrivenBlurReveal() {
+    if (this.scrollHandler) {
+      window.removeEventListener('scroll', this.scrollHandler);
+      this.scrollHandler = null;
+    }
+    const element = this.el.nativeElement;
+    const blurAmount = this.activeConfig.blurAmount!;
+
+    element.innerHTML = '';
+    this.renderer.setStyle(element, 'white-space', 'pre-wrap');
+    this.renderer.setStyle(element, 'word-break', 'break-word');
+    this.renderer.setStyle(element, 'overflow-wrap', 'break-word');
+
+    const chars: HTMLSpanElement[] = [];
+    for (const ch of this.originalText) {
+      const span = this.renderer.createElement('span');
+      this.renderer.appendChild(span, this.renderer.createText(ch === ' ' ? '\u00A0' : ch));
+      this.renderer.setStyle(span, 'display', 'inline');
+      this.renderer.setStyle(span, 'transition', 'filter 0.2s ease, opacity 0.2s ease');
+      this.renderer.setStyle(span, 'filter', `blur(${blurAmount})`);
+      this.renderer.setStyle(span, 'opacity', '0.3');
+      this.renderer.appendChild(element, span);
+      chars.push(span);
+    }
+
+    const updateChars = () => {
+      const rect = element.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // progress 0→1 as element scrolls from bottom-entering to top-exiting
+      const totalTravel = vh + rect.height;
+      const scrolled = vh - rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / totalTravel));
+
+      const revealCount = Math.floor(progress * this.textLength);
+
+      for (let i = 0; i < chars.length; i++) {
+        if (i < revealCount) {
+          this.renderer.setStyle(chars[i], 'filter', 'blur(0)');
+          this.renderer.setStyle(chars[i], 'opacity', '1');
+        } else {
+          this.renderer.setStyle(chars[i], 'filter', `blur(${blurAmount})`);
+          this.renderer.setStyle(chars[i], 'opacity', '0.3');
+        }
+      }
+    };
+
+    const handler = () => requestAnimationFrame(updateChars);
+    window.addEventListener('scroll', handler, { passive: true });
+    this.scrollHandler = handler;
+    updateChars();
   }
 
   private startBlurUntype(chars: HTMLSpanElement[]) {

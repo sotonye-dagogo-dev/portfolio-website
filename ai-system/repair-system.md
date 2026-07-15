@@ -121,3 +121,47 @@
 - Cause: Variable defined in `.env.local` but not in production environment
 - Fix: Add to deployment environment variables
 - Prevention: Add a startup validation check that throws if required env vars are missing
+
+### Flow Arrows Not Stretching Edge-to-Edge
+
+**Connector lines between flow nodes still fixed-width, not spanning gap**
+- Symptom: Arrow lines in the Development Pipeline flow diagram were fixed at 36px between boxes, leaving a gap when the diagram was wider than the sum of node + arrow widths. Labels track had the same issue.
+- Root Cause: `.flow-arrow` and `.flow-spacer` had `width: 36px; flex-shrink: 0` — they could not grow to fill available space, so the connector line `::before` at `width: 100%` only spanned 36px.
+- Fix: Changed both to `flex: 1; min-width: 36px` so they stretch to fill remaining space equally. The `min-width` preserves a baseline arrow at narrow widths. Wrapped label + status in a `.flow-label-cell` div with `min-width: 80px; flex-shrink: 0` to match `.flow-node` dimensions, ensuring both tracks align correctly.
+- Prevention: When using flex to build connector tracks, both connecting and fixed-width elements must have matching `min-width` / `flex-shrink` behavior so the two tracks distribute remaining space identically.
+- Files Affected: `src/app/pages/automation/automation.component.html`, `src/app/pages/automation/automation.component.scss`
+- Date: 2026-07-15
+- Status: Active
+
+### scrollDriven Blur Reveal Mode
+
+**BlurReveal only timer-driven, no scroll-based bidirectional reveal**
+- Symptom: Bio paragraphs with blur effect would always self-reveal on a fixed timer regardless of scroll position. User could not control the reveal speed by scrolling, and the effect never reversed when scrolling back up.
+- Root Cause: `startBlurReveal()` used `setInterval` to progressively unblur characters, with no option for scroll-driven behavior.
+- Fix: Added `scrollDriven?: boolean` to `TypingEffectConfig`. When `true` and `mode: 'blurReveal'`, `startBlurReveal()` delegates to `startScrollDrivenBlurReveal()` which creates spanning characters and uses a passive scroll listener with `requestAnimationFrame` to map element viewport progress (0→1 as element scrolls from bottom-entering to top-exiting) to character reveal count. Characters re-blur when scrolling back up. Cleaned up via `ngOnDestroy()`.
+- Prevention: When adding scroll-driven effects, always store the scroll handler reference for cleanup in `ngOnDestroy` and use `{ passive: true }` for performance.
+- Files Affected: `src/app/directives/typing-effect/typing-effect.directive.ts`
+- Date: 2026-07-15
+- Status: Active
+
+### Bidirectional reveal-blur Observer
+
+**CSS-only reveal-blur elements only fade in once, never re-blur on scroll out**
+- Symptom: Elements using just `.reveal-blur` CSS class (no directive) — like featured project descriptions, principle cards, how-i-build descriptions — would blur in once via `IntersectionObserver` but never re-blur when scrolled back out of view.
+- Root Cause: `initScrollReveal()` unobserved every element after the first `isIntersecting` event, so scrolling away and back would not re-trigger the blur transition.
+- Fix: In the observer callback, skip `unobserve()` for elements with `.reveal-blur` class. When a `.reveal-blur` element leaves the viewport (`!entry.isIntersecting`), remove the `.visible` class (which triggers the blur transition). All other reveal classes (`.reveal`, `.reveal-left`, `.reveal-right`, `.stagger-children`) remain one-time reveal as before.
+- Prevention: Different reveal behaviors (one-time vs bidirectional) should share the same observer but branch on a CSS class selector rather than using separate observers.
+- Files Affected: `src/app/app.component.ts`
+- Date: 2026-07-15
+- Status: Active
+
+### Bio Paragraph Wordwrap
+
+**Bio paragraphs with blur reveal overflow on long unbroken strings**
+- Symptom: Bio paragraph text with `appTypingEffect` in `blurReveal` mode would overflow its container, especially on narrow viewports, because the character-span approach didn't force word breaks.
+- Root Cause: The directive sets `word-break: break-word` on the element via renderer, but the parent `.bio-paragraph p` had no additional overflow protection.
+- Fix: Added `word-break: break-word; overflow-wrap: break-word` to `.bio-paragraph p` in `about.component.scss`.
+- Prevention: Components using the typing-effect directive should ensure their containers have explicit word-break / overflow-wrap to handle narrow viewports.
+- Files Affected: `src/app/pages/about/about.component.scss`
+- Date: 2026-07-15
+- Status: Active

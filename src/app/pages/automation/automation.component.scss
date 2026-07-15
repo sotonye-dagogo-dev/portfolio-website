@@ -96,20 +96,26 @@
   opacity: 1;
 }
 
-.flow-arrow {
+.flow-label-cell {
+  min-width: 80px;
+  text-align: center;
   flex-shrink: 0;
+}
+
+.flow-arrow {
+  flex: 1;
+  min-width: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
   color: var(--muted);
   position: relative;
   align-self: stretch;
 }
 
 .flow-spacer {
-  width: 36px;
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 36px;
 }
 
 .flow-arrow::before {
@@ -237,7 +243,8 @@
 @media (max-width: 480px) {
   .flow-node { min-width: 64px; }
   .flow-node__box { font-size: var(--type-xs); padding: var(--space-xs) var(--space-sm); min-height: 36px; }
-  .flow-arrow { width: 20px; }
-  .flow-spacer { width: 20px; }
+  .flow-label-cell { min-width: 64px; }
+  .flow-arrow { min-width: 20px; }
+  .flow-spacer { min-width: 20px; }
   .feature-card { padding: var(--space-md); }
 }

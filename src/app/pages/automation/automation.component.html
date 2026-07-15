@@ -26,8 +26,10 @@
         </div>
         <div class="flow-track flow-track--labels">
           <ng-container *ngFor="let node of content.automation.flow; let last = last">
-            <span class="flow-node__label">{{ node.title }}</span>
-            <span class="flow-node__status" *ngIf="node.status">{{ node.status }}</span>
+            <div class="flow-label-cell">
+              <span class="flow-node__label">{{ node.title }}</span>
+              <span class="flow-node__status" *ngIf="node.status">{{ node.status }}</span>
+            </div>
             <span class="flow-spacer" *ngIf="!last"></span>
           </ng-container>
         </div>
