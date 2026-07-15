@@ -103,6 +103,17 @@
 - Date: 2026-07-15
 - Status: Active
 
+### Flow Arrow Vertical Alignment
+
+**Automation flow arrows not centered between node boxes**
+- Symptom: Arrows in the Development Pipeline flow diagram were vertically centered between the full node (box + label + status) rather than between just the boxes. This made arrows appear lower than expected when labels had varying text lengths.
+- Root Cause: The flow diagram used a single flex row with `align-items: center`. Each `.flow-node` was a flex column with box + label, so the arrow centered to the full composite height.
+- Fix: Split into two flex tracks (`.flow-track--boxes` and `.flow-track--labels`) stacked via `flex-direction: column` on `.flow-tracks`. Boxes + arrows share one row, labels + spacers share another. Arrows now center perfectly between boxes.
+- Prevention: When mixing content of different visual weights (labels below boxes), split into separate rows so alignment references only sibling elements of equal visual weight.
+- Files Affected: `src/app/pages/automation/automation.component.html`, `src/app/pages/automation/automation.component.scss`
+- Date: 2026-07-15
+- Status: Active
+
 ### Configuration / Environment
 
 **Missing Environment Variable**

@@ -13,16 +13,25 @@
     </div>
 
     <div class="flow-diagram reveal">
-      <ng-container *ngFor="let node of content.automation.flow; let last = last; let i = index">
-        <div class="flow-node" [class.flow-node--active]="node.active">
-          <div class="flow-node__box">{{ node.label }}</div>
-          <span class="flow-node__label">{{ node.title }}</span>
-          <span class="flow-node__status" *ngIf="node.status">{{ node.status }}</span>
+      <div class="flow-tracks">
+        <div class="flow-track flow-track--boxes">
+          <ng-container *ngFor="let node of content.automation.flow; let last = last">
+            <div class="flow-node" [class.flow-node--active]="node.active">
+              <div class="flow-node__box">{{ node.label }}</div>
+            </div>
+            <div class="flow-arrow" *ngIf="!last">
+              <fa-icon [icon]="fa('chevron')" size="sm" class="flow-arrow__head"></fa-icon>
+            </div>
+          </ng-container>
         </div>
-        <div class="flow-arrow" *ngIf="!last">
-          <fa-icon [icon]="fa('chevron')" size="sm" class="flow-arrow__head"></fa-icon>
+        <div class="flow-track flow-track--labels">
+          <ng-container *ngFor="let node of content.automation.flow; let last = last">
+            <span class="flow-node__label">{{ node.title }}</span>
+            <span class="flow-node__status" *ngIf="node.status">{{ node.status }}</span>
+            <span class="flow-spacer" *ngIf="!last"></span>
+          </ng-container>
         </div>
-      </ng-container>
+      </div>
     </div>
   </section>
 
