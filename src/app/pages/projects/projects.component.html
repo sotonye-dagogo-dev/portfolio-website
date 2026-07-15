@@ -16,26 +16,26 @@
     <div class="gallery-horizontal" id="gallery-flagship">
       <div class="gallery-item project-card project-card--flagship" *ngFor="let project of content.flagship" style="position:relative" appAnimatedBorder [config]="{animationDuration: '4s'}">
         <div class="project-card__image" appImageViewer [fullImage]="project.image">
-          <img [src]="project.image" [alt]="project.title" />
+          <img [src]="project.image" [alt]="project.title" appImageFade />
         </div>
         <div class="project-card__body">
           <span class="project-card__flag">Flagship</span>
           <h2 class="project-card__title">{{ project.title }}</h2>
-          <p class="project-card__desc">{{ project.description }}</p>
+          <p class="project-card__desc reveal-blur">{{ project.description }}</p>
           <div class="project-card__tags">
             <span class="pill" *ngFor="let tag of project.techStack">{{ tag }}</span>
           </div>
           <div class="project-card__links">
-            <a [href]="project.liveLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.liveLink">&rarr; Live Demo</a>
-            <a [href]="project.githubLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.githubLink && !project.isCaseStudy">&rarr; GitHub</a>
+            <a [href]="project.liveLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.liveLink" appMagneticBtn>&rarr; Live Demo</a>
+            <a [href]="project.githubLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.githubLink && !project.isCaseStudy" appMagneticBtn>&rarr; GitHub</a>
             <span class="project-card__link project-card__link--disabled" *ngIf="!project.githubLink || project.isCaseStudy">&rarr; Case Study (no public repo)</span>
           </div>
         </div>
       </div>
     </div>
     <div class="gallery-nav reveal">
-      <button class="gallery-nav-btn" (click)="scrollGallery('gallery-flagship', -420)">&larr;</button>
-      <button class="gallery-nav-btn" (click)="scrollGallery('gallery-flagship', 420)">&rarr;</button>
+      <button class="gallery-nav-btn" (click)="scrollGallery('gallery-flagship', -420)" appMagneticBtn>&larr;</button>
+      <button class="gallery-nav-btn" (click)="scrollGallery('gallery-flagship', 420)" appMagneticBtn>&rarr;</button>
     </div>
   </section>
 
@@ -47,11 +47,11 @@
       <span class="section-header__line"></span>
     </div>
 
-    <a routerLink="/automation" class="automation-teaser reveal">
+    <a routerLink="/automation" class="automation-teaser reveal" appMagneticBtn>
       <div class="automation-teaser__body">
         <span class="automation-teaser__label">Automation &amp; AI Systems</span>
         <h2 class="automation-teaser__title">Engineering Delivery Pipeline</h2>
-        <p class="automation-teaser__desc">
+        <p class="automation-teaser__desc reveal-blur">
           From PRD to production — an AI-augmented workflow that turns requirements into deployed code.
           Explore the ai-system tooling, default templates, and reusable CI/CD workflows.
         </p>
@@ -71,24 +71,24 @@
     <div class="gallery-horizontal" id="gallery-applied">
       <div class="gallery-item project-card" *ngFor="let project of content.applied">
         <div class="project-card__image" appImageViewer [fullImage]="project.image">
-          <img [src]="project.image" [alt]="project.title" />
+          <img [src]="project.image" [alt]="project.title" appImageFade />
         </div>
         <div class="project-card__body">
           <h2 class="project-card__title">{{ project.title }}</h2>
-          <p class="project-card__desc">{{ project.description }}</p>
+          <p class="project-card__desc reveal-blur">{{ project.description }}</p>
           <div class="project-card__tags">
             <span class="pill" *ngFor="let tag of project.techStack">{{ tag }}</span>
           </div>
           <div class="project-card__links">
-            <a [href]="project.githubLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.githubLink">&rarr; GitHub</a>
-            <a [href]="project.liveLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.liveLink">&rarr; Live Demo</a>
+            <a [href]="project.githubLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.githubLink" appMagneticBtn>&rarr; GitHub</a>
+            <a [href]="project.liveLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.liveLink" appMagneticBtn>&rarr; Live Demo</a>
           </div>
         </div>
       </div>
     </div>
     <div class="gallery-nav reveal">
-      <button class="gallery-nav-btn" (click)="scrollGallery('gallery-applied', -420)">&larr;</button>
-      <button class="gallery-nav-btn" (click)="scrollGallery('gallery-applied', 420)">&rarr;</button>
+      <button class="gallery-nav-btn" (click)="scrollGallery('gallery-applied', -420)" appMagneticBtn>&larr;</button>
+      <button class="gallery-nav-btn" (click)="scrollGallery('gallery-applied', 420)" appMagneticBtn>&rarr;</button>
     </div>
   </section>
 
@@ -100,7 +100,7 @@
       <span class="section-header__line"></span>
     </div>
 
-    <button class="archive-toggle" (click)="toggleArchive()" [attr.aria-expanded]="archiveOpen">
+    <button class="archive-toggle" (click)="toggleArchive()" [attr.aria-expanded]="archiveOpen" appMagneticBtn>
       <span class="archive-toggle__left">
         <span class="archive-toggle__label">Early Projects</span>
         <span class="archive-toggle__count">{{ content.archive.length }} items</span>
@@ -112,17 +112,17 @@
       <div class="gallery-horizontal" id="gallery-archive" style="margin-top:var(--space-lg)">
         <div class="gallery-item project-card" *ngFor="let project of content.archive">
           <div class="project-card__image" appImageViewer [fullImage]="project.image">
-            <img [src]="project.image" [alt]="project.title" />
+            <img [src]="project.image" [alt]="project.title" appImageFade />
           </div>
           <div class="project-card__body">
             <h2 class="project-card__title">{{ project.title }}</h2>
-            <p class="project-card__desc">{{ project.description }}</p>
+            <p class="project-card__desc reveal-blur">{{ project.description }}</p>
             <div class="project-card__tags">
               <span class="pill" *ngFor="let tag of project.techStack">{{ tag }}</span>
             </div>
             <div class="project-card__links">
-              <a [href]="project.githubLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.githubLink">&rarr; GitHub</a>
-              <a [href]="project.liveLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.liveLink">&rarr; Live Demo</a>
+              <a [href]="project.githubLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.githubLink" appMagneticBtn>&rarr; GitHub</a>
+              <a [href]="project.liveLink" target="_blank" rel="noopener" class="project-card__link" *ngIf="project.liveLink" appMagneticBtn>&rarr; Live Demo</a>
             </div>
           </div>
         </div>

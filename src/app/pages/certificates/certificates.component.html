@@ -13,15 +13,15 @@
           <span class="cert-category__count">{{ category.items.length }}</span>
         </div>
         <div class="gallery-nav">
-          <button class="gallery-nav-btn" (click)="scrollGallery(ci, -340)">&larr;</button>
-          <button class="gallery-nav-btn" (click)="scrollGallery(ci, 340)">&rarr;</button>
+          <button class="gallery-nav-btn" (click)="scrollGallery(ci, -340)" appMagneticBtn>&larr;</button>
+          <button class="gallery-nav-btn" (click)="scrollGallery(ci, 340)" appMagneticBtn>&rarr;</button>
         </div>
       </div>
 
       <div class="cert-gallery" [id]="'cert-gallery-' + ci">
         <div class="cert-card" *ngFor="let cert of category.items">
           <div class="cert-card__image" appImageViewer [fullImage]="cert.image">
-            <img [src]="cert.image" [alt]="cert.title" />
+            <img [src]="cert.image" [alt]="cert.title" appImageFade />
           </div>
           <div class="cert-card__body">
             <h3 class="cert-card__title">{{ cert.title }}</h3>
@@ -30,7 +30,7 @@
               <span class="pill" *ngFor="let tech of cert.techStack">{{ tech }}</span>
             </div>
             <div class="cert-card__actions">
-              <a [href]="cert.link" target="_blank" rel="noopener" class="cert-btn cert-btn-primary" appAnimatedBorder>
+              <a [href]="cert.link" target="_blank" rel="noopener" class="cert-btn cert-btn-primary" appAnimatedBorder appMagneticBtn>
                 View Certificate &rarr;
               </a>
             </div>

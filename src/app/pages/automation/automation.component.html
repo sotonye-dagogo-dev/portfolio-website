@@ -38,10 +38,10 @@
          [href]="feature.repoUrl"
          target="_blank"
          rel="noopener"
-         class="feature-card">
+         class="feature-card" appMagneticBtn>
         <div class="feature-card__icon">{{ feature.icon }}</div>
         <h2 class="feature-card__name">{{ feature.name }}</h2>
-        <p class="feature-card__purpose">{{ feature.purpose }}</p>
+        <p class="feature-card__purpose reveal-blur">{{ feature.purpose }}</p>
         <div class="feature-card__tags">
           <span class="pill" *ngFor="let tag of feature.tags">{{ tag }}</span>
         </div>

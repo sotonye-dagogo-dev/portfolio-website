@@ -129,6 +129,7 @@ pre,code,.mono{font-family:var(--font-mono)}
 .reveal{opacity:0;transform:translateY(30px);transition:all .8s var(--ease-expo)}.reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-left{opacity:0;transform:translateX(-30px);transition:all .8s var(--ease-expo)}.reveal-left.visible{opacity:1;transform:translateX(0)}
 .reveal-right{opacity:0;transform:translateX(30px);transition:all .8s var(--ease-expo)}.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-blur{filter:blur(8px);transition:filter .8s var(--ease-expo),opacity .8s var(--ease-expo),transform .8s var(--ease-expo)}.reveal-blur.visible{filter:blur(0)}
 .stagger-children>*{opacity:0;transform:translateY(20px);transition:all .6s var(--ease-expo)}.stagger-children.visible>*{opacity:1;transform:translateY(0)}.stagger-children.visible>*:nth-child(1){transition-delay:0s}.stagger-children.visible>*:nth-child(2){transition-delay:.1s}.stagger-children.visible>*:nth-child(3){transition-delay:.2s}.stagger-children.visible>*:nth-child(4){transition-delay:.3s}.stagger-children.visible>*:nth-child(5){transition-delay:.4s}
 
 /* ==================================================================

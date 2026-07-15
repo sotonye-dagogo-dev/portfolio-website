@@ -5,14 +5,14 @@
   </header>
 
   <section class="bio-text reveal">
-    <p *ngFor="let para of content.about.bioParagraphs">{{ para }}</p>
+    <p class="reveal-blur" *ngFor="let para of content.about.bioParagraphs">{{ para }}</p>
   </section>
 
   <section class="principle-grid stagger-children reveal">
     <div class="principle-card" *ngFor="let principle of content.about.philosophy">
       <div class="principle-card__icon">{{ principle.icon }}</div>
       <h3 class="principle-card__title">{{ principle.title }}</h3>
-      <p class="principle-card__desc">{{ principle.description }}</p>
+      <p class="principle-card__desc reveal-blur">{{ principle.description }}</p>
     </div>
   </section>
 
@@ -23,14 +23,14 @@
         <div class="how-i-build__icon">{{ item.icon }}</div>
         <div class="how-i-build__body">
           <h3 class="how-i-build__title">{{ item.title }}</h3>
-          <p class="how-i-build__desc">{{ item.description }}</p>
+          <p class="how-i-build__desc reveal-blur">{{ item.description }}</p>
         </div>
       </div>
     </div>
   </section>
 
   <section class="contact-row reveal">
-    <a *ngFor="let link of content.about.contactLinks" [href]="link.url" class="contact-link" target="_blank" rel="noopener">
+    <a *ngFor="let link of content.about.contactLinks" [href]="link.url" class="contact-link" target="_blank" rel="noopener" appMagneticBtn>
       {{ link.label }}
     </a>
   </section>
