@@ -69,6 +69,28 @@
 - Fix: Wrap async route handlers in try/catch; use a global async error wrapper
 - Prevention: Always release connections in finally, not just success path
 
+### Angular Template Type Mismatch
+
+**NG5: Type 'number' not assignable to 'string' in template expression**
+- Symptom: `NG5: Argument of type 'number' is not assignable to parameter of type 'string'` in Angular template compilation
+- Cause: Template passed `let ci = index` (number) to method typed as `(id: string, amount: number)` — method expected string for gallery ID
+- Fix: Changed method signature to `scrollGallery(index: number, amount: number)` and construct element ID string internally
+- Prevention: When using `*ngFor` index as a parameter, ensure the receiving method accepts `number` or uses `string(index)` coercion
+- Files Affected: `src/app/pages/certificates/certificates.component.ts`
+- Date: 2026-07-15
+- Status: Active
+
+### Angular Unused Directive Import
+
+**TS-998113: Directive not used within the template**
+- Symptom: `TS-998113: DirectiveName is not used within the template of ComponentName` in Angular build
+- Cause: Directive imported but never used in that component's template
+- Fix: Remove the unused directive from the component's `imports: [...]` array and its `import` statement
+- Prevention: Only import directives that are actually referenced in the component's template
+- Files Affected: `src/app/pages/automation/automation.component.ts`, `src/app/pages/projects/projects.component.ts`
+- Date: 2026-07-15
+- Status: Active
+
 ### Configuration / Environment
 
 **Missing Environment Variable**

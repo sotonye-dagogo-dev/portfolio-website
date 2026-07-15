@@ -20,8 +20,8 @@ import { TypingEffectDirective } from '../../directives/typing-effect/typing-eff
 export class CertificatesComponent {
   constructor(public content: ContentService) {}
 
-  scrollGallery(id: string, amount: number): void {
-    const el = document.getElementById(id);
+  scrollGallery(index: number, amount: number): void {
+    const el = document.getElementById('cert-gallery-' + index);
     if (el) {
       el.scrollBy({ left: amount, behavior: 'smooth' });
     }
