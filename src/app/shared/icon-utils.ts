@@ -30,6 +30,6 @@ export const iconMap: Record<string, IconDefinition> = {
   circle: faCircle,
 };
 
-export function fa(iconName: string): IconDefinition | null {
-  return iconMap[iconName] ?? null;
+export function fa(iconName: string): IconDefinition {
+  return iconMap[iconName] ?? faCircle;
 }

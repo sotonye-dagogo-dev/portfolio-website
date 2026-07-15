@@ -90,6 +90,18 @@
 - Files Affected: `src/app/pages/automation/automation.component.ts`, `src/app/pages/projects/projects.component.ts`
 - Date: 2026-07-15
 - Status: Active
+- Additional Instance: `src/app/pages/experience/experience.component.ts` — unused `MagneticBtnDirective` removed from imports
+
+### FontAwesome Icon Type Mismatch
+
+**NG2: IconDefinition | null not assignable to IconProp**
+- Symptom: `NG2: Type 'IconDefinition | null' is not assignable to type 'IconProp'` in Angular template compilation — every `<fa-icon [icon]="fa(...)">` fails
+- Root Cause: `fa()` helper function returned `IconDefinition | null` (nullable), but FontAwesome's `[icon]` input expects `IconProp` which does not accept `null`
+- Fix: Changed return type to `IconDefinition` (non-nullable) by providing `faCircle` as fallback when icon name not found in the map
+- Prevention: Ensure icon resolver functions never return `null` — always provide a sensible fallback icon. The type signature should reflect the actual usage (non-nullable for template binding)
+- Files Affected: `src/app/shared/icon-utils.ts`
+- Date: 2026-07-15
+- Status: Active
 
 ### Configuration / Environment
 
