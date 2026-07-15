@@ -1,9 +1,5 @@
 <div class="page page-sm">
-  <header class="page-header">
-    <p class="page-header__label reveal">Experience</p>
-    <h1 class="page-header__title reveal-left">Career Timeline</h1>
-    <p class="page-header__subtitle reveal" style="transition-delay:.1s" appTypingEffect>Engineering, leadership, and building at scale</p>
-  </header>
+  <app-page-header label="Experience" title="Career Timeline" subtitle="Engineering, leadership, and building at scale"></app-page-header>
 
   <section class="timeline">
     <div *ngFor="let entry of content.experiences; let i = index"
@@ -27,7 +23,7 @@
           <p class="reveal-blur" *ngFor="let desc of entry.description">{{ desc }}</p>
         </div>
         <div class="timeline__tags">
-          <span class="pill" *ngFor="let tag of entry.tags">{{ tag }}</span>
+          <app-pill-list [items]="entry.tags"></app-pill-list>
         </div>
       </div>
     </div>

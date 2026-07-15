@@ -2,7 +2,7 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (scroll-driven-section-level-sprint)
+> - last-updated-by: opencode (config-driven-refactor)
 > - last-verified-against-code: 2026-07-15
 > - staleness-policy: append-only — never modify past entries
 
@@ -111,6 +111,57 @@ None — all 8 design files are finalized and ready for implementation.
 - `src/app/app.component.ts` — bidirectional reveal observer
 - `ai-system/repair-system.md` — 5 new entries
 - `ai-system/summaries/dev-history.md` — sprint summary added
+- `ai-system/checkpoints/session-log.md` — this entry
+
+**Next Task:**
+Continue responsive polish, accessibility audit, and test coverage.
+
+**Assumptions Made:**
+None
+
+**Notes / Blockers:**
+Full build not run locally (Node v25, node_modules incomplete). Pre-existing TS errors from missing @angular/core module resolution only.
+
+---
+
+## Session 3c — 2026-07-15 (same sprint, third fix pass)
+
+**Completed:**
+- Full codebase audit identifying 18 duplicated UI patterns
+- Created 6 new reusable components (page-header, section-header, pill-list, links-row, media-card, gallery-nav)
+- Refactored all 6 page templates to use new components
+- Deleted 4 dead/unused shared components (card, section, tech-stack, image-gallery)
+- Consolidated duplicate `@keyframes availability-glow` into global styles.scss
+- Removed unused project-card CSS from projects.scss
+- Updated repo-map, dev-history, task-queue, session-log
+
+**Files Modified:**
+- `src/app/components/page-header/` — NEW
+- `src/app/components/section-header/` — NEW
+- `src/app/components/pill-list/` — NEW
+- `src/app/components/links-row/` — NEW
+- `src/app/components/media-card/` — NEW
+- `src/app/components/gallery-nav/` — NEW
+- `src/app/pages/about/about.component.ts` — added PageHeaderComponent import
+- `src/app/pages/about/about.component.html` — replaced page-header
+- `src/app/pages/experience/experience.component.ts` — added PageHeaderComponent, PillListComponent
+- `src/app/pages/experience/experience.component.html` — replaced page-header, pill loop
+- `src/app/pages/projects/projects.component.ts` — replaced 5 directive imports with 4 component imports
+- `src/app/pages/projects/projects.component.html` — replaced page-header, 3x section headers, 3x project cards, 2x gallery navs
+- `src/app/pages/projects/projects.component.scss` — removed 125 lines of .project-card CSS
+- `src/app/pages/automation/automation.component.ts` — added 3 component imports
+- `src/app/pages/automation/automation.component.html` — replaced page-header, 2x section headers, pill loop
+- `src/app/pages/certificates/certificates.component.ts` — replaced 5 directive imports with 2 component imports
+- `src/app/pages/certificates/certificates.component.html` — replaced page-header, pill loop
+- `src/app/pages/home/home.component.ts` — added PillListComponent, LinksRowComponent
+- `src/app/pages/home/home.component.html` — replaced featured-card pill loop + links row
+- `src/app/styles.scss` — centralized availability-glow keyframes
+- `src/app/pages/home/home.component.scss` — removed duplicate keyframes block
+- `src/app/pages/about/about.component.scss` — removed duplicate keyframes block
+- Deleted: `src/app/components/card/`, `section/`, `tech-stack/`, `image-gallery/`
+- `ai-system/index/repo-map.md` — updated component list
+- `ai-system/summaries/dev-history.md` — sprint summary added
+- `ai-system/planning/task-queue.md` — tasks marked complete
 - `ai-system/checkpoints/session-log.md` — this entry
 
 **Next Task:**

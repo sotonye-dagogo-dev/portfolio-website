@@ -1,7 +1,7 @@
 # Repair System — Error Knowledge Base
 
 > **Metadata**
-> - last-updated-by: opencode (scroll-driven-section-level-sprint)
+> - last-updated-by: opencode (config-driven-refactor)
 > - last-verified-against-code: 2026-07-15
 > - staleness-policy: individual entries may be stale if the code has changed around them — verify fix still applies before reusing
 

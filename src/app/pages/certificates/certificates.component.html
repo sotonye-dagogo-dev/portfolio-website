@@ -1,9 +1,5 @@
 <div class="page">
-  <header class="page-header">
-    <p class="page-header__label reveal">Certificates</p>
-    <h1 class="page-header__title reveal-left">Professional Certifications</h1>
-    <p class="page-header__subtitle reveal" style="transition-delay:.1s" appTypingEffect>Take a look at some of my professional certifications and achievements.</p>
-  </header>
+  <app-page-header label="Certificates" title="Professional Certifications" subtitle="Take a look at some of my professional certifications and achievements."></app-page-header>
 
   <section class="certificates">
     <div class="cert-category" *ngFor="let category of content.certificates; let ci = index">
@@ -27,7 +23,7 @@
             <h3 class="cert-card__title">{{ cert.title }}</h3>
             <p class="cert-card__desc">{{ cert.description }}</p>
             <div class="cert-card__tech" *ngIf="cert.techStack?.length">
-              <span class="pill" *ngFor="let tech of cert.techStack">{{ tech }}</span>
+              <app-pill-list [items]="cert.techStack"></app-pill-list>
             </div>
             <div class="cert-card__actions">
               <a [href]="cert.link" target="_blank" rel="noopener" class="cert-btn cert-btn-primary" appAnimatedBorder appMagneticBtn>

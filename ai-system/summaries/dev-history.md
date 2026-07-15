@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (blur-reveal-dynamic-stats-sprint)
-> - last-verified-against-code: 2026-07-15 (verified during this sprint)
+> - last-updated-by: opencode (config-driven-refactor)
+> - last-verified-against-code: 2026-07-15
 > - staleness-policy: historical entries do not go stale
 
 > **Overview:** Chronological log of completed development work. Each sprint ends with a summary entry. Agents add entries after completing tasks. Useful for understanding what has been built, when decisions were made, and what patterns have emerged.
@@ -499,6 +499,37 @@ Refined the blur reveal system: added `scrollDriven` config mode that uses passi
 - Flex-based connector arrows (no more fixed-width gaps in flow diagram)
 - Observer bifurcation: one-time vs bidirectional behavior via CSS class check
 - Repair-system.md entries for all fixes
+
+**Next Sprint Focus:**
+Continue responsive polish, accessibility audit, and test coverage.
+
+---
+
+## 2026-07-15 — Config-Driven UI: Modular Component Extraction
+
+**Summary:**
+Full codebase audit identified 18 duplicated UI patterns with ~75 inline instances across 6 pages. Extracted 6 new reusable standalone components eliminating the most duplicated patterns: `PageHeaderComponent` (5x page headers), `SectionHeaderComponent` (6x section dividers), `PillListComponent` (7x pill loops), `LinksRowComponent` (4x conditional link blocks), `MediaCardComponent` (3x project card blocks), and `GalleryNavComponent` (3x gallery nav button pairs). All components accept typed config inputs with null-safe fallbacks. Removed 4 dead/unused shared components (card, section, tech-stack, image-gallery). Consolidated duplicate `@keyframes availability-glow` into global `styles.scss`. The projects page template shrank from 132 lines → 61 lines.
+
+**Completed:**
+- Full codebase audit: 18 patterns, ~75 inline instances catalogued
+- `PageHeaderComponent` — `app-page-header` replacing 5x page headers (about, experience, projects, automation, certificates)
+- `SectionHeaderComponent` — `app-section-header` replacing 6x section dividers (projects, automation)
+- `PillListComponent` — `app-pill-list` with `[items]` input, null-safe, replacing 7x pill loops
+- `LinksRowComponent` — `app-links-row` with conditional live-demo/GitHub/Case-Study logic, replacing 4x blocks
+- `MediaCardComponent` — `app-media-card` unifying project cards (flagship/applied/archive) with image-viewer, image-fade, animated-border, pill-list, links-row built-in
+- `GalleryNavComponent` — `app-gallery-nav` with `[targetId]` + `[scrollAmount]` inputs, replacing 3x nav button pairs
+- All 6 pages refactored to use the new components
+- 4 dead shared components deleted (card, section, tech-stack, image-gallery)
+- `@keyframes availability-glow` centralized in styles.scss (removed duplicate definitions from home.scss, about.scss)
+- `.project-card` + all sub-class CSS removed from projects.scss (now in media-card component)
+
+**Key Changes:**
+- Components directory: 4 removed, 6 added (net +2)
+- All new components are standalone with `:host { display: contents }` for transparent wrapping
+- Every component accepts config-driven inputs with typed interfaces
+- MediaCardComponent reuses PillListComponent + LinksRowComponent internally (composition)
+- Removed `scrollGallery()` methods from ProjectsComponent (now in GalleryNavComponent)
+- Removed `scrollGallery()` from CertificatesComponent (gallery nav kept inline due to index-based IDs)
 
 **Next Sprint Focus:**
 Continue responsive polish, accessibility audit, and test coverage.

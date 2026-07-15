@@ -1,8 +1,5 @@
 <div class="page">
-  <header class="page-header">
-    <p class="page-header__label reveal">About</p>
-    <h1 class="page-header__title reveal-left">Engineering Philosophy &amp; Background</h1>
-  </header>
+  <app-page-header label="About" title="Engineering Philosophy &amp; Background"></app-page-header>
 
   <section class="bio-text" appTypingEffect [config]="{mode:'blurReveal',scrollDriven:true}">
     <div class="bio-paragraph" *ngFor="let para of content.about.bioParagraphs; let i = index" [class.bio-paragraph--right]="i % 2 === 1">

@@ -65,19 +65,9 @@
         <h3 class="featured-card__title">{{ content.featuredProject.title }}</h3>
         <p class="featured-card__desc reveal-blur">{{ content.featuredProject.description }}</p>
         <div class="featured-card__tags">
-          <span class="pill" *ngFor="let tag of content.featuredProject.techStack">{{ tag }}</span>
+          <app-pill-list [items]="content.featuredProject.techStack"></app-pill-list>
         </div>
-        <div class="featured-card__links">
-          <a [href]="content.featuredProject.liveLink" target="_blank" rel="noopener" class="featured-card__link" *ngIf="content.featuredProject.liveLink" appMagneticBtn>
-            Live Demo &rarr;
-          </a>
-          <a [href]="content.featuredProject.githubLink" target="_blank" rel="noopener" class="featured-card__link" *ngIf="content.featuredProject.githubLink && !content.featuredProject.isCaseStudy" appMagneticBtn>
-            GitHub &rarr;
-          </a>
-          <span class="featured-card__link--disabled" *ngIf="!content.featuredProject.liveLink && !content.featuredProject.githubLink">
-            Case Study
-          </span>
-        </div>
+        <app-links-row [item]="content.featuredProject"></app-links-row>
       </div>
     </div>
   </section>

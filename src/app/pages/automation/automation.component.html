@@ -1,16 +1,8 @@
 <div class="page">
-  <header class="page-header">
-    <p class="page-header__label reveal">Automation</p>
-    <h1 class="page-header__title reveal-left">Engineering Workflow &amp; AI Systems</h1>
-    <p class="page-header__subtitle reveal" style="transition-delay:.1s" appTypingEffect>How I build: from PRD through visual contract to implementation</p>
-  </header>
+  <app-page-header label="Automation" title="Engineering Workflow &amp; AI Systems" subtitle="How I build: from PRD through visual contract to implementation"></app-page-header>
 
   <section class="flow-section">
-    <div class="section-header reveal">
-      <span class="section-header__line"></span>
-      <span class="section-header__label">Development Pipeline</span>
-      <span class="section-header__line"></span>
-    </div>
+    <app-section-header label="Development Pipeline"></app-section-header>
 
     <div class="flow-diagram reveal">
       <div class="flow-tracks">
@@ -38,11 +30,7 @@
   </section>
 
   <section class="features-section">
-    <div class="section-header reveal">
-      <span class="section-header__line"></span>
-      <span class="section-header__label">Engineering Systems</span>
-      <span class="section-header__line"></span>
-    </div>
+    <app-section-header label="Engineering Systems"></app-section-header>
 
     <div class="feature-cards stagger-children reveal">
       <a *ngFor="let feature of content.automation.features"
@@ -54,7 +42,7 @@
         <h2 class="feature-card__name">{{ feature.name }}</h2>
         <p class="feature-card__purpose reveal-blur">{{ feature.purpose }}</p>
         <div class="feature-card__tags">
-          <span class="pill" *ngFor="let tag of feature.tags">{{ tag }}</span>
+          <app-pill-list [items]="feature.tags"></app-pill-list>
         </div>
         <span class="feature-card__link">&rarr; View on GitHub</span>
       </a>

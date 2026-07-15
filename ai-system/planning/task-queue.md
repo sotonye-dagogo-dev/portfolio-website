@@ -2,7 +2,7 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (scroll-driven-section-level-sprint)
+> - last-updated-by: opencode (config-driven-refactor)
 > - last-verified-against-code: 2026-07-15
 > - staleness-policy: re-verify before each session
 
@@ -54,6 +54,15 @@ Tags help agents self-select whether a task needs the full `execute-feature.md` 
 | [BUG]| Fix flow arrow connector lines not stretching edge-to-edge                                   | [x]    |
 | [BUG]| Bidirectional reveal-blur for CSS-only elements                                               | [x]    |
 | [BUG]| Bio paragraph wordwrap overflow                                                              | [x]    |
+| [M]  | Audit codebase for repeated UI patterns and extract into reusable components                  | [x]    |
+| [S]  | Create PageHeaderComponent (5x page headers → 1 component)                                   | [x]    |
+| [S]  | Create SectionHeaderComponent (6x section dividers → 1 component)                            | [x]    |
+| [S]  | Create PillListComponent (7x pill loops → 1 component)                                       | [x]    |
+| [S]  | Create LinksRowComponent (4x conditional link blocks → 1 component)                          | [x]    |
+| [M]  | Create MediaCardComponent (3x project cards → 1 component)                                   | [x]    |
+| [S]  | Create GalleryNavComponent (3x gallery nav pairs → 1 component)                              | [x]    |
+| [S]  | Delete dead shared components (card, section, tech-stack, image-gallery)                     | [x]    |
+| [S]  | Consolidate duplicate CSS keyframes into global styles.scss                                  | [x]    |
 
 ---
 
