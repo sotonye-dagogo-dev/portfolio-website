@@ -6,7 +6,7 @@
 
   <section class="bio-text reveal">
     <div class="bio-paragraph" *ngFor="let para of content.about.bioParagraphs; let i = index" [class.bio-paragraph--right]="i % 2 === 1">
-      <p class="reveal-blur">{{ para }}</p>
+      <p appTypingEffect [config]="{mode:'blurReveal',loop:true,typingSpeed:4}" class="reveal-blur">{{ para }}</p>
     </div>
   </section>
 
@@ -37,8 +37,8 @@
       {{ link.label }}
     </a>
     <a *ngIf="content.site.cvUrl" [href]="content.site.cvUrl" target="_blank" rel="noopener" class="contact-link contact-link--cv" appMagneticBtn>
-      <span class="contact-link__icon"><fa-icon [icon]="fa('download')" size="sm"></fa-icon></span>
-      Download CV
+      <span class="contact-link__icon"><fa-icon [icon]="fa('view')" size="sm"></fa-icon></span>
+      View CV
     </a>
   </section>
 

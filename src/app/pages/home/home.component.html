@@ -13,7 +13,7 @@
         </h1>
         <div class="hero-tagline-wrapper">
           <p class="hero-tagline">
-            <span class="typing-text" appTypingEffect>{{ content.site.tagline }}</span>
+            <span appTypingEffect [config]="{mode:'blurReveal',loop:true,typingSpeed:4}">{{ content.site.tagline }}</span>
           </p>
         </div>
         <div class="availability-badge reveal" style="transition-delay:.2s">

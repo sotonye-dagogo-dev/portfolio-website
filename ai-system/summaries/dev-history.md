@@ -2,7 +2,7 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (fa-icon-config-polish-sprint)
+> - last-updated-by: opencode (blur-reveal-dynamic-stats-sprint)
 > - last-verified-against-code: 2026-07-15 (verified during this sprint)
 > - staleness-policy: historical entries do not go stale
 
@@ -472,6 +472,31 @@ Applied a comprehensive polish pass across all pages. Reduced spacing scale (spa
 - Glassmorphism applied to mobile menu drawer for visual consistency with navbar
 - All emoji/HTML-entity icons systematically replaced with text-based mono labels
 - Contact links enriched with custom icon rendering matching the mono-box design system
+
+**Next Sprint Focus:**
+Continue responsive polish, accessibility audit, and test coverage.
+
+---
+
+## 2026-07-15 — Blur Reveal Effect, Dynamic Stats & Footer Year
+
+**Summary:**
+Added `blurReveal` mode to `TypingEffectDirective` — each character wraps in a `<span>` with `filter: blur(10px)` / `opacity: 0.3`, revealed 3 at a time transitioning to `blur(0)` / `opacity: 1`. On loop reverse, characters re-blur progressively. Applied to hero tagline with `[config]="{mode:'blurReveal', loop:true, typingSpeed:4}"`. Made all stats computed from actual config arrays in `content.service.ts`: Projects count from `allProjects.length`, Technologies count from unique tech names (`Set<string>`), Certificates count from sum of items across categories. Footer copyright year now dynamically uses `new Date().getFullYear()`.
+
+**Completed:**
+
+- `TypingEffectDirective`: added `mode: 'typewriter' | 'blurReveal'`, `revealGroup` (default 3), `blurAmount` (default `'10px'`)
+- `startBlurReveal()` — wraps each character in `<span>` with blur+opacity, reveals in groups
+- `startBlurUntype()` — reverses the reveal on loop, re-blurs characters progressively
+- Hero tagline: `[config]="{mode:'blurReveal', loop:true, typingSpeed:4}"`
+- `content.service.ts`: stats for Projects, Technologies, Certificates now computed from actual config arrays
+- `content.service.ts`: `site` getter overrides `footer.copyright` with current year
+
+**Key Changes:**
+
+- `TypingEffectConfig` interface extended with `mode`, `revealGroup`, `blurAmount`
+- All stats are now dynamic / computed — no stale placeholder values
+- Footer year auto-updates without manual config edits
 
 **Next Sprint Focus:**
 Continue responsive polish, accessibility audit, and test coverage.

@@ -2,7 +2,7 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (fa-icon-config-polish-sprint)
+> - last-updated-by: opencode (blur-reveal-dynamic-stats-sprint)
 > - last-verified-against-code: 2026-07-15 (verified during this sprint)
 > - staleness-policy: auto-regenerable — can be derived from `tree` command. Manual content only where intent cannot be derived from structure.
 
