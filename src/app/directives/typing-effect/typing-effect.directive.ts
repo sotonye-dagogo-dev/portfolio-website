@@ -459,11 +459,13 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
       const rect = element.getBoundingClientRect();
       const vh = window.innerHeight;
 
-      // Faster reveal: progress 0→1 as element scrolls through half the viewport.
-      // This ensures text is fully revealed well before it leaves visible area.
-      const revealWindow = vh * 0.5;
-      const scrolled = vh - rect.bottom;
-      const rawProgress = Math.max(0, Math.min(1, scrolled / revealWindow));
+      // Reveal based on element's top edge entering viewport.
+      // progress=0 when element top enters viewport bottom.
+      // progress=1 when element top has scrolled up one viewport height.
+      // This means at page load, text near the top is already partially revealed.
+      const totalTravel = vh;
+      const scrolled = vh - rect.top;
+      const rawProgress = Math.max(0, Math.min(1, scrolled / totalTravel));
 
       // Sticky max — once revealed, characters stay revealed (no re-blur on scroll up)
       this.maxScrollProgress = Math.max(this.maxScrollProgress, rawProgress);

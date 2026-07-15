@@ -176,3 +176,14 @@
 - Files Affected: `src/app/directives/typing-effect/typing-effect.directive.ts`
 - Date: 2026-07-15
 - Status: Active
+
+### Page Blank Until Scroll — Progress Reference Point Fix
+
+**About-page bio section + header invisible on initial page load; requires significant scroll to reveal any text**
+- Symptom: On navigating to the About page, the bio section content was completely invisible until the user scrolled down significantly. Even the page header (using `.reveal` class) appeared with noticeable delay. The page looked mostly blank at initial load.
+- Root Cause: Two compounding issues: (1) The progress formula used `rect.bottom` — at page load the section bottom is far below the viewport, so `scrolled = vh - rect.bottom` is negative, clamped to 0, giving `progress = 0`. All text started at `opacity: 0.3` + `filter: blur(10px)`. (2) The `.bio-text` section had `.reveal` class (initial `opacity: 0`) which kept the entire section invisible until the IntersectionObserver fired at 10% threshold.
+- Fix: (1) Changed progress reference from `rect.bottom` to `rect.top`. Formula: `scrolled = vh - rect.top`, where progress = 0 when the section top enters the viewport bottom and progress = 1 when the section top has scrolled up one viewport height. At page load, the section top is near the viewport top (~80px below the header), so `scrolled ≈ vh - 80`, giving `progress ≈ 0.89` — 89% of characters are revealed immediately. (2) Removed `.reveal` class from `.bio-text` section — the directive handles all reveal behavior.
+- Prevention: Scroll-driven progress should always reference the element's top edge entering the viewport, not its bottom edge. The `.reveal` entrance animation class should not be combined with the scroll-driven TypingEffect directive on the same element.
+- Files Affected: `src/app/directives/typing-effect/typing-effect.directive.ts`, `src/app/pages/about/about.component.html`
+- Date: 2026-07-15
+- Status: Active

@@ -121,3 +121,25 @@ None
 
 **Notes / Blockers:**
 Full build not run locally (Node v25, node_modules incomplete). Pre-existing TS errors from missing @angular/core module resolution only.
+
+---
+
+## Session 3b — 2026-07-15 (same sprint, second fix pass)
+
+**Completed:**
+- Fixed about page blank on initial load: changed progress reference from `rect.bottom` to `rect.top` so 89% of text is revealed at page load
+- Removed `.reveal` class from `.bio-text` section to prevent conflict with directive
+
+**Files Modified:**
+- `src/app/directives/typing-effect/typing-effect.directive.ts` — progress formula changed to `vh - rect.top`
+- `src/app/pages/about/about.component.html` — removed `.reveal` from section
+- `ai-system/repair-system.md` — new entry for blank-page-on-initial-load fix
+
+**Next Task:**
+Continue responsive polish, accessibility audit, and test coverage.
+
+**Assumptions Made:**
+None
+
+**Notes / Blockers:**
+Full build not run locally (Node v25, node_modules incomplete). Pre-existing TS errors from missing @angular/core module resolution only.

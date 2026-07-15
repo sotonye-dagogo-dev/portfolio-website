@@ -12,22 +12,25 @@
 
 ## Current State
 
-**Status:** Not Started
+**Status:** Complete
 
 **Command Being Executed:**
-—
+resume-session + update-ai-system
 
 **Directive / Task:**
-—
+Fix about page blank on initial load (progress ref point + remove .reveal conflict)
 
 **Steps Completed:**
-—
+1. Changed progress from `rect.bottom` to `rect.top` — text partially revealed at page load
+2. Removed `.reveal` class from bio-text section — no entry animation conflict
+3. Updated repair-system.md, session-log.md, dev-history.md, freshness metadata
 
 **Current Step:**
-—
+— (done)
 
 **Files Modified So Far:**
-—
+- `src/app/directives/typing-effect/typing-effect.directive.ts`
+- `src/app/pages/about/about.component.html`
 
 **Checkpoint Context:**
 —

@@ -487,7 +487,8 @@ Refined the blur reveal system: added `scrollDriven` config mode that uses passi
 - `TypingEffectConfig.scrollDriven` — scroll-driven blur reveal with `requestAnimationFrame` + passive scroll listener
 - `startScrollDrivenBlurReveal()` — now walks DOM tree via `TreeWalker`, wraps text nodes in character spans without destroying structure
 - Sticky max progress — characters never re-blur once revealed (solves "can't finish reading" issue)
-- Faster reveal window — fully revealed after traversing half a viewport instead of full viewport + element height
+- Progress reference changed from `rect.bottom` to `rect.top` — 89% text revealed at page load (was 0%); section visible immediately
+- Removed `.reveal` class from `bio-text` section (conflicted with directive's reveal behavior)
 - Flow arrows + spacers: `flex: 1; min-width: 36px` to stretch edge-to-edge
 - `.flow-label-cell` wrapper — `min-width: 80px; flex-shrink: 0` to match box width for label track alignment
 - Bidirectional `.reveal-blur` observer — `visible` class toggles on scroll in/out (non-reveal-blur elements still one-time)

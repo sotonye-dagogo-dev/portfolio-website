@@ -4,7 +4,7 @@
     <h1 class="page-header__title reveal-left">Engineering Philosophy &amp; Background</h1>
   </header>
 
-  <section class="bio-text reveal" appTypingEffect [config]="{mode:'blurReveal',scrollDriven:true}">
+  <section class="bio-text" appTypingEffect [config]="{mode:'blurReveal',scrollDriven:true}">
     <div class="bio-paragraph" *ngFor="let para of content.about.bioParagraphs; let i = index" [class.bio-paragraph--right]="i % 2 === 1">
       <p>{{ para }}</p>
     </div>
