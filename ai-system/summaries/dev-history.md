@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (design-redesign)
-> - last-verified-against-code: 2026-07-08
+> - last-updated-by: opencode (interaction-effects-sprint)
+> - last-verified-against-code: 2026-07-15
 > - staleness-policy: historical entries do not go stale
 
 > **Overview:** Chronological log of completed development work. Each sprint ends with a summary entry. Agents add entries after completing tasks. Useful for understanding what has been built, when decisions were made, and what patterns have emerged.
@@ -301,7 +301,70 @@ Project repository created and ai-system documentation structure initialized. Bo
 **Key Changes:**
 
 - ai-system framework installed
-- GitHub Actions workflow for opencode integrated
+- Deployment via Netlify UI (connected to GitHub repo; no `.github/workflows/` directory)
 
 **Next Sprint Focus:**
 Begin first development tasks from task-queue.md
+
+---
+
+## 2026-07-15 — Netlify Deployment Fixes & Build Error Resolution
+
+**Summary:**
+Debugged and resolved three Netlify build failures identified from the deploy log. Fixed an NG5 type mismatch in the certificates scroll gallery, removed unused PulsatingEffectDirective imports from the automation and projects components, and resolved a hero background image clipping issue. Updated all AI system documentation to accurately reflect Netlify-based deployment (UI config, no GitHub Actions workflows, no netlify.toml).
+
+**Completed:**
+
+- Fixed NG5 type mismatch in `certificates.scrollGallery` — resolved type error causing build failure
+- Removed unused `PulsatingEffectDirective` imports from `automation.component.ts` and `projects.component.ts`
+- Fixed hero background image: added `padding: 10vh 10vw` and changed to `object-fit: contain` for full image visibility
+- Added parallax scroll effect on hero background image (`scrollY * 0.35` translateY via `@HostListener('window:scroll')`)
+- Fixed typing effect text clipping: removed `overflow: hidden` and `white-space: nowrap` from `.typing-text`, added `word-wrap`, `overflow-wrap`, `white-space: pre-wrap` for responsive wrapping
+- Updated `ai-system/planning/project-plan.md` — CI/CD pipeline changed from "GitHub Actions" to "Netlify UI"
+- Updated `ai-system/index/repo-map.md` — removed `.github/workflows/` entry, added Netlify deployment note
+- Updated `ai-system/system-architecture.md` — added Netlify deployment section with full config details
+- Updated `ai-system/summaries/dev-history.md` — corrected initial GitHub Actions reference
+- Logged all fixes in `repair-system.md`
+
+**Key Changes:**
+
+- Deployment model corrected: Netlify UI (no `.github/workflows/`, no `netlify.toml`). Build: `npm run build`, publish: `dist/portfolio-website/browser`, plugin: `@netlify/angular-runtime@4.0.0`, Node 24.18.0, framework auto-detected as Angular
+- Hero image now fully visible with responsive padding and object-fit:contain
+- Typing effect now supports multi-line wrapping instead of a single clipped line
+- Parallax effect added to hero background via HostListener scroll binding
+
+**Next Sprint Focus:**
+Continue responsive polish, accessibility audit, and test coverage.
+
+---
+
+## 2026-07-15 — Interaction Effects Sprint: Loading Screen, Image Fade, Magnetic Btn, Blur Reveal
+
+**Summary:**
+Added four new interaction effects inspired by yasffiralmeida.com — a loading overlay with percentage counter and bar, an image-fade directive for smooth opacity transitions on load, a magnetic button directive with sticky mouse-follow effect, and a `.reveal-blur` scroll-reveal class (blur → clear transition). Applied the new directives and class across all 6 pages. Also fixed footer responsive link wrapping on mobile and increased nav-actions gap for theme toggle spacing.
+
+**Completed:**
+
+- Created `src/app/directives/image-fade/image-fade.directive.ts` — `ImageFadeDirective` (fade-in on load, handles complete/error cases)
+- Created `src/app/directives/magnetic-btn/magnetic-btn.directive.ts` — `MagneticBtnDirective` (mouse-follow pull with strength falloff, touch-device skip)
+- Added `initLoader()` to `app.component.ts` — smooth 0–100% counter over 1500ms, waits for `document.fonts.ready`, fades out overlay
+- Added loading overlay HTML/CSS to `src/index.html` (loader element, percentage count, bar fill)
+- Added `.reveal-blur` class to `src/styles.scss` (blur 8px → 0 on `.visible` with 800ms ease-expo transition)
+- Updated navbar `nav-actions` gap from `var(--space-sm)` to `var(--space-lg)` for theme toggle spacing
+- Updated footer with responsive link wrapping on mobile
+- Home page: `appImageFade` on images, `appMagneticBtn` on buttons/links, `reveal-blur` on descriptions
+- About page: `reveal-blur` on paragraphs/descriptions, `appMagneticBtn` on contact links
+- Projects page: `appImageFade` on images, `appMagneticBtn` on buttons/links, `reveal-blur` on descriptions
+- Certificates page: `appImageFade` on images, `appMagneticBtn` on buttons, `reveal-blur` on descriptions
+- Experience page: `reveal-blur` on description paragraphs
+- Automation page: `reveal-blur` on descriptions, `appMagneticBtn` on feature cards
+
+**Key Changes:**
+
+- Two new standalone directives added: `ImageFadeDirective` and `MagneticBtnDirective`
+- New interaction pattern: `reveal-blur` class for blur-to-clear scroll-reveal (complements existing `.reveal`, `.reveal-left`, `.reveal-right`)
+- Loading overlay provides perceived performance improvement with smooth counter and font-ready wait
+- Touch devices automatically skip magnetic-btn effect (checked via `matchMedia('(pointer:fine)')`)
+
+**Next Sprint Focus:**
+Ensure `.reveal-blur` elements are observed by the IntersectionObserver after route changes (confirm `observeRevealElements` selector includes them).

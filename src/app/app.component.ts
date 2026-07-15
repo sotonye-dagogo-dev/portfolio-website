@@ -1,6 +1,8 @@
-import { Component, OnInit, Inject, PLATFORM_ID, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, HostListener, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterOutlet, RouterModule } from '@angular/router';
+import { RouterOutlet, RouterModule, NavigationEnd, Router } from '@angular/router';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 
@@ -16,17 +18,70 @@ import { FooterComponent } from './components/footer/footer.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'portfolio-website';
+  private revealObserver: IntersectionObserver | null = null;
+  private destroy$ = new Subject<void>();
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.initTheme();
+      this.initLoader();
       this.initCursor();
       this.initScrollReveal();
+
+      // Re-observe reveal elements after each navigation
+      this.router.events
+        .pipe(
+          filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+          takeUntil(this.destroy$)
+        )
+        .subscribe(() => {
+          setTimeout(() => this.observeRevealElements(), 50);
+        });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+    if (this.revealObserver) this.revealObserver.disconnect();
+  }
+
+  private initLoader(): void {
+    const el = document.getElementById('loader');
+    const countEl = document.getElementById('loader-count');
+    const fillEl = document.getElementById('loader-bar-fill');
+    if (!el) return;
+
+    let progress = 0;
+    const duration = 1500;
+    const start = performance.now();
+
+    const frame = (now: number) => {
+      const elapsed = now - start;
+      progress = Math.min(elapsed / duration, 1);
+      const pct = Math.round(progress * 100);
+      if (countEl) countEl.textContent = pct + '%';
+      if (fillEl) fillEl.style.width = pct + '%';
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        Promise.all([
+          document.fonts ? document.fonts.ready : Promise.resolve(),
+          new Promise(r => setTimeout(r, 200))
+        ]).then(() => {
+          el.classList.add('hide');
+          setTimeout(() => el.remove(), 600);
+        });
+      }
+    };
+    requestAnimationFrame(frame);
   }
 
   private initTheme(): void {
@@ -56,20 +111,25 @@ export class AppComponent implements OnInit {
   }
 
   private initScrollReveal(): void {
-    const observer = new IntersectionObserver(
+    this.revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+            this.revealObserver?.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.1 }
     );
 
+    this.observeRevealElements();
+  }
+
+  private observeRevealElements(): void {
+    if (!this.revealObserver) return;
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children').forEach((el) => {
-      observer.observe(el);
+      this.revealObserver!.observe(el);
     });
   }
 

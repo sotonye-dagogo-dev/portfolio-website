@@ -1,8 +1,8 @@
 <div class="page">
   <!-- HERO -->
   <section class="hero" id="home">
-    <div class="hero-bg">
-      <img src="profile-picture.jpg" alt="" />
+    <div class="hero-bg" id="hero-bg">
+      <img src="profile-picture.jpg" alt="" appImageFade />
     </div>
     <div class="hero-content">
       <p class="hero-tag reveal">Full-Stack Developer &amp; Technical Lead</p>
@@ -20,10 +20,10 @@
         {{ content.site.availability }}
       </div>
       <div class="hero-actions reveal" style="transition-delay:.3s">
-        <a [routerLink]="content.site.cta.primary.route" class="btn btn-primary" appAnimatedBorder>
+        <a [routerLink]="content.site.cta.primary.route" class="btn btn-primary" appAnimatedBorder appMagneticBtn>
           {{ content.site.cta.primary.label }} &rarr;
         </a>
-        <a [routerLink]="content.site.cta.secondary.route" class="btn btn-outline">
+        <a [routerLink]="content.site.cta.secondary.route" class="btn btn-outline" appMagneticBtn>
           {{ content.site.cta.secondary.label }} &rarr;
         </a>
       </div>
@@ -44,7 +44,7 @@
     <div class="marquee">
       <div class="marquee-track" id="tech-track">
         <span class="tech-marquee-pill" *ngFor="let tech of content.techStack">
-          <img *ngIf="tech.icon" [src]="'techStackIcons/' + tech.icon" [alt]="tech.name" class="pill-icon" />
+          <img *ngIf="tech.icon" [src]="'techStackIcons/' + tech.icon" [alt]="tech.name" class="pill-icon" appImageFade />
           <span class="pill-dot" *ngIf="!tech.icon" [style.background]="tech.color"></span>
           {{ tech.name }}
         </span>
@@ -57,20 +57,20 @@
     <h2 class="section-label reveal">Flagship Project</h2>
     <div class="featured-card reveal">
       <div class="featured-card__image" appImageViewer [fullImage]="content.featuredProject.image">
-        <img [src]="content.featuredProject.image" [alt]="content.featuredProject.title" />
+        <img [src]="content.featuredProject.image" [alt]="content.featuredProject.title" appImageFade />
       </div>
       <div class="featured-card__body">
         <span class="featured-card__flag">Featured</span>
         <h3 class="featured-card__title">{{ content.featuredProject.title }}</h3>
-        <p class="featured-card__desc">{{ content.featuredProject.description }}</p>
+        <p class="featured-card__desc reveal-blur">{{ content.featuredProject.description }}</p>
         <div class="featured-card__tags">
           <span class="pill" *ngFor="let tag of content.featuredProject.techStack">{{ tag }}</span>
         </div>
         <div class="featured-card__links">
-          <a [href]="content.featuredProject.liveLink" target="_blank" rel="noopener" class="featured-card__link" *ngIf="content.featuredProject.liveLink">
+          <a [href]="content.featuredProject.liveLink" target="_blank" rel="noopener" class="featured-card__link" *ngIf="content.featuredProject.liveLink" appMagneticBtn>
             Live Demo &rarr;
           </a>
-          <a [href]="content.featuredProject.githubLink" target="_blank" rel="noopener" class="featured-card__link" *ngIf="content.featuredProject.githubLink && !content.featuredProject.isCaseStudy">
+          <a [href]="content.featuredProject.githubLink" target="_blank" rel="noopener" class="featured-card__link" *ngIf="content.featuredProject.githubLink && !content.featuredProject.isCaseStudy" appMagneticBtn>
             GitHub &rarr;
           </a>
           <span class="featured-card__link--disabled" *ngIf="!content.featuredProject.liveLink && !content.featuredProject.githubLink">
@@ -85,7 +85,7 @@
   <section class="section" style="padding-top:0">
     <h2 class="section-label reveal">Explore</h2>
     <div class="quick-nav-grid stagger-children reveal">
-      <a class="quick-nav-card" *ngFor="let nav of content.quickNav" [routerLink]="nav.route">
+      <a class="quick-nav-card" *ngFor="let nav of content.quickNav" [routerLink]="nav.route" appMagneticBtn>
         <div class="quick-nav-card__icon">{{ nav.icon }}</div>
         <div class="quick-nav-card__title">{{ nav.title }}</div>
         <div class="quick-nav-card__desc">{{ nav.description }}</div>

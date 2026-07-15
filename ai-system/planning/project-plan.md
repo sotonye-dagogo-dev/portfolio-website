@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (design-redesign)
-> - last-verified-against-code: 2026-07-08
+> - last-updated-by: opencode (interaction-effects-sprint)
+> - last-verified-against-code: 2026-07-15
 > - staleness-policy: re-verify if project scope or phase changes
 
 > **Overview:** High-level feature checklist organized by development phase. See `planning/task-queue.md` for granular, sprint-level tasks.
@@ -14,7 +14,7 @@
 
 - [x] Repository structure and folder conventions established
 - [x] Configuration system implemented (env vars, config files)
-- [x] CI/CD pipeline (GitHub Actions)
+- [x] CI/CD pipeline (Netlify UI — connected to GitHub repo)
 - [x] ai-system bootstrapped
 
 ---
@@ -59,6 +59,17 @@
 - [ ] Responsive design verification
 - [ ] Accessibility audit
 - [ ] Performance optimization
+
+---
+
+## Phase 6 — Interaction Effects
+
+- [x] Loading overlay (percentage counter + bar, font-ready wait, fade-out)
+- [x] `ImageFadeDirective` — fade images in on load
+- [x] `MagneticBtnDirective` — sticky mouse-follow on buttons/links
+- [x] `.reveal-blur` scroll-reveal class (blur → clear)
+- [x] Footer responsive link wrapping on mobile
+- [x] Theme toggle spacing (nav-actions gap `var(--space-sm)` → `var(--space-lg)`)
 
 ---
 

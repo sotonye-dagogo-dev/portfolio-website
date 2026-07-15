@@ -4,6 +4,8 @@ import { ContentService } from '../../content/content.service';
 import { ImageViewerDirective } from '../../directives/image-viewer/image-viewer.directive';
 import { AnimatedBorderDirective } from '../../directives/animated-border/animated-border.directive';
 import { TypingEffectDirective } from '../../directives/typing-effect/typing-effect.directive';
+import { ImageFadeDirective } from '../../directives/image-fade/image-fade.directive';
+import { MagneticBtnDirective } from '../../directives/magnetic-btn/magnetic-btn.directive';
 
 @Component({
   selector: 'app-certificates',
@@ -13,6 +15,8 @@ import { TypingEffectDirective } from '../../directives/typing-effect/typing-eff
     ImageViewerDirective,
     AnimatedBorderDirective,
     TypingEffectDirective,
+    ImageFadeDirective,
+    MagneticBtnDirective,
   ],
   templateUrl: './certificates.component.html',
   styleUrl: './certificates.component.scss',

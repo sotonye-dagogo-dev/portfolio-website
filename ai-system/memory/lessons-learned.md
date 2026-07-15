@@ -1,8 +1,8 @@
 # Lessons Learned
 
 > **Metadata**
-> - last-updated-by: opencode (design-redesign)
-> - last-verified-against-code: 2026-07-08
+> - last-updated-by: opencode (interaction-effects-sprint)
+> - last-verified-against-code: 2026-07-15
 > - staleness-policy: each entry has its own staleness — check supersedes links
 
 > **Overview:** Practical knowledge accumulated during development — things that worked well, things that didn't, and patterns worth repeating. Different from `repair-system.md` (tracks errors); this file tracks development process insights and architectural wisdom. Uses supersedes/superseded-by links for evolving practices.
@@ -69,6 +69,20 @@ Loading static configs via TypeScript imports gives type safety and compile-time
 
 **Apply When:**
 Any project where you need both compile-time default content and optional runtime enrichment. Use static TypeScript objects for the defaults, then layer enrichment on top via a non-throwing merge function. Never let a missing enrichment file break the page.
+
+**Supersedes:** None
+**Superseded by:** None
+
+## IntersectionObserver Must Re-observe After Angular Route Changes
+
+**Context:**
+Implementing `.reveal`, `.reveal-left`, `.reveal-right`, and `.reveal-blur` scroll-reveal effects using `IntersectionObserver` in `app.component.ts`. After navigating between pages, the old page's DOM is removed and the new page's elements need to be observed.
+
+**What We Learned:**
+In an Angular SPA, `IntersectionObserver` instances created in the root component only observe elements that exist at initialization time. After a route change via Angular router, the new page's DOM content is inserted, but the observer still points to the old (detached) elements. You must subscribe to `Router.events`, filter for `NavigationEnd`, and re-run `observeRevealElements()` (which re-queries the DOM for scroll-reveal classes) inside a `setTimeout(..., 50)` to allow the new view to render. This applies to any scroll-reveal class observed by the root component — including `.reveal-blur`.
+
+**Apply When:**
+Using `IntersectionObserver` in a root-level Angular component for scroll-reveal effects on route-level content. Always subscribe to `NavigationEnd` and re-observe after a short delay. If new scroll-reveal classes are added (e.g., `.reveal-blur`), update the query selector in `observeRevealElements()` to include them.
 
 **Supersedes:** None
 **Superseded by:** None

@@ -24,7 +24,7 @@
           <span class="timeline__date">{{ entry.dateRange }}</span>
         </div>
         <div class="timeline__desc">
-          <p *ngFor="let desc of entry.description">{{ desc }}</p>
+          <p class="reveal-blur" *ngFor="let desc of entry.description">{{ desc }}</p>
         </div>
         <div class="timeline__tags">
           <span class="pill" *ngFor="let tag of entry.tags">{{ tag }}</span>

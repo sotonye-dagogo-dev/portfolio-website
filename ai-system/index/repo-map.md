@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (design-redesign)
-> - last-verified-against-code: 2026-07-08
+> - last-updated-by: opencode (interaction-effects-sprint)
+> - last-verified-against-code: 2026-07-15
 > - staleness-policy: auto-regenerable — can be derived from `tree` command. Manual content only where intent cannot be derived from structure.
 
 > **Overview:** Visual map of the project folder structure with purpose descriptions. Updated when the folder structure changes. This file is **auto-regenerable** — use tool-based discovery for ground truth, and treat manual entries here as supplementary context, not primary navigation.
@@ -19,7 +19,7 @@ portfolio-website/
 │   ├── app/
 │   │   ├── animations/      → Reusable Angular animations
 │   │   ├── components/      → Reusable UI components (navbar, card, tech-stack, section, footer)
-│   │   ├── directives/      → Custom Angular directives (typing-effect, animated-border, pulsating-effect, image-viewer)
+│   │   ├── directives/      → Custom Angular directives (typing-effect, animated-border, pulsating-effect, image-viewer, image-fade, magnetic-btn)
 │   │   ├── pages/           → Route-level page components (home, about, experience, projects, automation, certificates)
 │   │   ├── content/         → Config-driven content layer (types.ts, *.config.ts, content.service.ts)
 │   │   └── app.component.*  → Root application component
@@ -45,7 +45,7 @@ portfolio-website/
 ├── ai-system/              → AI-assisted development system
 │   ├── designs/             → Visual design contracts (OD-1 through OD-7 + od-system.html redesigned)
 │   ├── docs/                → Design/planning docs (portfolio-revamp-package.md)
-├── .github/workflows/       → GitHub Actions CI/CD workflows
+├── [deployment]            → Netlify UI (connected to GitHub repo); build: `npm run build`, publish: `dist/portfolio-website/browser`, plugin: `@netlify/angular-runtime@4.0.0`, Node 24.18.0
 ├── server.ts                → Express server
 ├── package.json             → Dependencies and scripts
 ├── angular.json             → Angular configuration
@@ -61,7 +61,7 @@ portfolio-website/
 | --------------------- | ------------------------------------------------------- | ------------------------------------------------------------------ |
 | `src/app/`            | Angular application source                              | app.component.ts, main.ts                                          |
 | `src/app/components/` | Reusable UI components                                  | navbar/, card/, tech-stack/, section/, footer/                     |
-| `src/app/directives/` | Custom interaction directives                           | typing-effect/, animated-border/, pulsating-effect/, image-viewer/ |
+| `src/app/directives/` | Custom interaction directives                           | typing-effect/, animated-border/, pulsating-effect/, image-viewer/, image-fade/, magnetic-btn/ |
 | `src/app/pages/`      | Route-level page components                             | home/, about/, experience/, projects/, automation/, certificates/  |
 | `src/app/content/`    | Config-driven content layer (static + enrichment merge) | types.ts, \*.config.ts, content.service.ts                         |
 | `scripts/`            | Standalone utility scripts                              | enrichment.js                                                      |

@@ -40,4 +40,17 @@
     flex-direction: column;
     text-align: center;
   }
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links {
+    gap: var(--space-sm);
+    flex-direction: column;
+    align-items: center;
+  }
 }

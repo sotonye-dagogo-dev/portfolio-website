@@ -47,7 +47,42 @@
 </head>
 
 <body>
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-count" id="loader-count">0%</div>
+      <div class="loader-bar"><div class="loader-bar-fill" id="loader-bar-fill"></div></div>
+    </div>
+  </div>
   <app-root></app-root>
+  <style>
+    #loader {
+      position:fixed;inset:0;z-index:99999;
+      display:flex;align-items:center;justify-content:center;
+      background:#07070a;
+      transition:opacity .6s ease,visibility .6s ease;
+      font-family:'Inter',sans-serif;
+    }
+    #loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+    .loader-inner{text-align:center}
+    .loader-count{
+      font-size:4rem;font-weight:700;
+      letter-spacing:-.04em;
+      color:#f5f4ed;
+      font-family:'Inter',sans-serif;
+      margin-bottom:16px;
+    }
+    .loader-bar{
+      width:200px;height:2px;
+      background:rgba(255,255,255,.1);
+      border-radius:2px;overflow:hidden;margin:0 auto;
+    }
+    .loader-bar-fill{
+      height:100%;width:0%;
+      background:#d3e97a;
+      border-radius:2px;
+      transition:width .3s ease;
+    }
+  </style>
 </body>
 
 </html>

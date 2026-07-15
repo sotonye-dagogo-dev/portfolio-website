@@ -92,8 +92,21 @@ Browser → Angular Router → Component → Template → Rendered View
 | Styling | Tailwind CSS v3.4 + SCSS | Latest |
 | Animations | Angular Animations | — |
 | Enrichment | Node.js script (scripts/enrichment.js) | — |
+| Deployment | Netlify (UI config, no netlify.toml) | — |
 
 ---
+
+## Deployment
+
+| Property | Value |
+|----------|-------|
+| Platform | Netlify (UI config, no `netlify.toml`) |
+| Build command | `npm run build` |
+| Publish directory | `dist/portfolio-website/browser` |
+| Plugin | `@netlify/angular-runtime@4.0.0` |
+| Node version | 24.18.0 |
+| Framework detection | Auto-detected as Angular |
+| CI/CD | Netlify UI connected to GitHub repo — no `.github/workflows/` directory |
 
 ## Known Constraints & Technical Debt
 

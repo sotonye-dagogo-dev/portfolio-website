@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { ContentService } from '../../content/content.service';
 import { ImageViewerDirective } from '../../directives/image-viewer/image-viewer.directive';
 import { AnimatedBorderDirective } from '../../directives/animated-border/animated-border.directive';
+import { ImageFadeDirective } from '../../directives/image-fade/image-fade.directive';
+import { MagneticBtnDirective } from '../../directives/magnetic-btn/magnetic-btn.directive';
 
 @Component({
   selector: 'app-projects',
@@ -13,6 +15,8 @@ import { AnimatedBorderDirective } from '../../directives/animated-border/animat
     RouterModule,
     ImageViewerDirective,
     AnimatedBorderDirective,
+    ImageFadeDirective,
+    MagneticBtnDirective,
   ],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
