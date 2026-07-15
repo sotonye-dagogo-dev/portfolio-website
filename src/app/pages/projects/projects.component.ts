@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { ContentService } from '../../content/content.service';
 import { ImageViewerDirective } from '../../directives/image-viewer/image-viewer.directive';
 import { AnimatedBorderDirective } from '../../directives/animated-border/animated-border.directive';
-import { PulsatingEffectDirective } from '../../directives/pulsating-effect/pulsating-effect.directive';
 
 @Component({
   selector: 'app-projects',
@@ -14,7 +13,6 @@ import { PulsatingEffectDirective } from '../../directives/pulsating-effect/puls
     RouterModule,
     ImageViewerDirective,
     AnimatedBorderDirective,
-    PulsatingEffectDirective,
   ],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
