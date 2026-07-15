@@ -6,7 +6,7 @@
 
   <section class="bio-text reveal">
     <div class="bio-paragraph" *ngFor="let para of content.about.bioParagraphs; let i = index" [class.bio-paragraph--right]="i % 2 === 1">
-      <p appTypingEffect [config]="{mode:'blurReveal',loop:true,typingSpeed:4}" class="reveal-blur">{{ para }}</p>
+      <p appTypingEffect [config]="{mode:'blurReveal',typingSpeed:4}" class="reveal-blur">{{ para }}</p>
     </div>
   </section>
 
