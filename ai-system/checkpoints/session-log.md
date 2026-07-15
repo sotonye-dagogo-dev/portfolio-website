@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (design-redesign)
-> - last-verified-against-code: 2026-07-08
+> - last-updated-by: opencode (scroll-driven-section-level-sprint)
+> - last-verified-against-code: 2026-07-15
 > - staleness-policy: append-only — never modify past entries
 
 > **Overview:** Append-only running log of development sessions. Each entry records what was completed, what comes next, and which files were modified. Agents write here at the end of every session so work can be resumed without re-reading the entire codebase. This file is the **append-only historical record** — use `checkpoints/in-progress.md` for current in-progress work.
@@ -89,3 +89,35 @@ New typefaces (Inter, Playfair Display) are available via Google Fonts. Back-to-
 
 **Notes / Blockers:**
 None — all 8 design files are finalized and ready for implementation.
+
+---
+
+## Session 3 — 2026-07-15
+
+**Completed:**
+- Scroll-driven blur reveal (scrollDriven config, DOM-preserving TreeWalker approach, sticky max progress, faster reveal window)
+- Flow arrows edge-to-edge (flex: 1 + flow-label-cell wrapper)
+- Bidirectional reveal-blur observer (toggle visible on scroll in/out)
+- Bio paragraph wordwrap fix
+- Section-level appTypingEffect preserves zigzag paragraph layout
+- All fixes logged in ai-system/repair-system.md
+
+**Files Modified:**
+- `src/app/directives/typing-effect/typing-effect.directive.ts` — scrollDriven mode, TreeWalker DOM walking, sticky progress
+- `src/app/pages/about/about.component.html` — directive moved to section level
+- `src/app/pages/about/about.component.scss` — wordwrap on bio paragraphs
+- `src/app/pages/automation/automation.component.html` — flow-label-cell wrapper
+- `src/app/pages/automation/automation.component.scss` — flex arrows/spacers
+- `src/app/app.component.ts` — bidirectional reveal observer
+- `ai-system/repair-system.md` — 5 new entries
+- `ai-system/summaries/dev-history.md` — sprint summary added
+- `ai-system/checkpoints/session-log.md` — this entry
+
+**Next Task:**
+Continue responsive polish, accessibility audit, and test coverage.
+
+**Assumptions Made:**
+None
+
+**Notes / Blockers:**
+Full build not run locally (Node v25, node_modules incomplete). Pre-existing TS errors from missing @angular/core module resolution only.

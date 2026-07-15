@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: (set by whichever command is running)
-> - last-verified-against-code: (set on write)
+> - last-updated-by: opencode (scroll-driven-section-level-sprint)
+> - last-verified-against-code: 2026-07-15
 > - staleness-policy: this file is overwritten every session — always current
 
 > **Overview:** Tracks work that is currently in progress but not yet complete. Written _before_ starting risky multi-step work, cleared on clean completion. This is the first file `resume-session.md` reads on interruption — it is the single source of truth for "what was half-done."

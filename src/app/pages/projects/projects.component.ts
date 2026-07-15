@@ -6,6 +6,7 @@ import { ImageViewerDirective } from '../../directives/image-viewer/image-viewer
 import { AnimatedBorderDirective } from '../../directives/animated-border/animated-border.directive';
 import { ImageFadeDirective } from '../../directives/image-fade/image-fade.directive';
 import { MagneticBtnDirective } from '../../directives/magnetic-btn/magnetic-btn.directive';
+import { TypingEffectDirective } from '../../directives/typing-effect/typing-effect.directive';
 
 @Component({
   selector: 'app-projects',
@@ -15,6 +16,7 @@ import { MagneticBtnDirective } from '../../directives/magnetic-btn/magnetic-btn
     RouterModule,
     ImageViewerDirective,
     AnimatedBorderDirective,
+    TypingEffectDirective,
     ImageFadeDirective,
     MagneticBtnDirective,
   ],

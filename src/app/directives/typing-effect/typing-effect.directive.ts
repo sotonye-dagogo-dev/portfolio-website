@@ -57,6 +57,7 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
   private containerWidth: number = 0;
   private maxVisibleChars: number = 0;
   private scrollHandler: (() => void) | null = null;
+  private maxScrollProgress: number = 0;
 
   isBrowser!: boolean;
 
@@ -421,41 +422,61 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
     const element = this.el.nativeElement;
     const blurAmount = this.activeConfig.blurAmount!;
 
-    element.innerHTML = '';
-    this.renderer.setStyle(element, 'white-space', 'pre-wrap');
+    // Walk DOM tree to wrap all text-node characters in <span> elements.
+    // Preserves the existing element structure (classes, nesting, layout).
     this.renderer.setStyle(element, 'word-break', 'break-word');
     this.renderer.setStyle(element, 'overflow-wrap', 'break-word');
 
-    const chars: HTMLSpanElement[] = [];
-    for (const ch of this.originalText) {
-      const span = this.renderer.createElement('span');
-      this.renderer.appendChild(span, this.renderer.createText(ch === ' ' ? '\u00A0' : ch));
-      this.renderer.setStyle(span, 'display', 'inline');
-      this.renderer.setStyle(span, 'transition', 'filter 0.2s ease, opacity 0.2s ease');
-      this.renderer.setStyle(span, 'filter', `blur(${blurAmount})`);
-      this.renderer.setStyle(span, 'opacity', '0.3');
-      this.renderer.appendChild(element, span);
-      chars.push(span);
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const textNodes: Text[] = [];
+    let node: Text | null;
+    while ((node = walker.nextNode() as Text | null)) {
+      const text = node.textContent ?? '';
+      if (!text.trim()) continue;
+      textNodes.push(node);
     }
+
+    const allChars: HTMLSpanElement[] = [];
+    for (const textNode of textNodes) {
+      const text = textNode.textContent ?? '';
+      const fragment = document.createDocumentFragment();
+      for (const ch of text) {
+        const span = this.renderer.createElement('span');
+        span.textContent = ch === ' ' ? '\u00A0' : ch;
+        this.renderer.setStyle(span, 'display', 'inline');
+        this.renderer.setStyle(span, 'transition', 'filter 0.2s ease, opacity 0.2s ease');
+        this.renderer.setStyle(span, 'filter', `blur(${blurAmount})`);
+        this.renderer.setStyle(span, 'opacity', '0.3');
+        fragment.appendChild(span);
+        allChars.push(span);
+      }
+      textNode.parentNode?.replaceChild(fragment, textNode);
+    }
+
+    this.maxScrollProgress = 0;
 
     const updateChars = () => {
       const rect = element.getBoundingClientRect();
       const vh = window.innerHeight;
 
-      // progress 0→1 as element scrolls from bottom-entering to top-exiting
-      const totalTravel = vh + rect.height;
-      const scrolled = vh - rect.top;
-      const progress = Math.max(0, Math.min(1, scrolled / totalTravel));
+      // Faster reveal: progress 0→1 as element scrolls through half the viewport.
+      // This ensures text is fully revealed well before it leaves visible area.
+      const revealWindow = vh * 0.5;
+      const scrolled = vh - rect.bottom;
+      const rawProgress = Math.max(0, Math.min(1, scrolled / revealWindow));
 
-      const revealCount = Math.floor(progress * this.textLength);
+      // Sticky max — once revealed, characters stay revealed (no re-blur on scroll up)
+      this.maxScrollProgress = Math.max(this.maxScrollProgress, rawProgress);
 
-      for (let i = 0; i < chars.length; i++) {
+      const revealCount = Math.floor(this.maxScrollProgress * allChars.length);
+
+      for (let i = 0; i < allChars.length; i++) {
         if (i < revealCount) {
-          this.renderer.setStyle(chars[i], 'filter', 'blur(0)');
-          this.renderer.setStyle(chars[i], 'opacity', '1');
+          this.renderer.setStyle(allChars[i], 'filter', 'blur(0)');
+          this.renderer.setStyle(allChars[i], 'opacity', '1');
         } else {
-          this.renderer.setStyle(chars[i], 'filter', `blur(${blurAmount})`);
-          this.renderer.setStyle(chars[i], 'opacity', '0.3');
+          this.renderer.setStyle(allChars[i], 'filter', `blur(${blurAmount})`);
+          this.renderer.setStyle(allChars[i], 'opacity', '0.3');
         }
       }
     };

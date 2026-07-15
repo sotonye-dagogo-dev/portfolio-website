@@ -1,8 +1,8 @@
 # Repair System — Error Knowledge Base
 
 > **Metadata**
-> - last-updated-by: (set on first entry)
-> - last-verified-against-code: (set after fix verification)
+> - last-updated-by: opencode (scroll-driven-section-level-sprint)
+> - last-verified-against-code: 2026-07-15
 > - staleness-policy: individual entries may be stale if the code has changed around them — verify fix still applies before reusing
 
 > **Overview:** Living knowledge base of errors encountered during development, their root causes, and how they were fixed. Agents must search this before diagnosing new errors and log every fixed bug to prevent recurrence.
@@ -163,5 +163,16 @@
 - Fix: Added `word-break: break-word; overflow-wrap: break-word` to `.bio-paragraph p` in `about.component.scss`.
 - Prevention: Components using the typing-effect directive should ensure their containers have explicit word-break / overflow-wrap to handle narrow viewports.
 - Files Affected: `src/app/pages/about/about.component.scss`
+- Date: 2026-07-15
+- Status: Active
+
+### Section-Level Scroll-Driven Blur Reveal (DOM Structure Preservation)
+
+**Applying scrollDriven blur reveal to a container section (not single element) destroyed child element structure**
+- Symptom: Putting `appTypingEffect` with `mode:'blurReveal',scrollDriven:true` on `<section class="bio-text">` replaced the entire section innerHTML with flat character spans, destroying the `.bio-paragraph` divs with zigzag alignment (`bio-paragraph--right` class). The "zigzag" layout of alternating left/right-aligned paragraphs was lost.
+- Root Cause: The original `startScrollDrivenBlurReveal()` used `element.innerHTML = ''` + flat loop over `this.originalText`, which discards all DOM structure.
+- Fix: Rewrote `startScrollDrivenBlurReveal()` to use `document.createTreeWalker()` to find all text nodes inside the element, wrap each character in a `<span>` while preserving the parent element, class, and nesting structure. Uses `document.createDocumentFragment()` to batch-replace text nodes with character spans. No `innerHTML` replacement. Also changed progress calculation: faster reveal window (element fully reveals after traversing half a viewport, `vh * 0.5` instead of `vh + element.height`), and sticky max progress (once revealed, characters never re-blur on scroll up) — addresses "user couldn't finish reading" feedback.
+- Prevention: When applying scroll-driven effects to container elements, never use `innerHTML` replacement — walk the existing DOM tree and wrap text nodes individually to preserve layout.
+- Files Affected: `src/app/directives/typing-effect/typing-effect.directive.ts`
 - Date: 2026-07-15
 - Status: Active

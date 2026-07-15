@@ -478,6 +478,32 @@ Continue responsive polish, accessibility audit, and test coverage.
 
 ---
 
+## 2026-07-15 — Scroll-Driven Blur Reveal, Flow Arrows, Bidirectional Reveal, Wordwrap
+
+**Summary:**
+Refined the blur reveal system: added `scrollDriven` config mode that uses passive scroll listener + `requestAnimationFrame` to map element viewport progress to character reveal count, with sticky max progress (once revealed never re-blurs). Rewrote `startScrollDrivenBlurReveal()` to use `TreeWalker` DOM walking instead of `innerHTML` replacement, preserving nested element structure (paragraph divs, zigzag classes). Progress window shortened to half a viewport for faster complete reveal. Flow diagram arrows changed from fixed 36px to `flex: 1` so connector lines stretch edge-to-edge between boxes, with matching `flow-label-cell` wrapper for label track alignment. `IntersectionObserver` made bidirectional for `.reveal-blur` elements (visible toggles on scroll in/out). Word-break CSS added to bio paragraphs.
+
+**Completed:**
+- `TypingEffectConfig.scrollDriven` — scroll-driven blur reveal with `requestAnimationFrame` + passive scroll listener
+- `startScrollDrivenBlurReveal()` — now walks DOM tree via `TreeWalker`, wraps text nodes in character spans without destroying structure
+- Sticky max progress — characters never re-blur once revealed (solves "can't finish reading" issue)
+- Faster reveal window — fully revealed after traversing half a viewport instead of full viewport + element height
+- Flow arrows + spacers: `flex: 1; min-width: 36px` to stretch edge-to-edge
+- `.flow-label-cell` wrapper — `min-width: 80px; flex-shrink: 0` to match box width for label track alignment
+- Bidirectional `.reveal-blur` observer — `visible` class toggles on scroll in/out (non-reveal-blur elements still one-time)
+- Wordwrap: `word-break: break-word; overflow-wrap: break-word` on `.bio-paragraph p`
+
+**Key Changes:**
+- DOM-preserving approach for container-level directives (no `innerHTML` replacement)
+- Flex-based connector arrows (no more fixed-width gaps in flow diagram)
+- Observer bifurcation: one-time vs bidirectional behavior via CSS class check
+- Repair-system.md entries for all fixes
+
+**Next Sprint Focus:**
+Continue responsive polish, accessibility audit, and test coverage.
+
+---
+
 ## 2026-07-15 — Blur Reveal Effect, Dynamic Stats & Footer Year
 
 **Summary:**
