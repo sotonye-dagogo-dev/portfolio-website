@@ -12,7 +12,7 @@
 
   <section class="principle-grid stagger-children reveal">
     <div class="principle-card" *ngFor="let principle of content.about.philosophy">
-      <div class="principle-card__icon">{{ principle.icon }}</div>
+      <div class="principle-card__icon"><fa-icon [icon]="fa(principle.icon)" size="lg"></fa-icon></div>
       <h3 class="principle-card__title">{{ principle.title }}</h3>
       <p class="principle-card__desc reveal-blur">{{ principle.description }}</p>
     </div>
@@ -22,7 +22,7 @@
     <p class="section-label" style="text-align:center;margin-bottom:var(--space-xl)">How I Build</p>
     <div class="how-i-build__list stagger-children reveal">
       <div class="how-i-build__item" *ngFor="let item of content.about.howIBuild">
-        <div class="how-i-build__icon">{{ item.icon }}</div>
+        <div class="how-i-build__icon"><fa-icon [icon]="fa(item.icon)" size="lg"></fa-icon></div>
         <div class="how-i-build__body">
           <h3 class="how-i-build__title">{{ item.title }}</h3>
           <p class="how-i-build__desc reveal-blur">{{ item.description }}</p>
@@ -33,8 +33,12 @@
 
   <section class="contact-row reveal">
     <a *ngFor="let link of content.about.contactLinks" [href]="link.url" class="contact-link" target="_blank" rel="noopener" appMagneticBtn>
-      <span class="contact-link__icon">{{ link.icon }}</span>
+      <span class="contact-link__icon"><fa-icon [icon]="fa(link.icon)" size="sm"></fa-icon></span>
       {{ link.label }}
+    </a>
+    <a *ngIf="content.site.cvUrl" [href]="content.site.cvUrl" target="_blank" rel="noopener" class="contact-link contact-link--cv" appMagneticBtn>
+      <span class="contact-link__icon"><fa-icon [icon]="fa('download')" size="sm"></fa-icon></span>
+      Download CV
     </a>
   </section>
 

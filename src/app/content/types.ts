@@ -5,6 +5,8 @@ export interface SiteConfig {
   availability: string;
   firstName: string;
   lastName: string;
+  cvUrl?: string;
+  experienceStartYear?: number;
   cta: {
     primary: { label: string; route: string };
     secondary: { label: string; route: string };
@@ -18,6 +20,7 @@ export interface SiteConfig {
 export interface StatItem {
   label: string;
   value: string;
+  dynamic?: boolean;
 }
 
 export interface QuickNavItem {

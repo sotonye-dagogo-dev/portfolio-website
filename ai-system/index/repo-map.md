@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (interaction-effects-sprint)
-> - last-verified-against-code: 2026-07-15
+> - last-updated-by: opencode (fa-icon-config-polish-sprint)
+> - last-verified-against-code: 2026-07-15 (verified during this sprint)
 > - staleness-policy: auto-regenerable — can be derived from `tree` command. Manual content only where intent cannot be derived from structure.
 
 > **Overview:** Visual map of the project folder structure with purpose descriptions. Updated when the folder structure changes. This file is **auto-regenerable** — use tool-based discovery for ground truth, and treat manual entries here as supplementary context, not primary navigation.
@@ -22,6 +22,7 @@ portfolio-website/
 │   │   ├── directives/      → Custom Angular directives (typing-effect, animated-border, pulsating-effect, image-viewer, image-fade, magnetic-btn)
 │   │   ├── pages/           → Route-level page components (home, about, experience, projects, automation, certificates)
 │   │   ├── content/         → Config-driven content layer (types.ts, *.config.ts, content.service.ts)
+│   │   ├── shared/          → Shared utilities (icon-utils.ts — central FA icon map + fa() resolver)
 │   │   └── app.component.*  → Root application component
 │   ├── main.ts              → Angular app bootstrap
 │   ├── main.server.ts       → Angular SSR server entry
@@ -64,6 +65,7 @@ portfolio-website/
 | `src/app/directives/` | Custom interaction directives                           | typing-effect/, animated-border/, pulsating-effect/, image-viewer/, image-fade/, magnetic-btn/ |
 | `src/app/pages/`      | Route-level page components                             | home/, about/, experience/, projects/, automation/, certificates/  |
 | `src/app/content/`    | Config-driven content layer (static + enrichment merge) | types.ts, \*.config.ts, content.service.ts                         |
+| `src/app/shared/`     | Shared utility modules                                 | icon-utils.ts (central FA icon map + fa() resolver)               |
 | `scripts/`            | Standalone utility scripts                              | enrichment.js                                                      |
 | `src/app/animations/` | Animation utilities                                     | fade.animation.ts, slide.animation.ts                              |
 | `public/`             | Static assets and images                                | Various project/certificate images                                 |

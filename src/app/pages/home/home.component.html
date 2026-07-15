@@ -87,7 +87,7 @@
     <h2 class="section-label reveal">Explore</h2>
     <div class="quick-nav-grid stagger-children reveal">
       <a class="quick-nav-card" *ngFor="let nav of content.quickNav" [routerLink]="nav.route" appMagneticBtn>
-        <div class="quick-nav-card__icon">{{ nav.icon }}</div>
+        <div class="quick-nav-card__icon"><fa-icon [icon]="fa(nav.icon)" size="lg"></fa-icon></div>
         <div class="quick-nav-card__title">{{ nav.title }}</div>
         <div class="quick-nav-card__desc">{{ nav.description }}</div>
       </a>

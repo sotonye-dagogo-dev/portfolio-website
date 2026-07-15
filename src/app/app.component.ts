@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
           takeUntil(this.destroy$)
         )
         .subscribe(() => {
-          setTimeout(() => this.observeRevealElements(), 50);
+          setTimeout(() => this.observeRevealElements(), 250);
         });
     }
   }
@@ -138,6 +138,13 @@ export class AppComponent implements OnInit, OnDestroy {
     const btn = document.getElementById('back-to-top');
     if (btn) {
       btn.classList.toggle('visible', window.scrollY > 400);
+    }
+    const bg = document.getElementById('hero-bg');
+    if (bg) {
+      const scrollY = window.scrollY;
+      const translateY = scrollY * -0.15;
+      const tilt = Math.min(scrollY * 0.02, 8);
+      bg.style.transform = `translateY(${translateY}px) rotate(${tilt}deg)`;
     }
   }
 

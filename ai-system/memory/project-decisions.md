@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (design-token-polish-sprint)
-> - last-verified-against-code: 2026-07-15
+> - last-updated-by: opencode (fa-icon-config-polish-sprint)
+> - last-verified-against-code: 2026-07-15 (verified during this sprint)
 > - staleness-policy: each entry has its own staleness — check supersedes links
 
 > **Overview:** Log of significant architectural, technical, and product decisions. Agents consult this before proposing changes to avoid contradicting prior reasoning. Uses supersedes/superseded-by links so contradictory entries are explicitly resolved rather than both appearing equally valid.
@@ -138,22 +138,65 @@ The constrained layout of `page-sm` made the About page feel cramped for both th
 - Bio paragraphs use `.bio-paragraph--right` class for alternating alignment.
 - No breakage expected since all spacing is relative to container width.
 
-## Emoji-Free Icon System for Configs
+## FontAwesome Icon System via Central Resolver
 
-**Decision:** Removed all emoji icons from site.config.ts, about.config.ts, and automation.config.ts. Replaced with monospace text labels: quick nav icons "[A]", "[E]", "[P]", "[S]", "[C]"; philosophy icons "{ }", "#", "~"; automation feature icons "~", "[ ]", "{ }". Also updated related copy: "Open Design/Open Code" → "AI design tools/AI coding agents", footer builtWith "Open Design" → "AI-Assisted Delivery", automation flow labels renamed.
+**Decision:** Replaced all text/mono icon labels with FontAwesome icon definitions resolved through a central `icon-utils.ts` map. Created `src/app/shared/icon-utils.ts` with a `fa()` function that takes a string name and returns an `IconDefinition`. All templates use `<fa-icon [icon]="fa(iconName)">`. Config `icon` fields now store FA string names (e.g., `'user'`, `'briefcase'`, `'folder'`, `'gears'`, `'certificate'`, `'cube'`, `'hashtag'`, `'code'`, `'robot'`).
 **Date:** 2026-07-15
 **Made by:** Developer
-**Supersedes:** Previous emoji-based icon system.
+**Supersedes:** Emoji-Free Icon System for Configs (mono labels).
 **Superseded by:** None
 
 **Reason:**
-Emoji rendering varies significantly across platforms and can appear unprofessional in a technical portfolio context. Monospace text labels are predictable, theme-consistent (respect `--font-mono`), and avoid the "junior developer" aesthetic. The copy changes align terminology with the actual tools used (AI design tools, AI coding agents) rather than the internal Open Design/Open Code product names.
+Mono text labels (`[A]`, `{ }`, `#`, `~`) were visually sterile and did not provide immediate semantic recognition. FontAwesome icons are universally recognised, theme-consistent (respect currentColor), and already available as a dependency from the earlier 1.x migration. A central resolver avoids importing individual icons in every component and keeps the icon catalog in one place with a simple string API.
 
 **Alternatives Considered:**
-- FontAwesome icons — already available but add weight and complexity for simple indicators.
-- CSS-drawn icons — over-engineering for what are essentially category markers.
-- Keeping emojis — inconsistent rendering across OS/browser combinations.
+- Keeping mono text labels — visually sterile, low information density.
+- Inline SVGs — no shared catalog, harder to maintain.
+- Individual FA icon imports per component — lots of boilerplate; changing icons requires updating imports everywhere.
 
 **Implications:**
-- All config-driven icon slots now expect string labels, not emoji characters.
-- The mono-box styling (`.contact-link__icon`, `.principle-card__icon`, `.quick-nav-card__icon`) uses `--font-mono` for consistent rendering.
+- Config `icon` fields changed from text/mono labels to FA icon string names.
+- All icon-consuming components import `FontAwesomeModule` and use `<fa-icon>`.
+- `icon-utils.ts` is the single source of truth for which icons are available.
+- Icon containers restyled: `display: inline-flex`, fixed 48×48px box, accent background/border.
+- Automation flow arrows use `fa-chevron-right` instead of HTML entity `▶`.
+- `font-family: var(--font-mono)` removed from icon container CSS.
+
+## CV Download Button (Config-Driven)
+
+**Decision:** Added `cvUrl?: string` to `SiteConfig` type with a download button on the About page's contact row. The button only renders when `cvUrl` is set, styled as a filled accent button with a download FA icon.
+**Date:** 2026-07-15
+**Made by:** Developer
+**Supersedes:** None
+**Superseded by:** None
+
+**Reason:**
+Recruiters visiting the About page commonly look for a CV/resume download. Making it config-driven avoids hardcoding a URL and lets the enrichment script or deployment build overwrite the value without touching the component code.
+
+**Alternatives Considered:**
+- Placing it in the nav — too prominent; the About page is the natural context.
+- Hardcoding in About component — violates config-driven principle.
+
+**Implications:**
+- Uses `*ngIf="content.site.cvUrl"` to conditionally render.
+- Styled as a filled button with `fa-download` icon, consistent with contact row pill style.
+
+## Auto-Calculated Years Experience
+
+**Decision:** Added `dynamic?: boolean` to `StatItem` and `experienceStartYear?: number` to `SiteConfig`. The `content.service.ts` stats getter computes years experience as `new Date().getFullYear() - startYear + '+'` when `dynamic: true` and the label matches `'Years Experience'`.
+**Date:** 2026-07-15
+**Made by:** Developer
+**Supersedes:** Previously static `'6+'` value in site.config.ts.
+**Superseded by:** None
+
+**Reason:**
+The years experience value needs to stay current without manual updates. Computing it from a start year ensures it auto-increments every calendar year without a deployment change.
+
+**Alternatives Considered:**
+- Static value updated yearly — forgettable, often stale.
+- Server-side computation — over-engineered for a static portfolio.
+
+**Implications:**
+- Set `experienceStartYear: 2020` in site.config.ts.
+- Stats with `dynamic: true` are resolved at runtime in the getter.
+- Static fallback label `'6+'` remains for contexts that don't use the dynamic path.

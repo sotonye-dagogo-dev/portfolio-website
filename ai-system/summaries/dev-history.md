@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (design-token-polish-sprint)
-> - last-verified-against-code: 2026-07-15
+> - last-updated-by: opencode (fa-icon-config-polish-sprint)
+> - last-verified-against-code: 2026-07-15 (verified during this sprint)
 > - staleness-policy: historical entries do not go stale
 
 > **Overview:** Chronological log of completed development work. Each sprint ends with a summary entry. Agents add entries after completing tasks. Useful for understanding what has been built, when decisions were made, and what patterns have emerged.
@@ -335,6 +335,73 @@ Debugged and resolved three Netlify build failures identified from the deploy lo
 
 **Next Sprint Focus:**
 Continue responsive polish, accessibility audit, and test coverage.
+
+---
+
+## 2026-07-15 — FontAwesome Icon System & Layout Polish Sprint
+
+**Summary:**
+Replaced all text/mono icon labels (`[A]`, `{ }`, `#`, `~`, `'</>'`) across config files and templates with FontAwesome icon definitions via a central `icon-utils.ts` resolver. Created `src/app/shared/icon-utils.ts` with a string-to-IconDefinition map (18 icons) and `fa()` resolver function. Updated 4 pages (home, about, automation, projects) to use `<fa-icon [icon]="fa(iconName)">`. Restyled icon containers with fixed 48×48px boxes, accent background/border. Replaced HTML entity `▶` with `fa-chevron-right` in the automation flow diagram. Contact links now use FA icons instead of mono labels.
+
+**Completed:**
+
+- Created `src/app/shared/icon-utils.ts` — central icon map + `fa()` resolver
+- Updated config icon fields from mono text labels to FA string names (`user`, `briefcase`, `folder`, `gears`, `certificate`, `cube`, `hashtag`, `code`, `robot`)
+- Updated home, about, automation, projects templates to use `<fa-icon>` with `fa()` resolver
+- Restyled icon containers: `.quick-nav-card__icon`, `.principle-card__icon`, `.feature-card__icon`, `.how-i-build__icon` — inline-flex, 48×48px, accent bg/border
+- Automation flow arrows: replaced `▶` with `fa-chevron-right`
+- Contact link icons: replaced text mono labels with FA icons
+- Cleaned `font-family: var(--font-mono)` from all icon container CSS
+
+**Key Changes:**
+
+- FontAwesome now used for all icons across the site via a single resolver function
+- Config `icon` fields now use FA icon string names (not emoji or mono labels)
+- All templates use `<fa-icon>` with `FontAwesomeModule` imported per component
+- Icon containers visually consistent: fixed square, accent styling
+
+**Next Sprint Focus:**
+CV link config integration, dynamic years experience calculation, availability glow CSS animation.
+
+---
+
+## 2026-07-15 — Configuration & Visual Polish Sprint (CV, Dynamics, Visual Tuning)
+
+**Summary:**
+Added `cvUrl` and `experienceStartYear` to SiteConfig, auto-calculating years experience from a start year, and implemented CSS-only availability glow as a fallback animation. Refined dark mode surface/border contrast, reduced footer spacing, tuned hero background opacity and parallax, improved light mode navbar contrast, and added glassmorphism to mobile drawer/nav overlay. Increased blur-reveal setTimeout from 50→250ms for reliable post-navigation observation.
+
+**Completed:**
+
+- Added `cvUrl?: string` and `experienceStartYear?: number` to `SiteConfig` type
+- Added `cvUrl` and `experienceStartYear: 2020` to `site.config.ts`
+- About page: CV download button added to contact row (accent button with download FA icon)
+- Added `dynamic?: boolean` to `StatItem` type; content.service.ts computes years from `experienceStartYear`
+- Added `@keyframes availability-glow` CSS animation on `.availability-dot` and `.currently-dot`
+- Dark mode: surface changed from `oklch(12%)` → `16%` (more contrast against `7%` bg); border `18%` → `22%`
+- Footer: `margin-top` reduced from `--space-4xl` to `--space-3xl`; padding `--space-3xl` → `--space-2xl`
+- Mobile footer links: `1fr 1fr` → `repeat(3, 1fr)`
+- Page-header mobile padding: `--space-2xl` top / `--space-lg` bottom (768px); `--space-xl` / `--space-md` (480px)
+- Home: section padding reduced to `--space-2xl` on mobile
+- Hero background opacity: light `0.12`→`0.14`, dark `0.2`→`0.23`
+- Scroll parallax moved from `home.component.ts` to `app.component.ts`; `translateY(scrollY * -0.15)` + tilt up to 8deg
+- Home component: removed `HostListener`, `Inject`, `Renderer2`
+- Light mode nav link color: `rgba(0,0,0,0.65)` (was too-light `var(--muted)` → `oklch(50%)`)
+- Mobile drawer: light mode bg `rgba(250,249,244,0.85)` with `backdrop-filter`; dark mode `rgba(7,7,10,0.85)`
+- Nav overlay: light mode `rgba(0,0,0,0.15)` (was uniform `rgba(0,0,0,0.4)`)
+- Blur reveal `setTimeout` after `NavigationEnd`: 50ms → 250ms
+
+**Key Changes:**
+
+- CV download button on About page (config-driven via `cvUrl`)
+- Years experience auto-calculated from config's `experienceStartYear` when `dynamic: true`
+- Availability glow entirely replicable via CSS (existing directive runs alongside)
+- Hero parallax centralised in `app.component.ts` instead of per-page
+- Dark mode surface/border contrast improved (less muddy)
+- Navbar light mode readability fixed
+- Mobile drawer and overlay now use glassmorphism
+
+**Next Sprint Focus:**
+Continue responsive polish, accessibility audit, test coverage, and deployment verification.
 
 ---
 

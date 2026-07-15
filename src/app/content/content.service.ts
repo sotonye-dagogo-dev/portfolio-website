@@ -50,7 +50,14 @@ export class ContentService {
   }
 
   get stats(): StatItem[] {
-    return this.overrideArray(statsConfig, 'stats');
+    const base = this.overrideArray(statsConfig, 'stats');
+    return base.map(s => {
+      if (s.dynamic && s.label === 'Years Experience' && siteConfig.experienceStartYear) {
+        const years = new Date().getFullYear() - siteConfig.experienceStartYear;
+        return { ...s, value: years + '+' };
+      }
+      return s;
+    });
   }
 
   get quickNav(): QuickNavItem[] {
