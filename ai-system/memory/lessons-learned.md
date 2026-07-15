@@ -1,8 +1,8 @@
 # Lessons Learned
 
 > **Metadata**
-> - last-updated-by: opencode (design-token-polish-sprint)
-> - last-verified-against-code: 2026-07-15
+> - last-updated-by: opencode (fa-icon-config-polish-sprint)
+> - last-verified-against-code: 2026-07-15 (verified during this sprint)
 > - staleness-policy: each entry has its own staleness — check supersedes links
 
 > **Overview:** Practical knowledge accumulated during development — things that worked well, things that didn't, and patterns worth repeating. Different from `repair-system.md` (tracks errors); this file tracks development process insights and architectural wisdom. Uses supersedes/superseded-by links for evolving practices.
@@ -97,6 +97,34 @@ When adding a new CSS scroll-reveal class, you must update both the CSS transiti
 
 **Apply When:**
 Adding any new scroll-reveal class (e.g., a new `.reveal-*` variant). Always update `observeRevealElements()` selector in the same commit that adds the CSS. Check whether existing elements use only the new class or are paired with an already-observed class — only the former will break.
+
+**Supersedes:** None
+**Superseded by:** None
+
+## Central Icon Resolver Avoids Import Boilerplate
+
+**Context:**
+Migrating from text/mono icon labels to FontAwesome icons across home, about, automation, and projects pages. Each component would have needed individual FA icon imports for every icon it uses.
+
+**What We Learned:**
+Creating a single `src/app/shared/icon-utils.ts` with a `fa(iconName: string): IconDefinition | null` resolver function centralises all icon imports in one file. Components only import the resolver and call `fa('iconName')` in templates. This eliminates per-component icon import boilerplate and makes icon catalogue changes a single-file edit. The pattern also enables config-driven icons — the config file stores a string name that maps directly through the resolver.
+
+**Apply When:**
+Any Angular project using FontAwesome across multiple components. Create a central icon map file with a resolver function, import `FontAwesomeModule` per component, and use `<fa-icon [icon]="fa(name)">` in templates. Keep the resolver path consistent so all components import from the same source.
+
+**Supersedes:** None
+**Superseded by:** None
+
+## Add CSS Fallbacks Even When a Directive Exists
+
+**Context:**
+The pulsating effect on the availability badge was implemented as an Angular directive (`PulsatingEffectDirective`). During the visual polish sprint, we added a pure CSS `@keyframes availability-glow` animation on the same elements as a visual fallback that runs immediately, without waiting for Angular bootstrapping.
+
+**What We Learned:**
+Directives run after Angular bootstraps and may not fire during SSR/prerendering or on slow connections. A CSS `@keyframes` animation on the same element provides instant visual feedback regardless of framework state. The directive can add additional behaviour on top (e.g., dynamic intensity), but the base effect should live in CSS when possible. For the availability glow specifically, both the CSS animation and the directive now coexist — CSS handles the glow loop, directive handles any programmatic extras.
+
+**Apply When:**
+Adding any visual effect that is also implemented as an Angular directive. Consider whether a pure CSS equivalent would work as a fallback or baseline. If so, define the `@keyframes` in the component's SCSS and let the directive add enhancements rather than own the effect outright.
 
 **Supersedes:** None
 **Superseded by:** None

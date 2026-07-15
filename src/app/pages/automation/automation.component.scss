@@ -100,8 +100,11 @@
 .flow-arrow__head {
   position: relative;
   z-index: 1;
-  font-size: .6rem;
   color: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
 }
 
 .features-section {
@@ -135,10 +138,16 @@
 }
 
 .feature-card__icon {
-  font-family: var(--font-mono);
-  font-size: 1.5rem;
-  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
   margin-bottom: var(--space-md);
+  border-radius: var(--radius-xl);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-glow);
+  color: var(--accent);
 }
 
 .feature-card__name {

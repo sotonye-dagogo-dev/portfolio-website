@@ -20,7 +20,7 @@
           <span class="flow-node__status" *ngIf="node.status">{{ node.status }}</span>
         </div>
         <div class="flow-arrow" *ngIf="!last">
-          <span class="flow-arrow__head">&#9654;</span>
+          <fa-icon [icon]="fa('chevron')" size="sm" class="flow-arrow__head"></fa-icon>
         </div>
       </ng-container>
     </div>
@@ -39,7 +39,7 @@
          target="_blank"
          rel="noopener"
          class="feature-card" appMagneticBtn>
-        <div class="feature-card__icon">{{ feature.icon }}</div>
+        <div class="feature-card__icon"><fa-icon [icon]="fa(feature.icon)" size="lg"></fa-icon></div>
         <h2 class="feature-card__name">{{ feature.name }}</h2>
         <p class="feature-card__purpose reveal-blur">{{ feature.purpose }}</p>
         <div class="feature-card__tags">

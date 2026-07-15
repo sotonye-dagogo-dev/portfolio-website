@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (design-token-polish-sprint)
-> - last-verified-against-code: 2026-07-15
+> - last-updated-by: opencode (fa-icon-config-polish-sprint)
+> - last-verified-against-code: 2026-07-15 (verified during this sprint)
 > - staleness-policy: re-verify if project scope or phase changes
 
 > **Overview:** High-level feature checklist organized by development phase. See `planning/task-queue.md` for granular, sprint-level tasks.
@@ -50,6 +50,40 @@
 - [x] Angular 18→19 upgrade + FontAwesome 1.x migration
 - [x] Theme tokens synced between tailwind.config.js, styles.scss, and OD-7
 - [x] Enrichment script (scripts/enrichment.js) for GitHub API data
+
+---
+
+## Phase 8 — FontAwesome Icon System Migration
+
+- [x] Created `src/app/shared/icon-utils.ts` — central icon map + `fa()` resolver with 18 icons
+- [x] Config icon fields changed from mono text labels to FA string names
+- [x] Home, about, automation, projects templates updated to `<fa-icon>` with `fa()` resolver
+- [x] Icon containers restyled (inline-flex, 48×48px, accent bg/border)
+- [x] Automation flow arrows: HTML `▶` replaced with `fa-chevron-right`
+- [x] Contact link icons: mono labels replaced with FA icons
+- [x] CSS cleaned: `font-family: var(--font-mono)` removed from icon containers
+
+---
+
+## Phase 9 — Configuration & Visual Polish
+
+- [x] Added `cvUrl?: string` + `experienceStartYear?: number` to `SiteConfig`
+- [x] About CV download button (config-driven, accent button + FA icon)
+- [x] Auto-calculate years experience (`dynamic` flag + `experienceStartYear`)
+- [x] CSS `@keyframes availability-glow` animation on availability dots
+- [x] Dark mode: surface `12%`→`16%`, border `18%`→`22%`
+- [x] Footer spacing reduced (margin-top `--space4xl`→`--space-3xl`, padding `--space-3xl`→`--space-2xl`)
+- [x] Mobile footer links grid: `1fr 1fr` → `repeat(3, 1fr)`
+- [x] Page-header mobile padding reduced (768px: `--space-2xl`/`--space-lg`, 480px: `--space-xl`/`--space-md`)
+- [x] Home section padding reduced to `--space-2xl` on mobile
+- [x] Hero background opacity increased (light `0.12`→`0.14`, dark `0.2`→`0.23`)
+- [x] Scroll parallax moved from home → app component (`translateY(scrollY * -0.15)` + 8deg tilt)
+- [x] Home component cleaned up (removed HostListener, Inject, Renderer2)
+- [x] Light mode nav link color: `rgba(0,0,0,0.65)` (was too-light `var(--muted)`)
+- [x] Light mode nav bg: `rgba(250,249,244,0.65)`
+- [x] Mobile drawer glassmorphism (light `rgba(250,249,244,0.85)`, dark `rgba(7,7,10,0.85)`)
+- [x] Nav overlay light mode: `rgba(0,0,0,0.15)` (was uniform `rgba(0,0,0,0.4)`)
+- [x] Blur reveal setTimeout 50ms → 250ms after NavigationEnd
 
 ---
 

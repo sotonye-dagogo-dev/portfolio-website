@@ -7,6 +7,8 @@ export const siteConfig: SiteConfig = {
   availability: 'Available for new opportunities',
   firstName: 'Sotonye',
   lastName: 'Dagogo',
+  cvUrl: 'https://outlook.office.com/path-to-cv', /* REPLACE with actual CV URL */
+  experienceStartYear: 2020,
   cta: {
     primary: { label: 'View My Work', route: '/projects' },
     secondary: { label: 'My Journey', route: '/experience' },
@@ -20,14 +22,14 @@ export const siteConfig: SiteConfig = {
 export const statsConfig: StatItem[] = [
   { label: 'Projects', value: '10+' },
   { label: 'Technologies', value: '25+' },
-  { label: 'Years Experience', value: '5+' },
+  { label: 'Years Experience', value: '6+', dynamic: true },
   { label: 'Certificates', value: '6+' },
 ];
 
 export const quickNavConfig: QuickNavItem[] = [
-  { title: 'About', description: 'Engineering philosophy & background', route: '/about', icon: '[A]' },
-  { title: 'Experience', description: 'Career timeline & leadership', route: '/experience', icon: '[E]' },
-  { title: 'Projects', description: 'Platforms, tools & experiments', route: '/projects', icon: '[P]' },
-  { title: 'Automation', description: 'AI-assisted delivery systems', route: '/automation', icon: '[S]' },
-  { title: 'Certificates', description: 'Professional certifications', route: '/certificates', icon: '[C]' },
+  { title: 'About', description: 'Engineering philosophy & background', route: '/about', icon: 'user' },
+  { title: 'Experience', description: 'Career timeline & leadership', route: '/experience', icon: 'briefcase' },
+  { title: 'Projects', description: 'Platforms, tools & experiments', route: '/projects', icon: 'folder' },
+  { title: 'Automation', description: 'AI-assisted delivery systems', route: '/automation', icon: 'gears' },
+  { title: 'Certificates', description: 'Professional certifications', route: '/certificates', icon: 'certificate' },
 ];

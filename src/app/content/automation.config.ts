@@ -11,7 +11,7 @@ export const automationFlow: FlowNode[] = [
 
 export const automationFeatures: AutomationFeature[] = [
   {
-    icon: '~',
+    icon: 'gears',
     name: 'ai-system-template',
     purpose: 'Standardized AI system directory structure for consistent agent handoff and documentation across all projects.',
     tags: ['Template', 'AI', 'Documentation'],
@@ -19,7 +19,7 @@ export const automationFeatures: AutomationFeature[] = [
     repoUrl: 'https://github.com/Sotonye0808/ai-system-template',
   },
   {
-    icon: '[ ]',
+    icon: 'cube',
     name: 'default-template',
     purpose: 'Zero-config starter template with pre-configured AI agent instructions, CI/CD, and design system integration.',
     tags: ['Starter', 'Boilerplate', 'CLI'],
@@ -27,7 +27,7 @@ export const automationFeatures: AutomationFeature[] = [
     repoUrl: 'https://github.com/Sotonye0808/default-template',
   },
   {
-    icon: '{ }',
+    icon: 'code',
     name: '.github-workflows',
     purpose: 'Reusable CI/CD workflows for automated testing, deployment, and AI-assisted code review pipelines.',
     tags: ['CI/CD', 'GitHub Actions', 'Automation'],
