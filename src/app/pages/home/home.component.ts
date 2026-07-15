@@ -5,6 +5,7 @@ import { ContentService } from '../../content/content.service';
 import { TypingEffectDirective } from '../../directives/typing-effect/typing-effect.directive';
 import { AnimatedBorderDirective } from '../../directives/animated-border/animated-border.directive';
 import { PulsatingEffectDirective } from '../../directives/pulsating-effect/pulsating-effect.directive';
+import { ImageViewerDirective } from '../../directives/image-viewer/image-viewer.directive';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ import { PulsatingEffectDirective } from '../../directives/pulsating-effect/puls
     TypingEffectDirective,
     AnimatedBorderDirective,
     PulsatingEffectDirective,
+    ImageViewerDirective,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

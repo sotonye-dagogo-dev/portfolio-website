@@ -1,5 +1,13 @@
 <footer class="footer">
-  <div class="footer-container">
-    <p class="copyright">&copy; {{ content.site.footer.copyright }} &mdash; Built with {{ content.site.footer.builtWith }}</p>
+  <div class="footer-inner">
+    <div class="footer-copy">&copy; {{ content.site.footer.copyright }}</div>
+    <div class="footer-links">
+      <a routerLink="/">Home</a>
+      <a routerLink="/about">About</a>
+      <a routerLink="/experience">Experience</a>
+      <a routerLink="/projects">Projects</a>
+      <a routerLink="/automation">Automation</a>
+      <a routerLink="/certificates">Certificates</a>
+    </div>
   </div>
 </footer>

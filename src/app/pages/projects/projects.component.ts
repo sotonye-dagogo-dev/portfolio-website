@@ -27,4 +27,11 @@ export class ProjectsComponent {
   toggleArchive(): void {
     this.archiveOpen = !this.archiveOpen;
   }
+
+  scrollGallery(id: string, amount: number): void {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+  }
 }

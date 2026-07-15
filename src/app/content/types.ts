@@ -30,6 +30,7 @@ export interface QuickNavItem {
 export interface TechItem {
   name: string;
   color: string;
+  icon?: string;
 }
 
 export interface ProjectEntry {

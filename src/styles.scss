@@ -3,25 +3,34 @@
 @use "tailwindcss/utilities" as *;
 
 /* ==================================================================
-   THEME TOKENS (maps to OD-7 Shell Reference)
+   THEME TOKENS (maps to OD-7 Shell Reference — single source of truth)
    ================================================================== */
 :root {
-  --color-primary: #ff6b6b;
-  --color-primary-dark: #ff8787;
-  --color-accent: #daa520;
-  --color-accent-hover: #b8860b;
-  --color-bg: #f3f4f6;
-  --color-surface: #ffffff;
-  --color-surface-hover: #f0f0f0;
-  --color-text: #111827;
-  --color-text-muted: #6b7280;
-  --color-border: #e5e7eb;
-  --radius: 8px;
+  --bg: oklch(97.7% 0.006 90);
+  --surface: oklch(100% 0 0);
+  --fg: oklch(14% 0.018 200);
+  --muted: oklch(50% 0.012 200);
+  --border: oklch(89% 0.006 90);
+  --accent: oklch(58% 0.25 30);
+  --accent-hover: oklch(52% 0.25 30);
+  --accent-glow: rgba(255,72,0,0.12);
+  --accent-soft: rgba(255,72,0,0.06);
+  --accent-strong: rgba(255,72,0,0.2);
+  --available: oklch(58% 0.18 145);
+  --available-glow: rgba(34,197,94,0.15);
+  --font-display: 'Canela','Ampersand','Iowan Old Style','Georgia',serif;
+  --font-body: 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono: 'JetBrains Mono','SF Mono',Menlo,monospace;
+  --radius: 6px;
   --radius-lg: 12px;
   --radius-xl: 16px;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.1);
-  --shadow-lg: 0 8px 30px rgba(0,0,0,.12);
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-full: 9999px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.12);
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -29,46 +38,140 @@
   --space-xl: 32px;
   --space-2xl: 48px;
   --space-3xl: 64px;
-  --font-sans: 'Roboto', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+  --type-xs: .7rem;
+  --type-sm: .85rem;
+  --type-base: 1rem;
+  --type-lg: 1.125rem;
+  --type-xl: 1.25rem;
+  --type-2xl: 1.5rem;
+  --type-3xl: 2rem;
+  --type-4xl: 2.5rem;
+  --type-5xl: 3.5rem;
+  --type-6xl: 5rem;
+  --nav-h: 72px;
+  --ease-expo: cubic-bezier(0.16,1,0.3,1);
+  --ease-in-out: cubic-bezier(0.65,0,0.35,1);
 }
 
-.dark,
 [data-theme="dark"] {
-  --color-primary: #ff8787;
-  --color-accent: #daa520;
-  --color-accent-hover: #e6b800;
-  --color-bg: #1f2937;
-  --color-surface: #374151;
-  --color-surface-hover: #4b5563;
-  --color-text: #f9fafb;
-  --color-text-muted: #9ca3af;
-  --color-border: #4b5563;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.35);
-  --shadow-lg: 0 8px 30px rgba(0,0,0,.4);
+  --bg: oklch(6% 0.006 240);
+  --surface: oklch(12% 0.008 240);
+  --fg: oklch(95% 0.004 90);
+  --muted: oklch(60% 0.008 240);
+  --border: oklch(18% 0.008 240);
+  --accent: oklch(82% 0.18 120);
+  --accent-hover: oklch(86% 0.18 120);
+  --accent-glow: rgba(211,233,122,0.1);
+  --accent-soft: rgba(211,233,122,0.06);
+  --accent-strong: rgba(211,233,122,0.18);
+  --available: oklch(58% 0.18 145);
+  --available-glow: rgba(34,197,94,0.12);
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.5);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.6);
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+/* ==================================================================
+   BASE RESET
+   ================================================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);line-height:1.6;transition:background .4s var(--ease-in-out),color .4s var(--ease-in-out);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}::selection{background:var(--accent);color:var(--bg)}
+pre,code,.mono{font-family:var(--font-mono)}
 
-html {
-  font-family: 'Roboto', system-ui, sans-serif;
-  font-size: 16px;
-  scroll-behavior: smooth;
+/* hide cursor on touch devices */
+@media(max-width:768px){body{cursor:auto}}
+
+/* ==================================================================
+   LAYOUT
+   ================================================================== */
+.page{max-width:1200px;margin:0 auto;padding:0 var(--space-xl)}.page-sm{max-width:900px;margin:0 auto;padding:0 var(--space-xl)}
+
+/* ==================================================================
+   TYPOGRAPHY
+   ================================================================== */
+.section-label{font-family:var(--font-mono);font-size:var(--type-xs);color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:var(--space-md)}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,3rem);font-weight:600;line-height:1.05;letter-spacing:-0.02em;margin-bottom:var(--space-lg)}
+
+/* Page headers */
+.page-header{text-align:center;padding:var(--space-5xl) 0 var(--space-3xl)}.page-header__label{font-family:var(--font-mono);font-size:var(--type-xs);color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:var(--space-md)}.page-header__title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:600;letter-spacing:-0.03em;line-height:1.1;margin-bottom:var(--space-sm)}.page-header__subtitle{font-size:var(--type-lg);color:var(--muted);font-weight:300;max-width:600px;margin:0 auto}
+
+/* Section header (with divider lines) */
+.section-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.section-header__line{flex:1;height:1px;background:var(--border)}.section-header__label{font-family:var(--font-mono);font-size:var(--type-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);white-space:nowrap}
+
+/* ==================================================================
+   COMPONENTS: Buttons
+   ================================================================== */
+.btn{display:inline-flex;align-items:center;gap:var(--space-sm);padding:14px 28px;border-radius:var(--radius-full);font-family:var(--font-body);font-size:var(--type-sm);font-weight:600;transition:all .3s var(--ease-expo);border:none;line-height:1;white-space:nowrap;letter-spacing:0.02em}
+.btn-primary{background:var(--accent);color:var(--bg)}.btn-primary:hover{background:var(--accent-hover);transform:translateY(-3px);box-shadow:0 6px 24px var(--accent-glow)}
+.btn-outline{background:transparent;color:var(--fg);border:1px solid var(--border)}.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);box-shadow:0 6px 24px var(--accent-glow)}
+
+/* ==================================================================
+   COMPONENTS: Pills / Tags
+   ================================================================== */
+.pill{display:inline-flex;align-items:center;padding:5px 16px;border-radius:var(--radius-full);font-family:var(--font-mono);font-size:var(--type-xs);border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .2s;white-space:nowrap;letter-spacing:0.02em}.pill:hover{border-color:var(--accent);color:var(--accent)}.pill-accent{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
+
+/* Pill with icon */
+.pill-icon{width:14px;height:14px;border-radius:50%;flex-shrink:0;margin-right:6px;object-fit:contain}
+
+/* ==================================================================
+   COMPONENTS: Cards
+   ================================================================== */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-2xl);transition:all .4s var(--ease-expo);overflow:hidden}.card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);transform:translateY(-4px)}
+
+/* ==================================================================
+   ANIMATIONS: Scroll reveal
+   ================================================================== */
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s var(--ease-expo)}.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:all .8s var(--ease-expo)}.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(30px);transition:all .8s var(--ease-expo)}.reveal-right.visible{opacity:1;transform:translateX(0)}
+.stagger-children>*{opacity:0;transform:translateY(20px);transition:all .6s var(--ease-expo)}.stagger-children.visible>*{opacity:1;transform:translateY(0)}.stagger-children.visible>*:nth-child(1){transition-delay:0s}.stagger-children.visible>*:nth-child(2){transition-delay:.1s}.stagger-children.visible>*:nth-child(3){transition-delay:.2s}.stagger-children.visible>*:nth-child(4){transition-delay:.3s}.stagger-children.visible>*:nth-child(5){transition-delay:.4s}
+
+/* ==================================================================
+   ANIMATIONS: Marquee
+   ================================================================== */
+.marquee{overflow:hidden;mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}.marquee-track{display:flex;gap:var(--space-lg);width:max-content;animation:marquee-scroll 35s linear infinite}.marquee-track:hover{animation-play-state:paused}@keyframes marquee-scroll{to{transform:translateX(-50%)}}
+
+/* ==================================================================
+   ANIMATIONS: Border spin (for animated-border directive)
+   ================================================================== */
+@keyframes border-spin{to{transform:rotate(360deg)}}
+
+/* ==================================================================
+   ANIMATIONS: Pulsing dot
+   ================================================================== */
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 var(--available-glow)}50%{box-shadow:0 0 0 10px rgba(34,197,94,0)}}
+@keyframes badge-pulse{0%,100%{box-shadow:0 0 0 0 var(--available-glow)}50%{box-shadow:0 0 0 7px rgba(34,197,94,0)}}
+
+/* ==================================================================
+   COMPONENTS: Horizontal gallery (shared)
+   ================================================================== */
+.gallery-horizontal{display:flex;gap:var(--space-lg);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:var(--space-sm) 0 var(--space-xl);scrollbar-width:none}.gallery-horizontal::-webkit-scrollbar{display:none}.gallery-item{flex:0 0 auto;scroll-snap-align:start;min-width:320px;max-width:420px}.gallery-nav{display:flex;gap:var(--space-sm);justify-content:center;margin-top:var(--space-md)}.gallery-nav-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--fg);display:flex;align-items:center;justify-content:center;transition:all .3s var(--ease-expo);font-size:1.1rem}.gallery-nav-btn:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.05)}
+
+/* ==================================================================
+   COMPONENTS: Marquee pills with icons (home tech stack)
+   ================================================================== */
+.tech-marquee-pill{display:inline-flex;align-items:center;gap:var(--space-sm);padding:8px 20px;border-radius:var(--radius-full);font-family:var(--font-mono);font-size:var(--type-sm);border:1px solid var(--border);background:var(--surface);color:var(--fg);transition:all .2s;white-space:nowrap}.tech-marquee-pill:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}.tech-marquee-pill img{width:18px;height:18px;border-radius:0;flex-shrink:0}
+
+/* ==================================================================
+   RESPONSIVE
+   ================================================================== */
+@media(max-width:768px){
+  .page,.page-sm{padding:0 var(--space-lg)}
+  .page-header{padding:var(--space-4xl) 0 var(--space-2xl)}
+}
+@media(max-width:480px){
+  .page,.page-sm{padding:0 var(--space-md)}
 }
 
-body {
-  background: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.6;
-  transition: background .3s ease, color .3s ease;
-  -webkit-font-smoothing: antialiased;
-  margin: 0;
+/* Utility: prevent horizontal scroll on mobile */
+@media(max-width:768px){
+  .hide-mobile{display:none!important}
 }
-
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
-
-pre, code, .mono {
-  font-family: var(--font-mono);
+@media(min-width:769px){
+  .show-mobile{display:none!important}
 }

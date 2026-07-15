@@ -6,6 +6,7 @@ import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 @Component({
     selector: 'app-theme-toggle',
     templateUrl: './theme-toggle.component.html',
+    styleUrl: './theme-toggle.component.scss',
     imports: [FontAwesomeModule]
 })
 export class ThemeToggleComponent implements OnInit {
@@ -53,20 +54,19 @@ export class ThemeToggleComponent implements OnInit {
       this.applyTheme(storedTheme === 'dark');
     } else if (this.prefersDarkScheme) {
       this.applyTheme(this.prefersDarkScheme.matches);
+    } else {
+      const current = document.documentElement.getAttribute('data-theme');
+      if (current) {
+        this.darkMode = current === 'dark';
+        this.faIcon = this.darkMode ? this.faSun : this.faMoon;
+      }
     }
   }
   
   applyTheme(isDarkMode: boolean) {
     this.darkMode = isDarkMode;
-    if (this.darkMode) {
-      document.documentElement.classList.add('dark');
-      document.body.classList.add('dark');
-      this.faIcon = this.faSun;
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.body.classList.remove('dark');
-      this.faIcon = this.faMoon;
-    }
+    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    this.faIcon = isDarkMode ? this.faSun : this.faMoon;
   }
   
   listenToSystemThemeChanges() {

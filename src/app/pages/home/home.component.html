@@ -1,35 +1,37 @@
 <div class="page">
   <!-- HERO -->
-  <section class="hero">
-    <h1 class="hero__name">
-      <span>{{ content.site.firstName }}</span>
-      <span class="hero__name-last">{{ content.site.lastName }}</span>
-    </h1>
-
-    <div class="hero__tagline-wrapper">
-      <span class="hero__tagline" appTypingEffect [config]="{loop: true, fontFamily: 'Courier New, Courier, monospace'}">
-        {{ content.site.tagline }}
-      </span>
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <img src="profile-picture.jpg" alt="" />
     </div>
-
-    <div class="hero__availability">
-      <span class="hero__availability-dot" appPulsatingEffect></span>
-      {{ content.site.availability }}
-    </div>
-
-    <div class="hero__actions">
-      <a [routerLink]="content.site.cta.primary.route" class="btn-cta-primary" appAnimatedBorder [config]="{animationDuration: '3s'}">
-        {{ content.site.cta.primary.label }}
-      </a>
-      <a [routerLink]="content.site.cta.secondary.route" class="btn-cta-secondary">
-        {{ content.site.cta.secondary.label }}
-        <span class="arrow">&rarr;</span>
-      </a>
+    <div class="hero-content">
+      <p class="hero-tag reveal">Full-Stack Developer &amp; Technical Lead</p>
+      <h1 class="hero-name reveal-left" style="transition-delay:.1s">
+        <span>{{ content.site.firstName }}</span>
+        <span class="accent">{{ content.site.lastName }}</span>
+      </h1>
+      <div class="hero-tagline-wrapper">
+        <p class="hero-tagline">
+          <span class="typing-text" appTypingEffect>{{ content.site.tagline }}</span>
+        </p>
+      </div>
+      <div class="availability-badge reveal" style="transition-delay:.2s">
+        <span class="availability-dot" appPulsatingEffect></span>
+        {{ content.site.availability }}
+      </div>
+      <div class="hero-actions reveal" style="transition-delay:.3s">
+        <a [routerLink]="content.site.cta.primary.route" class="btn btn-primary" appAnimatedBorder>
+          {{ content.site.cta.primary.label }} &rarr;
+        </a>
+        <a [routerLink]="content.site.cta.secondary.route" class="btn btn-outline">
+          {{ content.site.cta.secondary.label }} &rarr;
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- STAT STRIP -->
-  <section class="stats">
+  <section class="stats stagger-children reveal">
     <div class="stat-item" *ngFor="let stat of content.stats">
       <div class="stat-item__value">{{ stat.value }}</div>
       <div class="stat-item__label">{{ stat.label }}</div>
@@ -37,16 +39,13 @@
   </section>
 
   <!-- TECH STACK MARQUEE -->
-  <section class="tech-stack-section">
-    <h2 class="tech-stack-section__heading">Technology Stack</h2>
-    <div class="tech-stack-marquee">
-      <div class="tech-stack-track">
-        <span class="tech-pill" *ngFor="let tech of content.techStack">
-          <span class="tech-pill__color" [style.background]="tech.color"></span>
-          {{ tech.name }}
-        </span>
-        <span class="tech-pill" *ngFor="let tech of content.techStack">
-          <span class="tech-pill__color" [style.background]="tech.color"></span>
+  <section class="section" style="padding-top:0">
+    <h2 class="section-label reveal">Technologies &amp; Tools</h2>
+    <div class="marquee">
+      <div class="marquee-track" id="tech-track">
+        <span class="tech-marquee-pill" *ngFor="let tech of content.techStack">
+          <img *ngIf="tech.icon" [src]="'techStackIcons/' + tech.icon" [alt]="tech.name" class="pill-icon" />
+          <span class="pill-dot" *ngIf="!tech.icon" [style.background]="tech.color"></span>
           {{ tech.name }}
         </span>
       </div>
@@ -54,28 +53,28 @@
   </section>
 
   <!-- FEATURED FLAGSHIP PROJECT -->
-  <section class="featured-project" *ngIf="content.featuredProject">
-    <h2 class="featured-project__heading">Flagship Project</h2>
-    <div class="featured-project-card" appAnimatedBorder [config]="{animationDuration: '4s'}">
-      <div class="featured-project-card__image">
+  <section class="section" style="padding-top:0" *ngIf="content.featuredProject">
+    <h2 class="section-label reveal">Flagship Project</h2>
+    <div class="featured-card reveal">
+      <div class="featured-card__image" appImageViewer [fullImage]="content.featuredProject.image">
         <img [src]="content.featuredProject.image" [alt]="content.featuredProject.title" />
       </div>
-      <div class="featured-project-card__body">
-        <span class="featured-project-card__flag">Featured</span>
-        <h3 class="featured-project-card__title">{{ content.featuredProject.title }}</h3>
-        <p class="featured-project-card__description">{{ content.featuredProject.description }}</p>
-        <div class="featured-project-card__tags">
-          <span class="featured-project-card__tag" *ngFor="let tag of content.featuredProject.techStack">{{ tag }}</span>
+      <div class="featured-card__body">
+        <span class="featured-card__flag">Featured</span>
+        <h3 class="featured-card__title">{{ content.featuredProject.title }}</h3>
+        <p class="featured-card__desc">{{ content.featuredProject.description }}</p>
+        <div class="featured-card__tags">
+          <span class="pill" *ngFor="let tag of content.featuredProject.techStack">{{ tag }}</span>
         </div>
-        <div class="featured-project-card__links">
-          <a [href]="content.featuredProject.liveLink" target="_blank" rel="noopener" class="featured-project-card__link" *ngIf="content.featuredProject.liveLink">
+        <div class="featured-card__links">
+          <a [href]="content.featuredProject.liveLink" target="_blank" rel="noopener" class="featured-card__link" *ngIf="content.featuredProject.liveLink">
             Live Demo &rarr;
           </a>
-          <a [href]="content.featuredProject.githubLink" target="_blank" rel="noopener" class="featured-project-card__link" *ngIf="content.featuredProject.githubLink && !content.featuredProject.isCaseStudy">
+          <a [href]="content.featuredProject.githubLink" target="_blank" rel="noopener" class="featured-card__link" *ngIf="content.featuredProject.githubLink && !content.featuredProject.isCaseStudy">
             GitHub &rarr;
           </a>
-          <span class="featured-project-card__link featured-project-card__link--disabled" *ngIf="content.featuredProject.isCaseStudy">
-            Case Study &rarr;
+          <span class="featured-card__link--disabled" *ngIf="!content.featuredProject.liveLink && !content.featuredProject.githubLink">
+            Case Study
           </span>
         </div>
       </div>
@@ -83,13 +82,13 @@
   </section>
 
   <!-- QUICK NAV CARDS -->
-  <section class="quick-nav-section">
-    <h2 class="quick-nav-section__heading">Explore</h2>
-    <div class="quick-nav-grid">
+  <section class="section" style="padding-top:0">
+    <h2 class="section-label reveal">Explore</h2>
+    <div class="quick-nav-grid stagger-children reveal">
       <a class="quick-nav-card" *ngFor="let nav of content.quickNav" [routerLink]="nav.route">
         <div class="quick-nav-card__icon">{{ nav.icon }}</div>
         <div class="quick-nav-card__title">{{ nav.title }}</div>
-        <div class="quick-nav-card__description">{{ nav.description }}</div>
+        <div class="quick-nav-card__desc">{{ nav.description }}</div>
       </a>
     </div>
   </section>

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "od-7-shell.html",
+  "entry": "od-7-shell.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-14T15:16:10.697Z",
+  "updatedAt": "2026-07-14T15:16:10.697Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

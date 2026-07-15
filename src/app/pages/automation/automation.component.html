@@ -1,23 +1,23 @@
 <div class="page">
   <header class="page-header">
-    <p class="page-header__label">Automation &amp; AI Systems</p>
-    <h1 class="page-header__title">Engineering Delivery Pipeline</h1>
-    <p class="page-header__subtitle">From PRD to production — an AI-augmented workflow that turns requirements into deployed code.</p>
+    <p class="page-header__label reveal">Automation</p>
+    <h1 class="page-header__title reveal-left">Engineering Workflow &amp; AI Systems</h1>
+    <p class="page-header__subtitle reveal" style="transition-delay:.1s">How I build: from PRD through Open Design to Open Code</p>
   </header>
 
   <section class="flow-section">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-header__line"></span>
-      <span class="section-header__label">Delivery Flow</span>
+      <span class="section-header__label">Development Pipeline</span>
       <span class="section-header__line"></span>
     </div>
 
-    <div class="flow-diagram">
+    <div class="flow-diagram reveal">
       <ng-container *ngFor="let node of content.automation.flow; let last = last; let i = index">
         <div class="flow-node" [class.flow-node--active]="node.active">
-          <div class="flow-node__box" [class.flow-node--live]="node.active" appPulsatingEffect>{{ node.label }}</div>
+          <div class="flow-node__box">{{ node.label }}</div>
           <span class="flow-node__label">{{ node.title }}</span>
-          <span class="flow-node__status">{{ node.status }}</span>
+          <span class="flow-node__status" *ngIf="node.status">{{ node.status }}</span>
         </div>
         <div class="flow-arrow" *ngIf="!last">
           <span class="flow-arrow__head">&#9654;</span>
@@ -27,13 +27,13 @@
   </section>
 
   <section class="features-section">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-header__line"></span>
       <span class="section-header__label">Engineering Systems</span>
       <span class="section-header__line"></span>
     </div>
 
-    <div class="feature-cards">
+    <div class="feature-cards stagger-children reveal">
       <a *ngFor="let feature of content.automation.features"
          [href]="feature.repoUrl"
          target="_blank"
@@ -43,14 +43,14 @@
         <h2 class="feature-card__name">{{ feature.name }}</h2>
         <p class="feature-card__purpose">{{ feature.purpose }}</p>
         <div class="feature-card__tags">
-          <span class="feature-card__tag" *ngFor="let tag of feature.tags">{{ tag }}</span>
+          <span class="pill" *ngFor="let tag of feature.tags">{{ tag }}</span>
         </div>
         <span class="feature-card__link">&rarr; View on GitHub</span>
       </a>
     </div>
   </section>
 
-  <div class="philosophy-strip">
+  <div class="philosophy-strip reveal">
     <p class="philosophy-strip__text" appTypingEffect>{{ content.automation.philosophy }}</p>
   </div>
 </div>
