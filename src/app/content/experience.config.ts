@@ -29,7 +29,7 @@ export const experienceConfig: ExperienceEntry[] = [
     dateRange: '2024 – Present',
     description: [
       'Building an AI-assisted engineering platform that streamlines the software delivery lifecycle.',
-      'Designed and implemented .ai-system template architecture for metadata-driven development.',
+      'Designed and implemented ai-system template architecture for metadata-driven development.',
     ],
     tags: ['System Design', 'AI/LLM', 'Automation', 'TypeScript'],
     isCurrent: true,

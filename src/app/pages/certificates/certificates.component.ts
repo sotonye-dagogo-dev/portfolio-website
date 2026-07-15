@@ -19,4 +19,11 @@ import { TypingEffectDirective } from '../../directives/typing-effect/typing-eff
 })
 export class CertificatesComponent {
   constructor(public content: ContentService) {}
+
+  scrollGallery(id: string, amount: number): void {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+  }
 }

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[CONFIG:site.title] · Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;transition:background .4s var(--ease-in-out),color .4s var(--ease-in-out);-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}::selection{background:var(--accent);color:var(--bg)}
+:root{--bg:oklch(97.7% 0.006 90);--surface:oklch(100% 0 0);--fg:oklch(14% 0.018 200);--muted:oklch(50% 0.012 200);--border:oklch(89% 0.006 90);--accent:oklch(58% 0.25 30);--accent-hover:oklch(52% 0.25 30);--accent-glow:rgba(255,72,0,0.12);--accent-soft:rgba(255,72,0,0.06);--accent-strong:rgba(255,72,0,0.2);--available:oklch(58% 0.18 145);--available-glow:rgba(34,197,94,0.15);--font-display:'Canela','Ampersand','Iowan Old Style','Georgia',serif;--font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--font-mono:'JetBrains Mono','SF Mono',Menlo,monospace;--radius:6px;--radius-lg:12px;--radius-xl:16px;--radius-2xl:24px;--radius-full:9999px;--shadow:0 1px 3px rgba(0,0,0,0.06);--shadow-md:0 4px 12px rgba(0,0,0,0.08);--shadow-lg:0 8px 30px rgba(0,0,0,0.1);--space-xs:4px;--space-sm:8px;--space-md:16px;--space-lg:24px;--space-xl:32px;--space-2xl:48px;--space-3xl:64px;--space-4xl:96px;--space-5xl:128px;--type-xs:.7rem;--type-sm:.85rem;--type-base:1rem;--type-lg:1.125rem;--type-xl:1.25rem;--type-2xl:1.5rem;--type-3xl:2rem;--type-4xl:2.5rem;--nav-h:72px;--ease-expo:cubic-bezier(0.16,1,0.3,1);--ease-in-out:cubic-bezier(0.65,0,0.35,1)}
+[data-theme="dark"]{--bg:oklch(6% 0.006 240);--surface:oklch(12% 0.008 240);--fg:oklch(95% 0.004 90);--muted:oklch(60% 0.008 240);--border:oklch(18% 0.008 240);--accent:oklch(82% 0.18 120);--accent-hover:oklch(86% 0.18 120);--accent-glow:rgba(211,233,122,0.1);--accent-soft:rgba(211,233,122,0.06);--accent-strong:rgba(211,233,122,0.18);--available:oklch(58% 0.18 145);--available-glow:rgba(34,197,94,0.12);--shadow:0 1px 3px rgba(0,0,0,0.3);--shadow-md:0 4px 12px rgba(0,0,0,0.4);--shadow-lg:0 8px 30px rgba(0,0,0,0.5)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;height:var(--nav-h);display:flex;align-items:center;justify-content:center;gap:var(--space-xl);background:rgba(7,7,10,0.85);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border-bottom:1px solid var(--border);padding:0 var(--space-xl)}[data-theme="light"] .nav{background:rgba(250,249,244,0.88)}
+.nav a{position:relative;font-size:.7rem;font-weight:500;color:var(--muted);letter-spacing:0.1em;padding:var(--space-xs) 0;transition:color .3s;text-transform:uppercase}.nav a:hover{color:var(--fg)}.nav a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--accent);transition:width .3s var(--ease-expo)}.nav a:hover::after{width:100%}.nav a.active{color:var(--fg);font-weight:600}.nav a.active::after{width:100%}
+.theme-toggle{position:fixed;top:var(--space-lg);right:var(--space-lg);z-index:1000;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--fg);font-size:1.1rem;cursor:none;display:flex;align-items:center;justify-content:center;transition:all .3s var(--ease-expo);backdrop-filter:blur(8px);box-shadow:var(--shadow)}.theme-toggle:hover{transform:scale(1.1);border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.back-to-top{position:fixed;bottom:var(--space-xl);right:var(--space-xl);z-index:1000;width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--fg);font-size:1.2rem;cursor:none;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(20px);transition:all .4s var(--ease-expo);box-shadow:var(--shadow);pointer-events:none}.back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}.back-to-top:hover{border-color:var(--accent);transform:translateY(-3px)}
+.cursor-dot{position:fixed;width:16px;height:16px;border-radius:50%;pointer-events:none;z-index:9999;background:var(--accent);mix-blend-mode:difference;transition:transform .15s ease,background .4s;transform:translate(-50%,-50%)}.cursor-dot.hover{transform:translate(-50%,-50%) scale(1.8);background:var(--fg)}
+.page{max-width:1100px;margin:0 auto;padding:0 var(--space-xl)}
+.section-label{font-family:var(--font-mono);font-size:var(--type-xs);color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:var(--space-md)}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s var(--ease-expo)}.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:all .8s var(--ease-expo)}.reveal-left.visible{opacity:1;transform:translateX(0)}
+.stagger-children>*{opacity:0;transform:translateY(20px);transition:all .6s var(--ease-expo)}.stagger-children.visible>*{opacity:1;transform:translateY(0)}.stagger-children.visible>*:nth-child(1){transition-delay:0s}.stagger-children.visible>*:nth-child(2){transition-delay:.1s}.stagger-children.visible>*:nth-child(3){transition-delay:.2s}
+.btn{display:inline-flex;align-items:center;gap:var(--space-sm);padding:14px 28px;border-radius:var(--radius-full);font-family:var(--font-body);font-size:var(--type-sm);font-weight:600;cursor:none;transition:all .3s var(--ease-expo);border:none;line-height:1;white-space:nowrap;letter-spacing:0.02em}
+.btn-primary{background:var(--accent);color:var(--bg)}.btn-primary:hover{background:var(--accent-hover);transform:translateY(-3px);box-shadow:0 6px 24px var(--accent-glow)}
+.pill{display:inline-flex;align-items:center;padding:5px 16px;border-radius:var(--radius-full);font-family:var(--font-mono);font-size:var(--type-xs);border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .2s;white-space:nowrap;letter-spacing:0.02em}.pill:hover{border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-2xl);transition:all .4s var(--ease-expo);overflow:hidden}.card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);transform:translateY(-4px)}
+.footer{border-top:1px solid var(--border);padding:var(--space-3xl) 0 var(--space-xl);margin-top:var(--space-4xl)}
+.footer-inner{max-width:1100px;margin:0 auto;padding:0 var(--space-xl);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-md)}.footer-copy{font-size:var(--type-sm);color:var(--muted)}
+.page-header{text-align:center;padding:var(--space-5xl) 0 var(--space-3xl)}
+.page-header__label{font-family:var(--font-mono);font-size:var(--type-xs);color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:var(--space-md)}
+.page-header__title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:600;letter-spacing:-0.03em;line-height:1.1;margin-bottom:var(--space-sm)}
+.page-header__subtitle{font-size:var(--type-lg);color:var(--muted);font-weight:300;max-width:600px;margin:0 auto}
+.tier-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.tier-header__line{flex:1;height:1px;background:var(--border)}.tier-header__label{font-family:var(--font-mono);font-size:var(--type-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);white-space:nowrap}
+.gallery-horizontal{display:flex;gap:var(--space-lg);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:var(--space-sm) 0 var(--space-xl);scrollbar-width:none;margin-bottom:var(--space-lg)}
+.gallery-horizontal::-webkit-scrollbar{display:none}.gallery-nav{display:flex;gap:var(--space-sm);justify-content:center;margin-top:var(--space-md)}.gallery-nav-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--fg);cursor:none;display:flex;align-items:center;justify-content:center;transition:all .3s var(--ease-expo);font-size:1.1rem}.gallery-nav-btn:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.05)}
+.project-card{flex:0 0 auto;scroll-snap-align:start;width:380px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-2xl);overflow:hidden;transition:all .4s var(--ease-expo)}.project-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:var(--accent)}
+.project-card__image{aspect-ratio:16/11;background:linear-gradient(135deg,var(--border),var(--surface));display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:var(--type-sm);font-family:var(--font-mono);overflow:hidden;cursor:zoom-in;transition:filter .3s;position:relative}.project-card__image:hover{filter:brightness(0.85)}
+.project-card__body{padding:var(--space-lg)}
+.project-card__flag{font-family:var(--font-mono);font-size:var(--type-xs);color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:var(--space-xs)}
+.project-card__title{font-family:var(--font-display);font-size:var(--type-xl);font-weight:600;letter-spacing:-0.01em;margin-bottom:var(--space-xs)}.project-card__desc{color:var(--muted);font-size:var(--type-sm);line-height:1.7;margin-bottom:var(--space-md)}
+.project-card__tags{display:flex;flex-wrap:wrap;gap:var(--space-sm);margin-bottom:var(--space-md)}.project-card__links{display:flex;gap:var(--space-md);flex-wrap:wrap}.project-card__link{display:inline-flex;align-items:center;gap:6px;font-size:var(--type-sm);font-weight:600;color:var(--muted);transition:all .2s}.project-card__link:hover{color:var(--accent);gap:10px}.project-card__link--disabled{opacity:.4;pointer-events:none}
+.project-card--flagship{border:none;z-index:0}.project-card--flagship::before{content:'';position:absolute;inset:-2px;border-radius:calc(var(--radius-2xl)+2px);background:conic-gradient(var(--accent),var(--accent-hover),var(--accent-strong),var(--accent),var(--accent));z-index:-2;animation:border-spin 4s linear infinite}.project-card--flagship::after{content:'';position:absolute;inset:2px;border-radius:var(--radius-2xl);background:var(--surface);z-index:-1;transition:background .3s}.project-card--flagship:hover::after{background:var(--accent-soft)}
+@keyframes border-spin{to{transform:rotate(360deg)}}
+.automation-teaser{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-2xl);padding:var(--space-xl);transition:all .4s var(--ease-expo);margin-bottom:var(--space-4xl);position:relative;overflow:hidden;cursor:pointer}.automation-teaser:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--accent)}
+.automation-teaser__label{font-family:var(--font-mono);font-size:var(--type-xs);color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:var(--space-xs)}
+.automation-teaser__title{font-size:var(--type-xl);font-weight:700;margin-bottom:var(--space-xs)}.automation-teaser__desc{color:var(--muted);font-size:var(--type-sm);line-height:1.7;margin-bottom:var(--space-lg)}.automation-teaser__cta{display:inline-flex;align-items:center;gap:6px;font-size:var(--type-sm);font-weight:600;color:var(--accent);transition:gap .3s;cursor:pointer}.automation-teaser__cta:hover{gap:12px}
+.archive-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;padding:var(--space-md) var(--space-lg);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;transition:all .2s;font-family:var(--font-body);font-size:var(--type-sm);color:var(--fg);text-align:left}.archive-toggle:hover{border-color:var(--accent)}
+.archive-toggle__left{display:flex;align-items:center;gap:var(--space-md)}.archive-toggle__label{font-weight:700;font-size:var(--type-xs);text-transform:uppercase;letter-spacing:0.08em}.archive-toggle__count{font-family:var(--font-mono);font-size:var(--type-xs);padding:2px 10px;border-radius:var(--radius-full);background:var(--accent-soft);border:1px solid var(--accent-glow);color:var(--accent)}
+.archive-toggle__chevron{transition:transform .3s;color:var(--muted)}.archive-toggle[aria-expanded="true"] .archive-toggle__chevron{transform:rotate(180deg)}
+.archive-body{max-height:0;overflow:hidden;transition:max-height .4s ease}.archive-body--open{max-height:4000px}
+@media(max-width:768px){.page{padding:0 var(--space-lg)}.nav{gap:var(--space-md);padding:0 var(--space-md)}.nav a{font-size:.65rem;letter-spacing:0.08em}.project-card{width:300px}.cursor-dot{display:none}body{cursor:auto}.btn,.gallery-nav-btn,.theme-toggle,.back-to-top{cursor:pointer}.theme-toggle{top:var(--space-md);right:var(--space-md);width:36px;height:36px;font-size:1rem}}
+@media(max-width:480px){.nav{gap:var(--space-sm);flex-wrap:wrap;height:auto;padding:var(--space-sm) var(--space-md);justify-content:flex-start;overflow-x:auto}.nav a{font-size:.6rem;padding:var(--space-xs) var(--space-sm);white-space:nowrap}.project-card{width:260px}}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursor"></div>
+<nav class="nav"><a href="/">Home</a><a href="/about">About</a><a href="/experience">Experience</a><a href="/projects" class="active">Projects</a><a href="/automation">Automation</a><a href="/certificates">Certificates</a></nav>
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span id="theme-icon">&#9790;</span></button>
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<div style="display:none">
+  [CONFIG:site.title] Portfolio Website
+  [CONFIG:pageHeader.label] Projects
+  [CONFIG:pageHeader.title] What I've Built
+  [CONFIG:pageHeader.subtitle] Platforms, tools, and experiments from production systems to side projects
+  [CONFIG:tier.flagship.label] Flagship Platforms
+  [CONFIG:tier.automation.label] Automation & AI Systems
+  [CONFIG:tier.applied.label] Applied Engineering
+  [CONFIG:tier.archive.label] Archive / Early Projects
+  [CONFIG:archive.count] 6
+</div>
+
+<main class="page">
+  <header class="page-header">
+    <p class="page-header__label reveal">[CONFIG:pageHeader.label]</p>
+    <h1 class="page-header__title reveal-left">[CONFIG:pageHeader.title]</h1>
+    <p class="page-header__subtitle reveal" style="transition-delay:.1s">[CONFIG:pageHeader.subtitle]</p>
+  </header>
+
+  <section style="margin-bottom:var(--space-4xl)">
+    <div class="tier-header reveal"><span class="tier-header__line"></span><span class="tier-header__label">[CONFIG:tier.flagship.label]</span><span class="tier-header__line"></span></div>
+    <div class="gallery-horizontal" id="gallery-flagship">
+      <div class="project-card project-card--flagship" style="position:relative">
+        <div class="project-card__image">[CONFIG:flagship.0.imagePlaceholder]</div>
+        <div class="project-card__body">
+          <span class="project-card__flag">[CONFIG:flagship.0.flag]</span>
+          <h2 class="project-card__title">[CONFIG:flagship.0.title]</h2>
+          <p class="project-card__desc">[CONFIG:flagship.0.description]</p>
+          <div class="project-card__tags"><span class="pill">[CONFIG:flagship.0.tags.0]</span><span class="pill">[CONFIG:flagship.0.tags.1]</span><span class="pill">[CONFIG:flagship.0.tags.2]</span><span class="pill">[CONFIG:flagship.0.tags.3]</span></div>
+          <div class="project-card__links"><a href="#" class="project-card__link">&rarr; [CONFIG:flagship.0.cta.live]</a><a href="#" class="project-card__link">&rarr; [CONFIG:flagship.0.cta.github]</a></div>
+        </div>
+      </div>
+      <div class="project-card project-card--flagship" style="position:relative">
+        <div class="project-card__image">[CONFIG:flagship.1.imagePlaceholder]</div>
+        <div class="project-card__body">
+          <span class="project-card__flag">[CONFIG:flagship.1.flag]</span>
+          <h2 class="project-card__title">[CONFIG:flagship.1.title]</h2>
+          <p class="project-card__desc">[CONFIG:flagship.1.description]</p>
+          <div class="project-card__tags"><span class="pill">[CONFIG:flagship.1.tags.0]</span><span class="pill">[CONFIG:flagship.1.tags.1]</span><span class="pill">[CONFIG:flagship.1.tags.2]</span></div>
+          <div class="project-card__links"><a href="#" class="project-card__link">&rarr; [CONFIG:flagship.1.cta.live]</a><a href="#" class="project-card__link project-card__link--disabled">&rarr; [CONFIG:flagship.1.cta.github] (case study)</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="gallery-nav reveal"><button class="gallery-nav-btn" onclick="document.getElementById('gallery-flagship').scrollBy({left:-400,behavior:'smooth'})">&larr;</button><button class="gallery-nav-btn" onclick="document.getElementById('gallery-flagship').scrollBy({left:400,behavior:'smooth'})">&rarr;</button></div>
+  </section>
+
+  <section style="margin-bottom:var(--space-4xl)">
+    <div class="tier-header reveal"><span class="tier-header__line"></span><span class="tier-header__label">[CONFIG:tier.applied.label]</span><span class="tier-header__line"></span></div>
+    <div class="gallery-horizontal" id="gallery-applied">
+      <div class="project-card"><div class="project-card__image">[CONFIG:applied.0.imagePlaceholder]</div><div class="project-card__body"><h2 class="project-card__title">[CONFIG:applied.0.title]</h2><p class="project-card__desc">[CONFIG:applied.0.description]</p><div class="project-card__tags"><span class="pill">[CONFIG:applied.0.tags.0]</span><span class="pill">[CONFIG:applied.0.tags.1]</span><span class="pill">[CONFIG:applied.0.tags.2]</span></div><div class="project-card__links"><a href="#" class="project-card__link">&rarr; [CONFIG:applied.0.cta.github]</a></div></div></div>
+      <div class="project-card"><div class="project-card__image">[CONFIG:applied.1.imagePlaceholder]</div><div class="project-card__body"><h2 class="project-card__title">[CONFIG:applied.1.title]</h2><p class="project-card__desc">[CONFIG:applied.1.description]</p><div class="project-card__tags"><span class="pill">[CONFIG:applied.1.tags.0]</span><span class="pill">[CONFIG:applied.1.tags.1]</span><span class="pill">[CONFIG:applied.1.tags.2]</span><span class="pill">[CONFIG:applied.1.tags.3]</span></div><div class="project-card__links"><a href="#" class="project-card__link">&rarr; [CONFIG:applied.1.cta.github]</a><a href="#" class="project-card__link project-card__link--disabled">&rarr; [CONFIG:applied.1.cta.live] (private)</a></div></div></div>
+      <div class="project-card"><div class="project-card__image">[CONFIG:applied.2.imagePlaceholder]</div><div class="project-card__body"><h2 class="project-card__title">[CONFIG:applied.2.title]</h2><p class="project-card__desc">[CONFIG:applied.2.description]</p><div class="project-card__tags"><span class="pill">[CONFIG:applied.2.tags.0]</span><span class="pill">[CONFIG:applied.2.tags.1]</span></div><div class="project-card__links"><a href="#" class="project-card__link">&rarr; [CONFIG:applied.2.cta.live]</a></div></div></div>
+    </div>
+    <div class="gallery-nav reveal"><button class="gallery-nav-btn" onclick="document.getElementById('gallery-applied').scrollBy({left:-400,behavior:'smooth'})">&larr;</button><button class="gallery-nav-btn" onclick="document.getElementById('gallery-applied').scrollBy({left:400,behavior:'smooth'})">&rarr;</button></div>
+  </section>
+
+  <section style="margin-bottom:var(--space-4xl)">
+    <div class="tier-header reveal"><span class="tier-header__line"></span><span class="tier-header__label">[CONFIG:tier.archive.label]</span><span class="tier-header__line"></span></div>
+    <button class="archive-toggle" id="archive-toggle" aria-expanded="false" onclick="toggleArchive()">
+      <span class="archive-toggle__left"><span class="archive-toggle__label">[CONFIG:tier.archive.label]</span><span class="archive-toggle__count">[CONFIG:archive.count] items</span></span>
+      <span class="archive-toggle__chevron">&#9660;</span>
+    </button>
+    <div class="archive-body" id="archive-body">
+      <div class="gallery-horizontal" id="gallery-archive" style="margin-top:var(--space-lg)">
+        <div class="project-card"><div class="project-card__image">[CONFIG:archive.0.imagePlaceholder]</div><div class="project-card__body"><h2 class="project-card__title">[CONFIG:archive.0.title]</h2><p class="project-card__desc">[CONFIG:archive.0.description]</p><div class="project-card__tags"><span class="pill">[CONFIG:archive.0.tags.0]</span><span class="pill">[CONFIG:archive.0.tags.1]</span></div><div class="project-card__links"><a href="#" class="project-card__link">&rarr; [CONFIG:archive.0.cta.github]</a></div></div></div>
+        <div class="project-card"><div class="project-card__image">[CONFIG:archive.1.imagePlaceholder]</div><div class="project-card__body"><h2 class="project-card__title">[CONFIG:archive.1.title]</h2><p class="project-card__desc">[CONFIG:archive.1.description]</p><div class="project-card__tags"><span class="pill">[CONFIG:archive.1.tags.0]</span><span class="pill">[CONFIG:archive.1.tags.1]</span><span class="pill">[CONFIG:archive.1.tags.2]</span></div><div class="project-card__links"><a href="#" class="project-card__link">&rarr; [CONFIG:archive.1.cta.github]</a><a href="#" class="project-card__link">&rarr; [CONFIG:archive.1.cta.live]</a></div></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><div class="footer-inner"><div class="footer-copy">&copy; [CONFIG:footer.copyright] &mdash; Built with [CONFIG:footer.builtWith]</div></div></footer>
+
+<script>
+function toggleTheme(){const r=document.documentElement;const i=document.getElementById('theme-icon');const d=r.getAttribute('data-theme')==='dark';r.setAttribute('data-theme',d?'light':'dark');i.textContent=d?'\u2609':'\u264E';try{localStorage.setItem('theme',d?'light':'dark')}catch(e){}}
+(function(){const t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);document.getElementById('theme-icon').textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2609':'\u264E'})();
+window.addEventListener('scroll',function(){document.getElementById('back-to-top').classList.toggle('visible',window.scrollY>400)});
+const c=document.getElementById('cursor');if(window.matchMedia('(pointer:fine)').matches){document.addEventListener('mousemove',function(e){c.style.left=e.clientX+'px';c.style.top=e.clientY+'px'});document.addEventListener('mouseover',function(e){const t=e.target.closest('a,button,.btn,.pill,.project-card,.gallery-nav-btn,.automation-teaser');t?c.classList.add('hover'):c.classList.remove('hover')},true)}
+(function(){const r=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add('visible'),r.unobserve(e.target))})},{threshold:.1});document.querySelectorAll('.reveal,.reveal-left,.stagger-children').forEach(e=>r.observe(e))})();
+function toggleArchive(){const btn=document.getElementById('archive-toggle');const body=document.getElementById('archive-body');const isOpen=btn.getAttribute('aria-expanded')==='true';btn.setAttribute('aria-expanded',isOpen?'false':'true');body.classList.toggle('archive-body--open',!isOpen)}
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[CONFIG:site.title] · Automation & AI Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;transition:background .4s var(--ease-in-out),color .4s var(--ease-in-out);-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}::selection{background:var(--accent);color:var(--bg)}
+:root{--bg:oklch(97.7% 0.006 90);--surface:oklch(100% 0 0);--fg:oklch(14% 0.018 200);--muted:oklch(50% 0.012 200);--border:oklch(89% 0.006 90);--accent:oklch(58% 0.25 30);--accent-hover:oklch(52% 0.25 30);--accent-glow:rgba(255,72,0,0.12);--accent-soft:rgba(255,72,0,0.06);--available:oklch(58% 0.18 145);--available-glow:rgba(34,197,94,0.15);--font-display:'Canela','Ampersand','Iowan Old Style','Georgia',serif;--font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--font-mono:'JetBrains Mono','SF Mono',Menlo,monospace;--radius:6px;--radius-lg:12px;--radius-xl:16px;--radius-2xl:24px;--radius-full:9999px;--shadow:0 1px 3px rgba(0,0,0,0.06);--shadow-md:0 4px 12px rgba(0,0,0,0.08);--shadow-lg:0 8px 30px rgba(0,0,0,0.1);--space-xs:4px;--space-sm:8px;--space-md:16px;--space-lg:24px;--space-xl:32px;--space-2xl:48px;--space-3xl:64px;--space-4xl:96px;--space-5xl:128px;--type-xs:.7rem;--type-sm:.85rem;--type-base:1rem;--type-lg:1.125rem;--type-xl:1.25rem;--type-2xl:1.5rem;--type-3xl:2rem;--type-4xl:2.5rem;--nav-h:72px;--ease-expo:cubic-bezier(0.16,1,0.3,1);--ease-in-out:cubic-bezier(0.65,0,0.35,1)}
+[data-theme="dark"]{--bg:oklch(6% 0.006 240);--surface:oklch(12% 0.008 240);--fg:oklch(95% 0.004 90);--muted:oklch(60% 0.008 240);--border:oklch(18% 0.008 240);--accent:oklch(82% 0.18 120);--accent-hover:oklch(86% 0.18 120);--accent-glow:rgba(211,233,122,0.1);--accent-soft:rgba(211,233,122,0.06);--available:oklch(58% 0.18 145);--available-glow:rgba(34,197,94,0.12);--shadow:0 1px 3px rgba(0,0,0,0.3);--shadow-md:0 4px 12px rgba(0,0,0,0.4);--shadow-lg:0 8px 30px rgba(0,0,0,0.5)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;height:var(--nav-h);display:flex;align-items:center;justify-content:center;gap:var(--space-xl);background:rgba(7,7,10,0.85);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border-bottom:1px solid var(--border);padding:0 var(--space-xl)}[data-theme="light"] .nav{background:rgba(250,249,244,0.88)}
+.nav a{position:relative;font-size:.7rem;font-weight:500;color:var(--muted);letter-spacing:0.1em;padding:var(--space-xs) 0;transition:color .3s;text-transform:uppercase}.nav a:hover{color:var(--fg)}.nav a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--accent);transition:width .3s var(--ease-expo)}.nav a:hover::after{width:100%}.nav a.active{color:var(--fg);font-weight:600}.nav a.active::after{width:100%}
+.theme-toggle{position:fixed;top:var(--space-lg);right:var(--space-lg);z-index:1000;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--fg);font-size:1.1rem;cursor:none;display:flex;align-items:center;justify-content:center;transition:all .3s var(--ease-expo);backdrop-filter:blur(8px);box-shadow:var(--shadow)}.theme-toggle:hover{transform:scale(1.1);border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.back-to-top{position:fixed;bottom:var(--space-xl);right:var(--space-xl);z-index:1000;width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--fg);font-size:1.2rem;cursor:none;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(20px);transition:all .4s var(--ease-expo);box-shadow:var(--shadow);pointer-events:none}.back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}.back-to-top:hover{border-color:var(--accent);transform:translateY(-3px)}
+.cursor-dot{position:fixed;width:16px;height:16px;border-radius:50%;pointer-events:none;z-index:9999;background:var(--accent);mix-blend-mode:difference;transition:transform .15s ease,background .4s;transform:translate(-50%,-50%)}.cursor-dot.hover{transform:translate(-50%,-50%) scale(1.8);background:var(--fg)}
+.page{max-width:1100px;margin:0 auto;padding:0 var(--space-xl)}
+.section-label{font-family:var(--font-mono);font-size:var(--type-xs);color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:var(--space-md)}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s var(--ease-expo)}.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:all .8s var(--ease-expo)}.reveal-left.visible{opacity:1;transform:translateX(0)}
+.stagger-children>*{opacity:0;transform:translateY(20px);transition:all .6s var(--ease-expo)}.stagger-children.visible>*{opacity:1;transform:translateY(0)}.stagger-children.visible>*:nth-child(1){transition-delay:0s}.stagger-children.visible>*:nth-child(2){transition-delay:.1s}.stagger-children.visible>*:nth-child(3){transition-delay:.2s}
+.pill{display:inline-flex;align-items:center;padding:5px 16px;border-radius:var(--radius-full);font-family:var(--font-mono);font-size:var(--type-xs);border:1px solid var(--border);background:var(--surface);color:var(--muted);transition:all .2s;white-space:nowrap;letter-spacing:0.02em}.pill:hover{border-color:var(--accent);color:var(--accent)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-2xl);transition:all .4s var(--ease-expo);overflow:hidden}.card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);transform:translateY(-4px)}
+.footer{border-top:1px solid var(--border);padding:var(--space-3xl) 0 var(--space-xl);margin-top:var(--space-4xl)}
+.footer-inner{max-width:1100px;margin:0 auto;padding:0 var(--space-xl);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-md)}.footer-copy{font-size:var(--type-sm);color:var(--muted)}
+.page-header{padding:var(--space-5xl) 0 var(--space-3xl)}
+.page-header__label{font-family:var(--font-mono);font-size:var(--type-xs);color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:var(--space-md)}
+.page-header__title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:600;letter-spacing:-0.03em;line-height:1.1;margin-bottom:var(--space-sm)}
+.page-header__subtitle{font-size:var(--type-lg);color:var(--muted);font-weight:300;max-width:640px}
+.section-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.section-header__line{flex:1;height:1px;background:var(--border)}.section-header__label{font-family:var(--font-mono);font-size:var(--type-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);white-space:nowrap}
+.flow-section{margin-bottom:var(--space-4xl)}
+.flow-diagram{display:flex;align-items:center;justify-content:center;gap:0;padding:var(--space-2xl) var(--space-lg);background:var(--surface);border-radius:var(--radius-2xl);border:1px solid var(--border);overflow-x:auto;position:relative}
+.flow-node{display:flex;flex-direction:column;align-items:center;gap:var(--space-sm);min-width:80px;flex-shrink:0;position:relative;z-index:1}
+.flow-node__box{display:flex;align-items:center;justify-content:center;padding:var(--space-sm) var(--space-md);min-height:44px;background:var(--accent-soft);border:1.5px solid var(--accent-glow);border-radius:var(--radius-lg);font-family:var(--font-mono);font-size:var(--type-xs);font-weight:500;letter-spacing:0.02em;color:var(--fg);white-space:nowrap;transition:all .3s;position:relative}.flow-node__box:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.flow-node--active .flow-node__box{border-color:var(--accent);color:var(--accent);animation:pulse-flow 2s ease-in-out infinite}
+@keyframes pulse-flow{0%,100%{box-shadow:0 0 0 0 var(--accent-glow)}50%{box-shadow:0 0 0 6px rgba(255,72,0,0)}}
+.flow-node__label{font-size:var(--type-xs);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted)}.flow-node__status{font-size:var(--type-xs);font-family:var(--font-mono);color:var(--accent);font-weight:500;letter-spacing:0.06em;opacity:0;transition:opacity .3s}.flow-node--active .flow-node__status{opacity:1}
+.flow-arrow{flex-shrink:0;display:flex;align-items:center;justify-content:center;width:36px;color:var(--muted);position:relative}.flow-arrow::before{content:'';display:block;width:100%;height:1.5px;background:var(--border);position:absolute}.flow-arrow__head{position:relative;z-index:1;font-size:.6rem;color:var(--border)}
+.feature-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);margin-bottom:var(--space-4xl)}
+.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-2xl);padding:var(--space-xl);display:flex;flex-direction:column;transition:all .4s var(--ease-expo);position:relative;overflow:hidden}.feature-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);transform:translateY(-4px)}
+.feature-card__icon{font-family:var(--font-mono);font-size:1.5rem;color:var(--accent);margin-bottom:var(--space-md)}.feature-card__name{font-size:var(--type-base);font-weight:700;margin-bottom:var(--space-sm);font-family:var(--font-mono)}.feature-card__purpose{font-size:var(--type-sm);color:var(--muted);line-height:1.7;margin-bottom:var(--space-lg);flex:1}.feature-card__tags{display:flex;flex-wrap:wrap;gap:var(--space-sm);margin-bottom:var(--space-md)}.feature-card__link{display:inline-flex;align-items:center;gap:6px;font-size:var(--type-sm);font-weight:600;font-family:var(--font-mono);color:var(--accent);transition:gap .3s;align-self:flex-start}.feature-card__link:hover{gap:12px}
+.philosophy-strip{text-align:center;padding:var(--space-xl) 0 var(--space-2xl);border-top:1px solid var(--border)}
+.philosophy-strip__text{font-family:var(--font-mono);font-size:var(--type-sm);color:var(--muted);letter-spacing:0.03em;max-width:600px;margin:0 auto;line-height:1.7}
+.philosophy-strip__text::after{content:'|';display:inline-block;color:var(--accent);animation:blink-cursor .8s step-end infinite;margin-left:2px}
+@keyframes blink-cursor{0%,100%{opacity:1}50%{opacity:0}}
+@media(max-width:900px){.feature-cards{grid-template-columns:1fr}.flow-diagram{justify-content:flex-start;padding:var(--space-xl) var(--space-md)}}
+@media(max-width:768px){.page{padding:0 var(--space-lg)}.nav{gap:var(--space-md);padding:0 var(--space-md)}.nav a{font-size:.65rem;letter-spacing:0.08em}.cursor-dot{display:none}body{cursor:auto}.theme-toggle{top:var(--space-md);right:var(--space-md);width:36px;height:36px;font-size:1rem}}
+@media(max-width:480px){.nav{gap:var(--space-sm);flex-wrap:wrap;height:auto;padding:var(--space-sm) var(--space-md);justify-content:flex-start;overflow-x:auto}.nav a{font-size:.6rem;padding:var(--space-xs) var(--space-sm);white-space:nowrap}.flow-node{min-width:64px}.flow-node__box{font-size:var(--type-xs);padding:var(--space-xs) var(--space-sm);min-height:36px}.flow-arrow{width:20px}.feature-card{padding:var(--space-md)}}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursor"></div>
+<nav class="nav"><a href="/">Home</a><a href="/about">About</a><a href="/experience">Experience</a><a href="/projects">Projects</a><a href="/automation" class="active">Automation</a><a href="/certificates">Certificates</a></nav>
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><span id="theme-icon">&#9790;</span></button>
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<div style="display:none">
+  [CONFIG:site.title] Portfolio Website
+  [CONFIG:pageHeader.label] Automation
+  [CONFIG:pageHeader.title] Engineering Workflow & AI Systems
+  [CONFIG:pageHeader.subtitle] How I build: from PRD through Open Design to Open Code
+  [CONFIG:flow.section.label] Development Pipeline
+  [CONFIG:features.section.label] Engineering Systems
+  [CONFIG:philosophy.text] "Every system is a scaffold for the next."
+</div>
+
+<main class="page">
+  <header class="page-header">
+    <p class="page-header__label reveal">[CONFIG:pageHeader.label]</p>
+    <h1 class="page-header__title reveal-left">[CONFIG:pageHeader.title]</h1>
+    <p class="page-header__subtitle reveal" style="transition-delay:.1s">[CONFIG:pageHeader.subtitle]</p>
+  </header>
+
+  <section class="flow-section">
+    <div class="section-header reveal"><span class="section-header__line"></span><span class="section-header__label">[CONFIG:flow.section.label]</span><span class="section-header__line"></span></div>
+    <div class="flow-diagram reveal">
+      <div class="flow-node"><div class="flow-node__box">PRD</div><span class="flow-node__label">Product Spec</span></div>
+      <div class="flow-arrow"><span class="flow-arrow__head">&#9654;</span></div>
+      <div class="flow-node"><div class="flow-node__box">Roadmap</div><span class="flow-node__label">Planning</span></div>
+      <div class="flow-arrow"><span class="flow-arrow__head">&#9654;</span></div>
+      <div class="flow-node"><div class="flow-node__box">Design</div><span class="flow-node__label">Spec</span></div>
+      <div class="flow-arrow"><span class="flow-arrow__head">&#9654;</span></div>
+      <div class="flow-node"><div class="flow-node__box">Prompts</div><span class="flow-node__label">Authoring</span></div>
+      <div class="flow-arrow"><span class="flow-arrow__head">&#9654;</span></div>
+      <div class="flow-node flow-node--active"><div class="flow-node__box">Open Design</div><span class="flow-node__label">Design</span><span class="flow-node__status">[active]</span></div>
+      <div class="flow-arrow"><span class="flow-arrow__head">&#9654;</span></div>
+      <div class="flow-node"><div class="flow-node__box">Open Code</div><span class="flow-node__label">Implement</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header reveal"><span class="section-header__line"></span><span class="section-header__label">[CONFIG:features.section.label]</span><span class="section-header__line"></span></div>
+    <div class="feature-cards stagger-children reveal">
+      <div class="feature-card">
+        <div class="feature-card__icon">&#9881;</div>
+        <h2 class="feature-card__name">[CONFIG:features.0.name]</h2>
+        <p class="feature-card__purpose">[CONFIG:features.0.purpose]</p>
+        <div class="feature-card__tags"><span class="pill">[CONFIG:features.0.tags.0]</span><span class="pill">[CONFIG:features.0.tags.1]</span><span class="pill">[CONFIG:features.0.tags.2]</span></div>
+        <a href="#" class="feature-card__link">&rarr; [CONFIG:features.0.cta]</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">&#9632;</div>
+        <h2 class="feature-card__name">[CONFIG:features.1.name]</h2>
+        <p class="feature-card__purpose">[CONFIG:features.1.purpose]</p>
+        <div class="feature-card__tags"><span class="pill">[CONFIG:features.1.tags.0]</span><span class="pill">[CONFIG:features.1.tags.1]</span><span class="pill">[CONFIG:features.1.tags.2]</span></div>
+        <a href="#" class="feature-card__link">&rarr; [CONFIG:features.1.cta]</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">&#9881;</div>
+        <h2 class="feature-card__name">[CONFIG:features.2.name]</h2>
+        <p class="feature-card__purpose">[CONFIG:features.2.purpose]</p>
+        <div class="feature-card__tags"><span class="pill">[CONFIG:features.2.tags.0]</span><span class="pill">[CONFIG:features.2.tags.1]</span><span class="pill">[CONFIG:features.2.tags.2]</span></div>
+        <a href="#" class="feature-card__link">&rarr; [CONFIG:features.2.cta]</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="philosophy-strip reveal">
+    <p class="philosophy-strip__text">[CONFIG:philosophy.text]</p>
+  </div>
+</main>
+
+<footer class="footer"><div class="footer-inner"><div class="footer-copy">&copy; [CONFIG:footer.copyright] &mdash; Built with [CONFIG:footer.builtWith]</div></div></footer>
+
+<script>
+function toggleTheme(){const r=document.documentElement;const i=document.getElementById('theme-icon');const d=r.getAttribute('data-theme')==='dark';r.setAttribute('data-theme',d?'light':'dark');i.textContent=d?'\u2609':'\u264E';try{localStorage.setItem('theme',d?'light':'dark')}catch(e){}}
+(function(){const t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);document.getElementById('theme-icon').textContent=document.documentElement.getAttribute('data-theme')==='dark'?'\u2609':'\u264E'})();
+window.addEventListener('scroll',function(){document.getElementById('back-to-top').classList.toggle('visible',window.scrollY>400)});
+const c=document.getElementById('cursor');if(window.matchMedia('(pointer:fine)').matches){document.addEventListener('mousemove',function(e){c.style.left=e.clientX+'px';c.style.top=e.clientY+'px'});document.addEventListener('mouseover',function(e){const t=e.target.closest('a,button,.btn,.pill,.feature-card');t?c.classList.add('hover'):c.classList.remove('hover')},true)}
+(function(){const r=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add('visible'),r.unobserve(e.target))})},{threshold:.1});document.querySelectorAll('.reveal,.reveal-left,.stagger-children').forEach(e=>r.observe(e))})();
+</script>
+</body>
+</html>
