@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (design-redesign)
-> - last-verified-against-code: 2026-07-08
+> - last-updated-by: opencode (config-driven-refactor)
+> - last-verified-against-code: 2026-07-15
 > - staleness-policy: re-verify before each session
 
 > **Overview:** Sprint-level task queue with complexity tagging. Agents execute tasks top to bottom within the current sprint. Each task is sized so it can be completed in a single session.
@@ -40,16 +40,29 @@ Tags help agents self-select whether a task needs the full `execute-feature.md` 
 
 ## Up Next
 
-| Size | Task                                                                                         |
-| ---- | -------------------------------------------------------------------------------------------- |
-| [L]  | Sync theme tokens from od-system.html into actual codebase (styles.scss, tailwind.config.js) |
-| [M]  | Update font stack from Roboto → Inter + Playfair Display                                     |
-| [S]  | Update color accent from #daa520 → #d4a040                                                   |
-| [M]  | Implement horizontal gallery sliders (projects, certificates)                                |
-| [M]  | Add marquee component to home page                                                           |
-| [S]  | Add back-to-top button                                                                       |
-| [M]  | Add 3D card tilt effect to project cards                                                     |
-| [M]  | Add scroll-based reveal animations and parallax sections                                     |
+| Size | Task                                                                                         | Status |
+| ---- | -------------------------------------------------------------------------------------------- | ------ |
+| [L]  | Sync theme tokens from od-system.html into actual codebase (styles.scss, tailwind.config.js) | [x]    |
+| [M]  | Update font stack from Roboto → Inter + Playfair Display                                     | [x]    |
+| [S]  | Update color accent from #daa520 → #d4a040                                                   | [x]    |
+| [M]  | Implement horizontal gallery sliders (projects, certificates)                                | [x]    |
+| [M]  | Add marquee component to home page                                                           | [x]    |
+| [S]  | Add back-to-top button                                                                       | [x]    |
+| [M]  | Add 3D card tilt effect to project cards                                                     | [x]    |
+| [M]  | Add scroll-based reveal animations and parallax sections                                     | [x]    |
+| [S]  | Preserve DOM structure in container-level scroll reveals                                     | [x]    |
+| [BUG]| Fix flow arrow connector lines not stretching edge-to-edge                                   | [x]    |
+| [BUG]| Bidirectional reveal-blur for CSS-only elements                                               | [x]    |
+| [BUG]| Bio paragraph wordwrap overflow                                                              | [x]    |
+| [M]  | Audit codebase for repeated UI patterns and extract into reusable components                  | [x]    |
+| [S]  | Create PageHeaderComponent (5x page headers → 1 component)                                   | [x]    |
+| [S]  | Create SectionHeaderComponent (6x section dividers → 1 component)                            | [x]    |
+| [S]  | Create PillListComponent (7x pill loops → 1 component)                                       | [x]    |
+| [S]  | Create LinksRowComponent (4x conditional link blocks → 1 component)                          | [x]    |
+| [M]  | Create MediaCardComponent (3x project cards → 1 component)                                   | [x]    |
+| [S]  | Create GalleryNavComponent (3x gallery nav pairs → 1 component)                              | [x]    |
+| [S]  | Delete dead shared components (card, section, tech-stack, image-gallery)                     | [x]    |
+| [S]  | Consolidate duplicate CSS keyframes into global styles.scss                                  | [x]    |
 
 ---
 

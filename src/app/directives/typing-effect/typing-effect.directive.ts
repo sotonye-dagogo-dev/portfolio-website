@@ -11,6 +11,10 @@ export interface TypingEffectConfig {
   autoStart?: boolean;
   loop?: boolean;
   loopDelay?: number; // Delay between loops in seconds
+  mode?: 'typewriter' | 'blurReveal';
+  revealGroup?: number; // characters per reveal step (default 3)
+  blurAmount?: string; // max blur amount (default '10px')
+  scrollDriven?: boolean; // blur reveal driven by scroll position instead of timer
 }
 
 @Directive({
@@ -30,7 +34,11 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
     fontFamily: '', // Will be set from element's computed style
     autoStart: true,
     loop: false,
-    loopDelay: 5
+    loopDelay: 5,
+    mode: 'typewriter',
+    revealGroup: 3,
+    blurAmount: '10px',
+    scrollDriven: false
   }
 
   activeConfig: TypingEffectConfig = {};
@@ -48,6 +56,8 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
   private animationInterval: any = null;
   private containerWidth: number = 0;
   private maxVisibleChars: number = 0;
+  private scrollHandler: (() => void) | null = null;
+  private maxScrollProgress: number = 0;
 
   isBrowser!: boolean;
 
@@ -100,6 +110,10 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
     if (this.animationInterval) {
       clearInterval(this.animationInterval);
     }
+    if (this.scrollHandler) {
+      window.removeEventListener('scroll', this.scrollHandler);
+      this.scrollHandler = null;
+    }
   }
 
   private captureOriginalStyles() {
@@ -122,7 +136,11 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
       fontFamily: this.config.fontFamily ?? this.originalFontFamily,
       autoStart: this.config.autoStart ?? this.defaultConfig.autoStart,
       loop: this.config.loop ?? this.defaultConfig.loop,
-      loopDelay: this.config.loopDelay ?? this.defaultConfig.loopDelay
+      loopDelay: this.config.loopDelay ?? this.defaultConfig.loopDelay,
+      mode: this.config.mode ?? this.defaultConfig.mode,
+      revealGroup: this.config.revealGroup ?? this.defaultConfig.revealGroup,
+      blurAmount: this.config.blurAmount ?? this.defaultConfig.blurAmount,
+      scrollDriven: this.config.scrollDriven ?? this.defaultConfig.scrollDriven
     }
   }
 
@@ -165,6 +183,11 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
   public startTypingEffect() {
     if (!this.isBrowser || this.textLength === 0) {
       console.warn('Cannot start typing effect: no text content or not in browser');
+      return;
+    }
+
+    if (this.activeConfig.mode === 'blurReveal') {
+      this.startBlurReveal();
       return;
     }
     
@@ -337,6 +360,157 @@ export class TypingEffectDirective implements OnInit, AfterViewInit, OnDestroy, 
     };
 
     this.animationInterval = setInterval(untypeCharacter, typingSpeed);
+  }
+
+  private startBlurReveal() {
+    if (!this.isBrowser) return;
+
+    if (this.activeConfig.scrollDriven) {
+      this.startScrollDrivenBlurReveal();
+      return;
+    }
+
+    const element = this.el.nativeElement;
+    const groupSize = this.activeConfig.revealGroup!;
+    const blurAmount = this.activeConfig.blurAmount!;
+    const totalMs = this.activeConfig.typingSpeed! * 1000;
+    const stepMs = totalMs / Math.ceil(this.textLength / groupSize);
+
+    element.innerHTML = '';
+    this.renderer.setStyle(element, 'white-space', 'pre-wrap');
+    this.renderer.setStyle(element, 'word-break', 'break-word');
+
+    const chars: HTMLSpanElement[] = [];
+    for (const ch of this.originalText) {
+      const span = this.renderer.createElement('span');
+      this.renderer.appendChild(span, this.renderer.createText(ch === ' ' ? '\u00A0' : ch));
+      this.renderer.setStyle(span, 'display', 'inline');
+      this.renderer.setStyle(span, 'transition', 'filter 0.35s ease, opacity 0.35s ease');
+      this.renderer.setStyle(span, 'filter', `blur(${blurAmount})`);
+      this.renderer.setStyle(span, 'opacity', '0.3');
+      this.renderer.appendChild(element, span);
+      chars.push(span);
+    }
+
+    this.createCursor();
+    if (this.cursorElement) this.renderer.appendChild(element, this.cursorElement);
+
+    let revealIndex = 0;
+    const reveal = () => {
+      if (revealIndex >= this.textLength) {
+        clearInterval(this.animationInterval);
+        if (this.activeConfig.loop) {
+          setTimeout(() => this.startBlurUntype(chars), this.activeConfig.loopDelay! * 1000);
+        }
+        return;
+      }
+      const end = Math.min(revealIndex + groupSize, this.textLength);
+      for (let i = revealIndex; i < end; i++) {
+        this.renderer.setStyle(chars[i], 'filter', 'blur(0)');
+        this.renderer.setStyle(chars[i], 'opacity', '1');
+      }
+      revealIndex = end;
+    };
+    this.animationInterval = setInterval(reveal, stepMs);
+  }
+
+  private startScrollDrivenBlurReveal() {
+    if (this.scrollHandler) {
+      window.removeEventListener('scroll', this.scrollHandler);
+      this.scrollHandler = null;
+    }
+    const element = this.el.nativeElement;
+    const blurAmount = this.activeConfig.blurAmount!;
+
+    // Walk DOM tree to wrap all text-node characters in <span> elements.
+    // Preserves the existing element structure (classes, nesting, layout).
+    this.renderer.setStyle(element, 'word-break', 'break-word');
+    this.renderer.setStyle(element, 'overflow-wrap', 'break-word');
+
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const textNodes: Text[] = [];
+    let node: Text | null;
+    while ((node = walker.nextNode() as Text | null)) {
+      const text = node.textContent ?? '';
+      if (!text.trim()) continue;
+      textNodes.push(node);
+    }
+
+    const allChars: HTMLSpanElement[] = [];
+    for (const textNode of textNodes) {
+      const text = textNode.textContent ?? '';
+      const fragment = document.createDocumentFragment();
+      for (const ch of text) {
+        const span = this.renderer.createElement('span');
+        span.textContent = ch === ' ' ? '\u00A0' : ch;
+        this.renderer.setStyle(span, 'display', 'inline');
+        this.renderer.setStyle(span, 'transition', 'filter 0.2s ease, opacity 0.2s ease');
+        this.renderer.setStyle(span, 'filter', `blur(${blurAmount})`);
+        this.renderer.setStyle(span, 'opacity', '0.3');
+        fragment.appendChild(span);
+        allChars.push(span);
+      }
+      textNode.parentNode?.replaceChild(fragment, textNode);
+    }
+
+    this.maxScrollProgress = 0;
+
+    const updateChars = () => {
+      const rect = element.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // Reveal based on element's top edge entering viewport.
+      // progress=0 when element top enters viewport bottom.
+      // progress=1 when element top has scrolled up one viewport height.
+      // This means at page load, text near the top is already partially revealed.
+      const totalTravel = vh;
+      const scrolled = vh - rect.top;
+      const rawProgress = Math.max(0, Math.min(1, scrolled / totalTravel));
+
+      // Sticky max — once revealed, characters stay revealed (no re-blur on scroll up)
+      this.maxScrollProgress = Math.max(this.maxScrollProgress, rawProgress);
+
+      const revealCount = Math.floor(this.maxScrollProgress * allChars.length);
+
+      for (let i = 0; i < allChars.length; i++) {
+        if (i < revealCount) {
+          this.renderer.setStyle(allChars[i], 'filter', 'blur(0)');
+          this.renderer.setStyle(allChars[i], 'opacity', '1');
+        } else {
+          this.renderer.setStyle(allChars[i], 'filter', `blur(${blurAmount})`);
+          this.renderer.setStyle(allChars[i], 'opacity', '0.3');
+        }
+      }
+    };
+
+    const handler = () => requestAnimationFrame(updateChars);
+    window.addEventListener('scroll', handler, { passive: true });
+    this.scrollHandler = handler;
+    updateChars();
+  }
+
+  private startBlurUntype(chars: HTMLSpanElement[]) {
+    if (!this.isBrowser) return;
+    const groupSize = this.activeConfig.revealGroup!;
+    const blurAmount = this.activeConfig.blurAmount!;
+    const totalMs = this.activeConfig.typingSpeed! * 1000;
+    const stepMs = totalMs / Math.ceil(this.textLength / groupSize);
+
+    let revealIndex = this.textLength;
+    const untype = () => {
+      if (revealIndex <= 0) {
+        clearInterval(this.animationInterval);
+        setTimeout(() => this.startBlurReveal(), 1000);
+        return;
+      }
+      const start = Math.max(revealIndex - groupSize, 0);
+      for (let i = start; i < revealIndex; i++) {
+        this.renderer.setStyle(chars[i], 'filter', `blur(${blurAmount})`);
+        this.renderer.setStyle(chars[i], 'opacity', '0.3');
+      }
+      revealIndex = start;
+    };
+    this.animationInterval = setInterval(untype, stepMs);
   }
 
   private shouldManageOverflow(): boolean {

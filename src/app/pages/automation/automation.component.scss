@@ -3,10 +3,6 @@
 }
 
 .flow-diagram {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
   padding: var(--space-2xl) var(--space-lg);
   background: var(--surface);
   border-radius: var(--radius-2xl);
@@ -15,11 +11,33 @@
   position: relative;
 }
 
-.flow-node {
+.flow-tracks {
   display: flex;
   flex-direction: column;
+  gap: var(--space-md);
   align-items: center;
-  gap: var(--space-sm);
+  width: 100%;
+}
+
+.flow-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+.flow-track--boxes {
+  align-items: center;
+}
+
+.flow-track--labels {
+  align-items: center;
+}
+
+.flow-node {
+  display: flex;
+  align-items: center;
   min-width: 80px;
   flex-shrink: 0;
   position: relative;
@@ -78,14 +96,26 @@
   opacity: 1;
 }
 
-.flow-arrow {
+.flow-label-cell {
+  min-width: 80px;
+  text-align: center;
   flex-shrink: 0;
+}
+
+.flow-arrow {
+  flex: 1;
+  min-width: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
   color: var(--muted);
   position: relative;
+  align-self: stretch;
+}
+
+.flow-spacer {
+  flex: 1;
+  min-width: 36px;
 }
 
 .flow-arrow::before {
@@ -206,12 +236,15 @@
 
 @media (max-width: 900px) {
   .feature-cards { grid-template-columns: 1fr; }
-  .flow-diagram { justify-content: flex-start; padding: var(--space-xl) var(--space-md); }
+  .flow-diagram { padding: var(--space-xl) var(--space-md); }
+  .flow-track { justify-content: flex-start; }
 }
 
 @media (max-width: 480px) {
   .flow-node { min-width: 64px; }
   .flow-node__box { font-size: var(--type-xs); padding: var(--space-xs) var(--space-sm); min-height: 36px; }
-  .flow-arrow { width: 20px; }
+  .flow-label-cell { min-width: 64px; }
+  .flow-arrow { min-width: 20px; }
+  .flow-spacer { min-width: 20px; }
   .feature-card { padding: var(--space-md); }
 }

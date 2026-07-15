@@ -1,12 +1,9 @@
 <div class="page">
-  <header class="page-header">
-    <p class="page-header__label reveal">About</p>
-    <h1 class="page-header__title reveal-left">Engineering Philosophy &amp; Background</h1>
-  </header>
+  <app-page-header label="About" title="Engineering Philosophy &amp; Background"></app-page-header>
 
-  <section class="bio-text reveal">
+  <section class="bio-text" appTypingEffect [config]="{mode:'blurReveal',scrollDriven:true}">
     <div class="bio-paragraph" *ngFor="let para of content.about.bioParagraphs; let i = index" [class.bio-paragraph--right]="i % 2 === 1">
-      <p class="reveal-blur">{{ para }}</p>
+      <p>{{ para }}</p>
     </div>
   </section>
 
@@ -37,8 +34,8 @@
       {{ link.label }}
     </a>
     <a *ngIf="content.site.cvUrl" [href]="content.site.cvUrl" target="_blank" rel="noopener" class="contact-link contact-link--cv" appMagneticBtn>
-      <span class="contact-link__icon"><fa-icon [icon]="fa('download')" size="sm"></fa-icon></span>
-      Download CV
+      <span class="contact-link__icon"><fa-icon [icon]="fa('view')" size="sm"></fa-icon></span>
+      View CV
     </a>
   </section>
 

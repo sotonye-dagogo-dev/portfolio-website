@@ -10,6 +10,8 @@ import { PulsatingEffectDirective } from '../../directives/pulsating-effect/puls
 import { ImageViewerDirective } from '../../directives/image-viewer/image-viewer.directive';
 import { ImageFadeDirective } from '../../directives/image-fade/image-fade.directive';
 import { MagneticBtnDirective } from '../../directives/magnetic-btn/magnetic-btn.directive';
+import { PillListComponent } from '../../components/pill-list/pill-list.component';
+import { LinksRowComponent } from '../../components/links-row/links-row.component';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +26,8 @@ import { MagneticBtnDirective } from '../../directives/magnetic-btn/magnetic-btn
     ImageViewerDirective,
     ImageFadeDirective,
     MagneticBtnDirective,
+    PillListComponent,
+    LinksRowComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

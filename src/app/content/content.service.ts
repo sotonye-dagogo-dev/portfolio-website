@@ -46,15 +46,31 @@ export class ContentService {
   }
 
   get site() {
-    return { ...siteConfig, ...(this.generated?.site || {}) };
+    const now = new Date().getFullYear();
+    const base = { ...siteConfig, ...(this.generated?.site || {}) };
+    base.footer = { ...base.footer, copyright: `${now} Sotonye Dagogo` };
+    return base;
+  }
+
+  private uniqueTechCount(): number {
+    const allTechs = new Set<string>();
+    allProjects.forEach(p => p.techStack.forEach(t => allTechs.add(t)));
+    return allTechs.size;
+  }
+
+  private certificateCount(): number {
+    return certificateConfig.reduce((sum, cat) => sum + cat.items.length, 0);
   }
 
   get stats(): StatItem[] {
     const base = this.overrideArray(statsConfig, 'stats');
+    const now = new Date().getFullYear();
     return base.map(s => {
-      if (s.dynamic && s.label === 'Years Experience' && siteConfig.experienceStartYear) {
-        const years = new Date().getFullYear() - siteConfig.experienceStartYear;
-        return { ...s, value: years + '+' };
+      if (s.label === 'Projects') return { ...s, value: allProjects.length + '+' };
+      if (s.label === 'Technologies') return { ...s, value: this.uniqueTechCount() + '+' };
+      if (s.label === 'Certificates') return { ...s, value: this.certificateCount() + '+' };
+      if (s.label === 'Years Experience' && siteConfig.experienceStartYear) {
+        return { ...s, value: (now - siteConfig.experienceStartYear) + '+' };
       }
       return s;
     });

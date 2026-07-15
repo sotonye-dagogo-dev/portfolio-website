@@ -2,7 +2,7 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (fa-icon-config-polish-sprint)
+> - last-updated-by: opencode (blur-reveal-dynamic-stats-sprint)
 > - last-verified-against-code: 2026-07-15 (verified during this sprint)
 > - staleness-policy: re-verify if project scope or phase changes
 
@@ -93,6 +93,16 @@
 - [ ] Responsive design verification
 - [ ] Accessibility audit
 - [ ] Performance optimization
+
+---
+
+## Phase 10 — Interaction Effects: Blur Reveal & Dynamic Stats
+
+- [x] `TypingEffectDirective`: added `mode: 'typewriter' | 'blurReveal'` with `revealGroup` and `blurAmount` config
+- [x] `startBlurReveal()` / `startBlurUntype()` — character-level blur reveal with loop support
+- [x] Hero tagline configured with `mode:'blurReveal'`
+- [x] `content.service.ts`: Projects/Technologies/Certificates stats computed from actual config arrays
+- [x] `content.service.ts`: footer copyright year dynamically set from `new Date().getFullYear()`
 
 ---
 

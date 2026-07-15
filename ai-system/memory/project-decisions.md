@@ -2,7 +2,7 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (fa-icon-config-polish-sprint)
+> - last-updated-by: opencode (blur-reveal-dynamic-stats-sprint)
 > - last-verified-against-code: 2026-07-15 (verified during this sprint)
 > - staleness-policy: each entry has its own staleness — check supersedes links
 
@@ -180,6 +180,47 @@ Recruiters visiting the About page commonly look for a CV/resume download. Makin
 **Implications:**
 - Uses `*ngIf="content.site.cvUrl"` to conditionally render.
 - Styled as a filled button with `fa-download` icon, consistent with contact row pill style.
+
+## Blur Reveal Mode for TypingEffect
+
+**Decision:** Added `mode: 'typewriter' | 'blurReveal'` to `TypingEffectConfig` with `revealGroup` (default 3) and `blurAmount` (default `'10px'`). In `blurReveal` mode, each character is wrapped in a `<span>` with `filter: blur(10px)` / `opacity: 0.3` and revealed in groups. On loop reverse, characters re-blur progressively.
+**Date:** 2026-07-15
+**Made by:** Developer
+**Supersedes:** None
+**Superseded by:** None
+
+**Reason:**
+The typewriter effect is great for textual introductions, but the portfolio needed a more visually distinctive hero treatment. The blur reveal provides a modern, cinematic entrance animation that pairs with the existing scroll-reveal ecosystem. Character-level control (group size, blur amount) keeps it configurable without introducing a separate directive.
+
+**Alternatives Considered:**
+- A separate `BlurRevealDirective` — rejected because sharing the same config interface and lifecycle with `TypingEffectDirective` keeps the API simple; adding it as a mode avoids duplicating loop/autoStart/blink cursor logic.
+- CSS-only blur reveal — rejected because character-level sequencing requires JS interval control.
+
+**Implications:**
+- `TypingEffectConfig` interface extended — existing `mode: 'typewriter'` usage unchanged.
+- Applied to hero tagline: `[config]="{mode:'blurReveal', loop:true, typingSpeed:4}"`.
+- `startBlurReveal()` / `startBlurUntype()` added; `startTypingEffect()` branches on `mode`.
+- All `<span>` elements get `transition: filter 0.35s ease, opacity 0.35s ease`.
+
+## Dynamic Stats (All Stats Now Computed)
+
+**Decision:** `content.service.ts` now computes Projects, Technologies, and Certificates stats from actual config arrays instead of static placeholder values. Projects count uses `allProjects.length`, Technologies uses `new Set<string>()` across all project tech stacks, Certificates sums items across all `certificateConfig` categories. Footer copyright dynamically sets the year via `new Date().getFullYear()`.
+**Date:** 2026-07-15
+**Made by:** Developer
+**Supersedes:** Static placeholder stats in site.config.ts.
+**Superseded by:** None
+
+**Reason:**
+Static stat values (e.g., `'12+'` for Projects) drift from reality every time a project or certificate is added to the config. Computing from source arrays guarantees accuracy without manual updates. The footer year was previously hardcoded — `new Date().getFullYear()` keeps it evergreen.
+
+**Alternatives Considered:**
+- Keeping static values updated manually — error-prone, frequently stale.
+- Computing via enrichment script only — delays accuracy to post-deploy; compile-time computation is immediate.
+
+**Implications:**
+- `stats` getter in `ContentService` now maps over base stats and replaces values for matching labels (`Projects`, `Technologies`, `Certificates`, `Years Experience`).
+- `uniqueTechCount()` and `certificateCount()` are private helpers on the service.
+- Footer always shows the current calendar year regardless of deploy date.
 
 ## Auto-Calculated Years Experience
 

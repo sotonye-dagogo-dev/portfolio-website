@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (fa-icon-config-polish-sprint)
-> - last-verified-against-code: 2026-07-15 (verified during this sprint)
+> - last-updated-by: opencode (config-driven-refactor)
+> - last-verified-against-code: 2026-07-15
 > - staleness-policy: historical entries do not go stale
 
 > **Overview:** Chronological log of completed development work. Each sprint ends with a summary entry. Agents add entries after completing tasks. Useful for understanding what has been built, when decisions were made, and what patterns have emerged.
@@ -472,6 +472,89 @@ Applied a comprehensive polish pass across all pages. Reduced spacing scale (spa
 - Glassmorphism applied to mobile menu drawer for visual consistency with navbar
 - All emoji/HTML-entity icons systematically replaced with text-based mono labels
 - Contact links enriched with custom icon rendering matching the mono-box design system
+
+**Next Sprint Focus:**
+Continue responsive polish, accessibility audit, and test coverage.
+
+---
+
+## 2026-07-15 — Scroll-Driven Blur Reveal, Flow Arrows, Bidirectional Reveal, Wordwrap
+
+**Summary:**
+Refined the blur reveal system: added `scrollDriven` config mode that uses passive scroll listener + `requestAnimationFrame` to map element viewport progress to character reveal count, with sticky max progress (once revealed never re-blurs). Rewrote `startScrollDrivenBlurReveal()` to use `TreeWalker` DOM walking instead of `innerHTML` replacement, preserving nested element structure (paragraph divs, zigzag classes). Progress window shortened to half a viewport for faster complete reveal. Flow diagram arrows changed from fixed 36px to `flex: 1` so connector lines stretch edge-to-edge between boxes, with matching `flow-label-cell` wrapper for label track alignment. `IntersectionObserver` made bidirectional for `.reveal-blur` elements (visible toggles on scroll in/out). Word-break CSS added to bio paragraphs.
+
+**Completed:**
+- `TypingEffectConfig.scrollDriven` — scroll-driven blur reveal with `requestAnimationFrame` + passive scroll listener
+- `startScrollDrivenBlurReveal()` — now walks DOM tree via `TreeWalker`, wraps text nodes in character spans without destroying structure
+- Sticky max progress — characters never re-blur once revealed (solves "can't finish reading" issue)
+- Progress reference changed from `rect.bottom` to `rect.top` — 89% text revealed at page load (was 0%); section visible immediately
+- Removed `.reveal` class from `bio-text` section (conflicted with directive's reveal behavior)
+- Flow arrows + spacers: `flex: 1; min-width: 36px` to stretch edge-to-edge
+- `.flow-label-cell` wrapper — `min-width: 80px; flex-shrink: 0` to match box width for label track alignment
+- Bidirectional `.reveal-blur` observer — `visible` class toggles on scroll in/out (non-reveal-blur elements still one-time)
+- Wordwrap: `word-break: break-word; overflow-wrap: break-word` on `.bio-paragraph p`
+
+**Key Changes:**
+- DOM-preserving approach for container-level directives (no `innerHTML` replacement)
+- Flex-based connector arrows (no more fixed-width gaps in flow diagram)
+- Observer bifurcation: one-time vs bidirectional behavior via CSS class check
+- Repair-system.md entries for all fixes
+
+**Next Sprint Focus:**
+Continue responsive polish, accessibility audit, and test coverage.
+
+---
+
+## 2026-07-15 — Config-Driven UI: Modular Component Extraction
+
+**Summary:**
+Full codebase audit identified 18 duplicated UI patterns with ~75 inline instances across 6 pages. Extracted 6 new reusable standalone components eliminating the most duplicated patterns: `PageHeaderComponent` (5x page headers), `SectionHeaderComponent` (6x section dividers), `PillListComponent` (7x pill loops), `LinksRowComponent` (4x conditional link blocks), `MediaCardComponent` (3x project card blocks), and `GalleryNavComponent` (3x gallery nav button pairs). All components accept typed config inputs with null-safe fallbacks. Removed 4 dead/unused shared components (card, section, tech-stack, image-gallery). Consolidated duplicate `@keyframes availability-glow` into global `styles.scss`. The projects page template shrank from 132 lines → 61 lines.
+
+**Completed:**
+- Full codebase audit: 18 patterns, ~75 inline instances catalogued
+- `PageHeaderComponent` — `app-page-header` replacing 5x page headers (about, experience, projects, automation, certificates)
+- `SectionHeaderComponent` — `app-section-header` replacing 6x section dividers (projects, automation)
+- `PillListComponent` — `app-pill-list` with `[items]` input, null-safe, replacing 7x pill loops
+- `LinksRowComponent` — `app-links-row` with conditional live-demo/GitHub/Case-Study logic, replacing 4x blocks
+- `MediaCardComponent` — `app-media-card` unifying project cards (flagship/applied/archive) with image-viewer, image-fade, animated-border, pill-list, links-row built-in
+- `GalleryNavComponent` — `app-gallery-nav` with `[targetId]` + `[scrollAmount]` inputs, replacing 3x nav button pairs
+- All 6 pages refactored to use the new components
+- 4 dead shared components deleted (card, section, tech-stack, image-gallery)
+- `@keyframes availability-glow` centralized in styles.scss (removed duplicate definitions from home.scss, about.scss)
+- `.project-card` + all sub-class CSS removed from projects.scss (now in media-card component)
+
+**Key Changes:**
+- Components directory: 4 removed, 6 added (net +2)
+- All new components are standalone with `:host { display: contents }` for transparent wrapping
+- Every component accepts config-driven inputs with typed interfaces
+- MediaCardComponent reuses PillListComponent + LinksRowComponent internally (composition)
+- Removed `scrollGallery()` methods from ProjectsComponent (now in GalleryNavComponent)
+- Removed `scrollGallery()` from CertificatesComponent (gallery nav kept inline due to index-based IDs)
+
+**Next Sprint Focus:**
+Continue responsive polish, accessibility audit, and test coverage.
+
+---
+
+## 2026-07-15 — Blur Reveal Effect, Dynamic Stats & Footer Year
+
+**Summary:**
+Added `blurReveal` mode to `TypingEffectDirective` — each character wraps in a `<span>` with `filter: blur(10px)` / `opacity: 0.3`, revealed 3 at a time transitioning to `blur(0)` / `opacity: 1`. On loop reverse, characters re-blur progressively. Applied to hero tagline with `[config]="{mode:'blurReveal', loop:true, typingSpeed:4}"`. Made all stats computed from actual config arrays in `content.service.ts`: Projects count from `allProjects.length`, Technologies count from unique tech names (`Set<string>`), Certificates count from sum of items across categories. Footer copyright year now dynamically uses `new Date().getFullYear()`.
+
+**Completed:**
+
+- `TypingEffectDirective`: added `mode: 'typewriter' | 'blurReveal'`, `revealGroup` (default 3), `blurAmount` (default `'10px'`)
+- `startBlurReveal()` — wraps each character in `<span>` with blur+opacity, reveals in groups
+- `startBlurUntype()` — reverses the reveal on loop, re-blurs characters progressively
+- Hero tagline: `[config]="{mode:'blurReveal', loop:true, typingSpeed:4}"`
+- `content.service.ts`: stats for Projects, Technologies, Certificates now computed from actual config arrays
+- `content.service.ts`: `site` getter overrides `footer.copyright` with current year
+
+**Key Changes:**
+
+- `TypingEffectConfig` interface extended with `mode`, `revealGroup`, `blurAmount`
+- All stats are now dynamic / computed — no stale placeholder values
+- Footer year auto-updates without manual config edits
 
 **Next Sprint Focus:**
 Continue responsive polish, accessibility audit, and test coverage.

@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContentService } from '../../content/content.service';
+import { PageHeaderComponent } from '../../components/page-header/page-header.component';
+import { PillListComponent } from '../../components/pill-list/pill-list.component';
 import { ImageViewerDirective } from '../../directives/image-viewer/image-viewer.directive';
-import { AnimatedBorderDirective } from '../../directives/animated-border/animated-border.directive';
-import { TypingEffectDirective } from '../../directives/typing-effect/typing-effect.directive';
-import { ImageFadeDirective } from '../../directives/image-fade/image-fade.directive';
 import { MagneticBtnDirective } from '../../directives/magnetic-btn/magnetic-btn.directive';
+import { AnimatedBorderDirective } from '../../directives/animated-border/animated-border.directive';
+import { ImageFadeDirective } from '../../directives/image-fade/image-fade.directive';
 
 @Component({
   selector: 'app-certificates',
   standalone: true,
   imports: [
     CommonModule,
+    PageHeaderComponent,
+    PillListComponent,
     ImageViewerDirective,
-    AnimatedBorderDirective,
-    TypingEffectDirective,
-    ImageFadeDirective,
     MagneticBtnDirective,
+    AnimatedBorderDirective,
+    ImageFadeDirective,
   ],
   templateUrl: './certificates.component.html',
   styleUrl: './certificates.component.scss',

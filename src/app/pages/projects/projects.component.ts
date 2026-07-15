@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ContentService } from '../../content/content.service';
-import { ImageViewerDirective } from '../../directives/image-viewer/image-viewer.directive';
-import { AnimatedBorderDirective } from '../../directives/animated-border/animated-border.directive';
-import { ImageFadeDirective } from '../../directives/image-fade/image-fade.directive';
 import { MagneticBtnDirective } from '../../directives/magnetic-btn/magnetic-btn.directive';
+import { PageHeaderComponent } from '../../components/page-header/page-header.component';
+import { SectionHeaderComponent } from '../../components/section-header/section-header.component';
+import { MediaCardComponent } from '../../components/media-card/media-card.component';
+import { GalleryNavComponent } from '../../components/gallery-nav/gallery-nav.component';
 
 @Component({
   selector: 'app-projects',
@@ -13,10 +14,11 @@ import { MagneticBtnDirective } from '../../directives/magnetic-btn/magnetic-btn
   imports: [
     CommonModule,
     RouterModule,
-    ImageViewerDirective,
-    AnimatedBorderDirective,
-    ImageFadeDirective,
     MagneticBtnDirective,
+    PageHeaderComponent,
+    SectionHeaderComponent,
+    MediaCardComponent,
+    GalleryNavComponent,
   ],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
@@ -28,12 +30,5 @@ export class ProjectsComponent {
 
   toggleArchive(): void {
     this.archiveOpen = !this.archiveOpen;
-  }
-
-  scrollGallery(id: string, amount: number): void {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollBy({ left: amount, behavior: 'smooth' });
-    }
   }
 }
