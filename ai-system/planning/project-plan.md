@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (blur-reveal-dynamic-stats-sprint)
-> - last-verified-against-code: 2026-07-15 (verified during this sprint)
+> - last-updated-by: opencode (update-ai-system)
+> - last-verified-against-code: 2026-07-18
 > - staleness-policy: re-verify if project scope or phase changes
 
 > **Overview:** High-level feature checklist organized by development phase. See `planning/task-queue.md` for granular, sprint-level tasks.
