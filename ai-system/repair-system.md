@@ -1,8 +1,8 @@
 # Repair System — Error Knowledge Base
 
 > **Metadata**
-> - last-updated-by: opencode (config-driven-refactor)
-> - last-verified-against-code: 2026-07-15
+> - last-updated-by: opencode (update-ai-system)
+> - last-verified-against-code: 2026-07-18
 > - staleness-policy: individual entries may be stale if the code has changed around them — verify fix still applies before reusing
 
 > **Overview:** Living knowledge base of errors encountered during development, their root causes, and how they were fixed. Agents must search this before diagnosing new errors and log every fixed bug to prevent recurrence.

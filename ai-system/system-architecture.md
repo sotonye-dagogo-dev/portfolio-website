@@ -1,8 +1,8 @@
 # System Architecture
 
 > **Metadata**
-> - last-updated-by: opencode (design-redesign)
-> - last-verified-against-code: 2026-07-08
+> - last-updated-by: opencode (update-ai-system)
+> - last-verified-against-code: 2026-07-18
 > - staleness-policy: re-verify before trusting if any architecture-affecting commits have been made since last-verified-against-code
 
 > **Overview:** How the system is structured — layers, modules, data flow, and configuration. Agents designing or changing structure must read this first.

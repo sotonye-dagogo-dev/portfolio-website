@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (config-driven-refactor)
-> - last-verified-against-code: 2026-07-15
+> - last-updated-by: opencode (update-ai-system)
+> - last-verified-against-code: 2026-07-18
 > - staleness-policy: historical entries do not go stale
 
 > **Overview:** Chronological log of completed development work. Each sprint ends with a summary entry. Agents add entries after completing tasks. Useful for understanding what has been built, when decisions were made, and what patterns have emerged.
@@ -558,3 +558,27 @@ Added `blurReveal` mode to `TypingEffectDirective` — each character wraps in a
 
 **Next Sprint Focus:**
 Continue responsive polish, accessibility audit, and test coverage.
+
+---
+
+## 2026-07-18 — AI System Synchronization & Navbar Polish
+
+**Summary:**
+Ran full `update-ai-system.md` to reconcile ai-system documentation with the current repository state. Updated all freshness metadata headers across 8 ai-system files (repo-map, dependency-graph, system-architecture, project-plan, task-queue, dev-history, lessons-learned, session-log). Extended the dependency-graph with the 6 new reusable components (PageHeaderComponent, SectionHeaderComponent, PillListComponent, LinksRowComponent, MediaCardComponent, GalleryNavComponent) extracted in the prior sprint. Applied a minor navbar polish: brand link color changed from `var(--fg)` to `var(--accent)` for consistency. No architecture drift detected — the component extraction pattern is already documented and the extracted components follow established conventions.
+
+**Completed:**
+
+- Updated freshness metadata on 8 ai-system files to 2026-07-18
+- Extended dependency-graph.md with 6 new reusable components and their dependency chains
+- Minor navbar branding style fix (nav-brand color: var(--fg) → var(--accent))
+- Verified no architecture drift between documentation and codebase
+- All design contracts (OD-1 through OD-7) remain visually consistent with implementation
+
+**Key Changes:**
+
+- Dependency graph now reflects the modular component extraction (PageHeaderComponent, SectionHeaderComponent, PillListComponent, LinksRowComponent, MediaCardComponent, GalleryNavComponent)
+- MediaCardComponent documented as compositional (internally uses PillListComponent + LinksRowComponent)
+- Design system remains stable — no token drift detected
+
+**Next Sprint Focus:**
+Phase 4 Quality & Polish: unit test coverage, responsive design verification, accessibility audit, performance optimization.

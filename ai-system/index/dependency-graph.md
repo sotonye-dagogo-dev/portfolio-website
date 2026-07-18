@@ -1,8 +1,8 @@
 # Dependency Graph
 
 > **Metadata**
-> - last-updated-by: opencode (design-redesign)
-> - last-verified-against-code: 2026-07-15
+> - last-updated-by: opencode (update-ai-system)
+> - last-verified-against-code: 2026-07-18
 > - staleness-policy: auto-regenerable — can be derived from import analysis tools. Manual content only for conventions and rules that cannot be inferred from code.
 
 > **Overview:** Maps how modules depend on each other. Agents use this to understand the impact of changes. This file is **auto-regenerable** — prefer tool-based import analysis for ground truth, and treat manual entries as supplementary.
@@ -25,32 +25,46 @@ HomeComponent
   → AnimatedBorderDirective
   → PulsatingEffectDirective
   → ImageViewerDirective
+  → PillListComponent
+  → LinksRowComponent
 
 AboutComponent
   → ContentService
   → PulsatingEffectDirective
+  → PageHeaderComponent
 
 ExperienceComponent
   → ContentService
   → PulsatingEffectDirective
   → AnimatedBorderDirective
+  → PageHeaderComponent
+  → PillListComponent
 
 ProjectsComponent
   → ContentService
   → AnimatedBorderDirective
   → PulsatingEffectDirective
   → ImageViewerDirective
+  → PageHeaderComponent
+  → SectionHeaderComponent
+  → MediaCardComponent
+  → GalleryNavComponent
 
 AutomationComponent
   → ContentService
   → PulsatingEffectDirective
   → AnimatedBorderDirective
+  → PageHeaderComponent
+  → SectionHeaderComponent
+  → PillListComponent
 
 CertificatesComponent
   → ContentService
   → ImageViewerDirective
   → AnimatedBorderDirective
   → TypingEffectDirective
+  → PageHeaderComponent
+  → PillListComponent
 
 NavbarComponent
   → Angular Router (navigation)
@@ -62,6 +76,27 @@ ContentService
 
 FooterComponent
   → ContentService
+
+PageHeaderComponent
+  → ContentService
+
+SectionHeaderComponent
+  → (none — pure presentational)
+
+PillListComponent
+  → (none — pure presentational, renders pill tag arrays)
+
+LinksRowComponent
+  → (none — pure presentational, renders link button arrays)
+
+MediaCardComponent
+  → AnimatedBorderDirective
+  → ImageViewerDirective
+  → PillListComponent (internal composition)
+  → LinksRowComponent (internal composition)
+
+GalleryNavComponent
+  → (none — pure DOM scroll-snap navigation)
 
 Express Server (server.ts)
   → Angular SSR engine
