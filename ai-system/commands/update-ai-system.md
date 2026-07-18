@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (blur-reveal-dynamic-stats-sprint)
-> - last-verified-against-code: 2026-07-15
+> - last-updated-by: opencode (update-ai-system)
+> - last-verified-against-code: 2026-07-18
 > - staleness-policy: re-verify if sync procedure changes
 
 > **Overview:** Sprint-end deep synchronization. Reads all `ai-system/` files and compares them against the current repository state. Fixes drift that accumulated during the sprint. Heavier than `sync-context.md`.
