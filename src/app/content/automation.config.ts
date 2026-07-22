@@ -36,4 +36,4 @@ export const automationFeatures: AutomationFeature[] = [
   },
 ];
 
-export const automationPhilosophy = 'Engineering systems should be metadata-driven, config-first, and AI-assistable — building the factory that builds the product.';
+export const automationPhilosophy = 'Engineering systems should be metadata-driven, config-first, and AI-assistable: building the factory that builds the product.';

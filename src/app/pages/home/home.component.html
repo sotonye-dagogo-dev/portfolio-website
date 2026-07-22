@@ -53,21 +53,38 @@
     </div>
   </section>
 
-  <!-- FEATURED FLAGSHIP PROJECT -->
-  <section class="section" style="padding-top:0" *ngIf="content.featuredProject">
-    <h2 class="section-label reveal">Flagship Project</h2>
-    <div class="featured-card reveal">
-      <div class="featured-card__image" appImageViewer [fullImage]="content.featuredProject.image">
-        <img [src]="content.featuredProject.image" [alt]="content.featuredProject.title" appImageFade />
-      </div>
-      <div class="featured-card__body">
-        <span class="featured-card__flag">Featured</span>
-        <h3 class="featured-card__title">{{ content.featuredProject.title }}</h3>
-        <p class="featured-card__desc reveal-blur">{{ content.featuredProject.description }}</p>
-        <div class="featured-card__tags">
-          <app-pill-list [items]="content.featuredProject.techStack"></app-pill-list>
+  <!-- FEATURED FLAGSHIP PROJECTS -->
+  <section class="section" style="padding-top:0" *ngIf="featuredProjects.length">
+    <h2 class="section-label reveal">Flagship Projects</h2>
+    <div class="featured-carousel reveal"
+         (mouseenter)="pause()"
+         (mouseleave)="resume()"
+         (touchstart)="pause()"
+         (touchend)="resume()">
+      <div class="featured-carousel__track" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+        <div class="featured-card" *ngFor="let project of featuredProjects; let i = index">
+          <div class="featured-card__image" appImageViewer [fullImage]="project.image">
+            <img [src]="project.image" [alt]="project.title" appImageFade />
+          </div>
+          <div class="featured-card__body">
+            <span class="featured-card__flag">Featured</span>
+            <h3 class="featured-card__title">{{ project.title }}</h3>
+            <p class="featured-card__desc reveal-blur">{{ project.description }}</p>
+            <div class="featured-card__tags">
+              <app-pill-list [items]="project.techStack"></app-pill-list>
+            </div>
+            <app-links-row [item]="project"></app-links-row>
+          </div>
         </div>
-        <app-links-row [item]="content.featuredProject"></app-links-row>
+      </div>
+      <button class="featured-carousel__btn featured-carousel__btn--prev" (click)="prev(); pause();" aria-label="Previous project" *ngIf="featuredProjects.length > 1">&lsaquo;</button>
+      <button class="featured-carousel__btn featured-carousel__btn--next" (click)="next(); pause();" aria-label="Next project" *ngIf="featuredProjects.length > 1">&rsaquo;</button>
+      <div class="featured-carousel__dots" *ngIf="featuredProjects.length > 1">
+        <button class="featured-carousel__dot"
+                *ngFor="let _ of featuredProjects; let i = index"
+                [class.featured-carousel__dot--active]="i === currentIndex"
+                (click)="goTo(i); pause();"
+                [attr.aria-label]="'Go to slide ' + (i + 1)"></button>
       </div>
     </div>
   </section>

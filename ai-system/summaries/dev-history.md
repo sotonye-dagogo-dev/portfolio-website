@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (update-ai-system)
-> - last-verified-against-code: 2026-07-18
+> - last-updated-by: opencode (execute-feature)
+> - last-verified-against-code: 2026-07-22
 > - staleness-policy: historical entries do not go stale
 
 > **Overview:** Chronological log of completed development work. Each sprint ends with a summary entry. Agents add entries after completing tasks. Useful for understanding what has been built, when decisions were made, and what patterns have emerged.
@@ -582,3 +582,33 @@ Ran full `update-ai-system.md` to reconcile ai-system documentation with the cur
 
 **Next Sprint Focus:**
 Phase 4 Quality & Polish: unit test coverage, responsive design verification, accessibility audit, performance optimization.
+
+---
+
+## 2026-07-22 — Featured Carousel, New Projects & Content Quality
+
+**Summary:**
+Fixed Netlify build failures (missing methods/imports, corrupted node_modules), then tightened content quality and added new features. Replaced all emdashes in config content (about, automation, projects) with colons/periods/rephrasing — an indicator of AI-generated text. Added Along App (featured, flagship) and HR ID Card Automata (flagship) to the projects config. Refactored the featured project model from a single `ProjectEntry | null` to `featuredProjects: ProjectEntry[]` and implemented an auto-sliding carousel on the home page with track-based layout, prev/next buttons, dot navigation, and pause-on-interaction. Guarded the carousel `setInterval` with `isPlatformBrowser` to prevent SSR prerendering timeout. Added §10 "No Emdashes in Config Content" to engineering-standards.
+
+**Completed:**
+
+- Fixed build errors: added `scrollGallery()` method and missing directive imports to CertificatesComponent; removed unused TypingEffectDirective from certificates/experience/projects
+- Clean reinstalled corrupted node_modules
+- Removed emdashes from about.config.ts (3), automation.config.ts (1), projects.component.html (1)
+- Added §10 "No Emdashes in Config Content" to `ai-system/standards/engineering-principles.md`
+- Added Along App (featured, flagship) and HR ID Card Automata (flagship) to `projects.config.ts`
+- Changed `ContentData.featuredProject` → `featuredProjects: ProjectEntry[]`
+- Added track-based carousel to home component (HTML, SCSS, TS)
+- Carousel: auto-slides every 5s; pauses on mouseenter/touchstart; resumes on mouseleave/touchend; prev/next + dots also pause
+- Guarded `setInterval` with `isPlatformBrowser` for SSR compatibility
+- Build verifies cleanly
+
+**Key Changes:**
+
+- Featured project is now a multi-item carousel (`featuredProjects` array) instead of a single card
+- Carousel auto-slide only runs in browser (prevents Netlify SSR prerender timeout)
+- Emdashes are banned from config content per new engineering standard
+- Two new flagship projects added (Along App, HR ID Card Automata)
+
+**Next Sprint Focus:**
+Continue responsive polish, accessibility audit, and test coverage.

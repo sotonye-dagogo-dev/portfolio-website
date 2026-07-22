@@ -1,8 +1,8 @@
 # Dependency Graph
 
 > **Metadata**
-> - last-updated-by: opencode (update-ai-system)
-> - last-verified-against-code: 2026-07-18
+> - last-updated-by: opencode (execute-feature)
+> - last-verified-against-code: 2026-07-22
 > - staleness-policy: auto-regenerable — can be derived from import analysis tools. Manual content only for conventions and rules that cannot be inferred from code.
 
 > **Overview:** Maps how modules depend on each other. Agents use this to understand the impact of changes. This file is **auto-regenerable** — prefer tool-based import analysis for ground truth, and treat manual entries as supplementary.
@@ -20,11 +20,13 @@ AppComponent
   → ContentService
 
 HomeComponent
-  → ContentService
-  → TypingEffectDirective
-  → AnimatedBorderDirective
-  → PulsatingEffectDirective
-  → ImageViewerDirective
+  → ContentService (featuredProjects array, site, stats, techStack, quickNav)
+  → TypingEffectDirective (hero tagline)
+  → AnimatedBorderDirective (primary CTA)
+  → PulsatingEffectDirective (availability badge)
+  → ImageViewerDirective (featured project images)
+  → ImageFadeDirective (images)
+  → MagneticBtnDirective (CTAs, quick-nav cards)
   → PillListComponent
   → LinksRowComponent
 
@@ -61,10 +63,12 @@ AutomationComponent
 CertificatesComponent
   → ContentService
   → ImageViewerDirective
+  → MagneticBtnDirective
   → AnimatedBorderDirective
-  → TypingEffectDirective
+  → ImageFadeDirective
   → PageHeaderComponent
   → PillListComponent
+  → scrollGallery(index, amount) method (inline)
 
 NavbarComponent
   → Angular Router (navigation)

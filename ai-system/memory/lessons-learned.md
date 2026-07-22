@@ -1,8 +1,8 @@
 # Lessons Learned
 
 > **Metadata**
-> - last-updated-by: opencode (update-ai-system)
-> - last-verified-against-code: 2026-07-18
+> - last-updated-by: opencode (execute-feature)
+> - last-verified-against-code: 2026-07-22
 > - staleness-policy: each entry has its own staleness — check supersedes links
 
 > **Overview:** Practical knowledge accumulated during development — things that worked well, things that didn't, and patterns worth repeating. Different from `repair-system.md` (tracks errors); this file tracks development process insights and architectural wisdom. Uses supersedes/superseded-by links for evolving practices.
@@ -153,6 +153,34 @@ Overriding the footer copyright in the `site` getter of `content.service.ts` wit
 
 **Apply When:**
 Any footer or display element that shows the current year. Compute it at runtime via `new Date().getFullYear()` in a service getter rather than storing it in config. Works for both CSR and SSR (the year is accurate at render time).
+
+**Supersedes:** None
+**Superseded by:** None
+
+## Guard Browser-Only APIs (setInterval, requestAnimationFrame) With isPlatformBrowser for SSR
+
+**Context:**
+The featured carousel auto-slide used `setInterval` in `ngOnInit`. During Netlify SSR prerendering (which runs `ng build` with Angular SSR), the `setInterval` would start on the server and never complete, causing the prerender step to time out and the build to fail with a cryptic timeout error.
+
+**What We Learned:**
+Angular SSR renders components on the server. Any `setInterval`, `requestAnimationFrame`, or browser-only API will execute during server-side rendering and may never resolve, leading to prerender timeouts. Always inject `PLATFORM_ID` via `@Inject(PLATFORM_ID)` and guard browser-only logic with `isPlatformBrowser(platformId)`. For the carousel specifically, `setInterval` only starts when `isPlatformBrowser` is true; the server render gets nothing. The same pattern applies to any polling, animation frame loop, or browser API usage in components that are prerendered.
+
+**Apply When:**
+Using `setInterval`, `setTimeout` with indefinite duration, `requestAnimationFrame`, `matchMedia`, or any DOM API in a component that may be server-rendered (prerendered/SSR). Always inject `PLATFORM_ID` and guard with `isPlatformBrowser`. For `setTimeout` with a finite short duration (e.g., 250ms for blur reveal), the risk is lower but still present — consider guarding if the timeout is long or indeterminate.
+
+**Supersedes:** None
+**Superseded by:** None
+
+## No Emdashes in Config Content
+
+**Context:**
+During a content quality audit, three emdashes (—) were found in `about.config.ts`, one in `automation.config.ts`, and one in `projects.component.html`. Emdashes in config copy are an indicator of AI-generated text that reads as unnatural and inconsistent with the voice of a real developer portfolio.
+
+**What We Learned:**
+Emdashes in display copy (config files, templates) read as AI-generated and should be replaced with colons, commas, periods, or simple rephrasing. This is now codified as an engineering standard (see `ai-system/standards/engineering-principles.md` §10). The same vigilance should apply to other AI-typical tics (excessive adverbs, cliché metaphors, overly complex sentence structures).
+
+**Apply When:**
+Writing or reviewing any config content, HTML templates, or copy text. Scan for emdashes and replace them. Also watch for other AI-typical patterns: unnatural enthusiasm, excessive formality, overly complex phrasing.
 
 **Supersedes:** None
 **Superseded by:** None

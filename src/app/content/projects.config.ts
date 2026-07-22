@@ -2,6 +2,16 @@ import { ProjectEntry } from './types';
 
 const enterpriseProjects: ProjectEntry[] = [
   {
+    image: 'enterpriseProjects/along.png',
+    title: 'Along App',
+    description: 'An MVP personal safety and connectivity platform currently in active development. Features real-time location sharing, emergency alerting, and social presence features built with Next.js and Firebase.',
+    githubLink: 'https://github.com/sotonye-dagogo-dev/along-app',
+    liveLink: 'https://along1.vercel.app',
+    techStack: ['NextJS', 'TypeScript', 'Firebase', 'Tailwind'],
+    featured: true,
+    tier: 'flagship',
+  },
+  {
     image: 'enterpriseProjects/transact.jpg',
     title: 'Transact Store',
     description: 'Multi-vendor e-commerce platform connecting users to premium products and services across Africa.',
@@ -20,6 +30,15 @@ const enterpriseProjects: ProjectEntry[] = [
     liveLink: 'https://signature-eu.web.app',
     techStack: ['Angular', 'Django', 'Tailwind', 'Firebase', 'Python', 'TypeScript'],
     isCaseStudy: true,
+    tier: 'flagship',
+  },
+  {
+    image: 'enterpriseProjects/id-card-automata.png',
+    title: 'HR ID Card Automata',
+    description: 'An automated ID card generation system for HR departments. Generates bulk employee ID cards with dynamic data, photo upload, and print-ready output.',
+    githubLink: 'https://github.com/sotonye-dagogo-dev/hr-id-card-automata',
+    liveLink: 'https://hr-id-card-automata.vercel.app',
+    techStack: ['NextJS', 'TypeScript', 'Tailwind', 'Firebase'],
     tier: 'flagship',
   },
   {
