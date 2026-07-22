@@ -80,6 +80,48 @@
 - Date: 2026-07-15
 - Status: Active
 
+### Missing Component Method + Missing Directive Imports (Certificates)
+
+**Symptom:** Three build errors: `Property 'scrollGallery' does not exist on type 'CertificatesComponent'`, `Can't bind to 'fullImage' since it isn't a known property of 'div'` (appImageViewer), and warnings about unused `TypingEffectDirective` imports across certificates, experience, and projects.
+
+**Root Cause:**
+- `CertificatesComponent` was missing the `scrollGallery(index, amount)` method that the template calls
+- `ImageViewerDirective`, `MagneticBtnDirective`, `AnimatedBorderDirective`, and `ImageFadeDirective` were used in the template but not imported
+- `TypingEffectDirective` was imported in certificates, experience, and projects components but never referenced in their templates
+
+**Fix Applied:**
+- Added `scrollGallery(index: number, amount: number)` method to `CertificatesComponent` that scrolls the gallery container by `amount` pixels
+- Added missing directive imports: `ImageViewerDirective`, `MagneticBtnDirective`, `AnimatedBorderDirective`, `ImageFadeDirective` to `CertificatesComponent`
+- Removed unused `TypingEffectDirective` import from `CertificatesComponent`, `ExperienceComponent`, and `ProjectsComponent`
+
+**Prevention:**
+- When adding template bindings to directives or methods, verify the component class has the corresponding method/import
+- When removing a directive from a template, also remove its import
+- After editing components, run `ng build` to catch missing methods and imports before deploying
+
+**Files Affected:**
+- `src/app/pages/certificates/certificates.component.ts`
+- `src/app/pages/experience/experience.component.ts`
+- `src/app/pages/projects/projects.component.ts`
+
+**Date:** 2026-07-15
+**Status:** Active
+
+### Corrupted node_modules (core.mjs + type defs missing)
+
+**Symptom:** After fixing code errors, build failed with `Could not resolve "@angular/core"` (missing `./fesm2022/core.mjs`) and `TS2459: Module declares 'Component' locally, but it is not exported` across every file importing from `@angular/core`.
+
+**Root Cause:** The `node_modules` installation was corrupted — `@angular/core` was missing its main `.mjs` file (only `.map` existed) and its `index.d.ts` did not export any symbols.
+
+**Fix Applied:** Deleted `node_modules` and `package-lock.json`, ran `npm install` to get a clean dependency tree.
+
+**Prevention:** If Angular core symbols can't be resolved after `npm install`, check `node_modules/@angular/core/fesm2022/core.mjs` exists and `index.d.ts` has proper `export` statements. A clean reinstall (`rm -rf node_modules && npm install`) resolves it.
+
+**Files Affected:** None (dependency fix only)
+
+**Date:** 2026-07-15
+**Status:** Active
+
 ### Angular Unused Directive Import
 
 **TS-998113: Directive not used within the template**
