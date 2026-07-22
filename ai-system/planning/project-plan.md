@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (update-ai-system)
-> - last-verified-against-code: 2026-07-18
+> - last-updated-by: opencode (execute-feature)
+> - last-verified-against-code: 2026-07-22
 > - staleness-policy: re-verify if project scope or phase changes
 
 > **Overview:** High-level feature checklist organized by development phase. See `planning/task-queue.md` for granular, sprint-level tasks.
@@ -131,6 +131,19 @@
 - [x] `.reveal-blur` scroll-reveal class (blur → clear)
 - [x] Footer responsive link wrapping on mobile
 - [x] Theme toggle spacing (nav-actions gap `var(--space-sm)` → `var(--space-lg)`)
+
+---
+
+## Phase 11 — Featured Carousel, New Projects & Content Quality
+
+- [x] Fixed Netlify build failures (missing methods, missing imports, corrupted node_modules)
+- [x] Removed emdashes from config content (about, automation, projects) — AI-generated text indicator
+- [x] Added §10 "No Emdashes in Config Content" to engineering principles
+- [x] Added Along App (featured, flagship) and HR ID Card Automata (flagship) to projects config
+- [x] Refactored `ContentData.featuredProject` (single) → `featuredProjects: ProjectEntry[]` (array)
+- [x] Implemented auto-sliding featured carousel on Home page (track-based, prev/next, dots, pause-on-interaction)
+- [x] Guarded carousel `setInterval` with `isPlatformBrowser` for SSR compatibility
+- [x] Build verifies cleanly
 
 ---
 

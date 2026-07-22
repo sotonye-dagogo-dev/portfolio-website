@@ -114,7 +114,7 @@ export interface ContentData {
   stats: StatItem[];
   quickNav: QuickNavItem[];
   techStack: TechItem[];
-  featuredProject: ProjectEntry | null;
+  featuredProjects: ProjectEntry[];
   flagship: ProjectEntry[];
   applied: ProjectEntry[];
   archive: ProjectEntry[];

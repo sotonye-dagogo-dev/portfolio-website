@@ -84,10 +84,10 @@ export class ContentService {
     return this.overrideArray(techStackConfig, 'techStack');
   }
 
-  get featuredProject(): ProjectEntry | null {
-    return this.overrideField<ProjectEntry | null>(
-      flagshipConfig[0] || null,
-      'featuredProject'
+  get featuredProjects(): ProjectEntry[] {
+    return this.overrideArray(
+      flagshipConfig.filter(p => p.featured),
+      'featuredProjects'
     );
   }
 

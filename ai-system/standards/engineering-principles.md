@@ -149,7 +149,29 @@ counter += 1
 
 ---
 
-## 10. How This Gets Enforced
+## 10. Copy: No Emdashes in Config Content
+
+All user-facing copy in configuration objects (site config, project descriptions, bio text, taglines, fallback strings) must not contain emdashes (—). Emdashes are a visual indicator of AI-generated or templated text and undermine the professional, intentional tone of the portfolio.
+
+**Guidelines:**
+- Replace emdashes with a colon (`:`) when introducing an explanation or list
+- Replace emdashes with a comma (`,`) or period (`.`) when connecting clauses
+- Or rephrase the sentence to avoid the construction entirely
+
+**Examples:**
+```
+# Bad
+description: 'Platforms that are maintainable, testable, and documented by default — I specialize in Angular.'
+
+# Good
+description: 'Platforms that are maintainable, testable, and documented by default. I specialize in Angular.'
+```
+
+This rule applies to all `*.config.ts` files, all `*.generated.json` overrides, and any hardcoded fallback strings in templates or services. Code comments containing emdashes are exempt.
+
+---
+
+## 11. How This Gets Enforced
 
 This document is not aspirational — it is checked. Here is exactly where:
 

@@ -2,8 +2,8 @@
 
 > **Metadata**
 >
-> - last-updated-by: opencode (update-ai-system)
-> - last-verified-against-code: 2026-07-18
+> - last-updated-by: opencode (execute-feature)
+> - last-verified-against-code: 2026-07-22
 > - staleness-policy: auto-regenerable — can be derived from `tree` command. Manual content only where intent cannot be derived from structure.
 
 > **Overview:** Visual map of the project folder structure with purpose descriptions. Updated when the folder structure changes. This file is **auto-regenerable** — use tool-based discovery for ground truth, and treat manual entries here as supplementary context, not primary navigation.
@@ -44,8 +44,9 @@ portfolio-website/
 │   └── enrichment.js        → GitHub API enrichment script (feeds content.generated.json)
 │
 ├── ai-system/              → AI-assisted development system
-│   ├── designs/             → Visual design contracts (OD-1 through OD-7 + od-system.html redesigned)
+│   ├── designs/             → Visual design contracts (OD-1 through OD-7 + od-system.html)
 │   ├── docs/                → Design/planning docs (portfolio-revamp-package.md)
+│   ├── standards/           → Engineering principles and standards
 ├── [deployment]            → Netlify UI (connected to GitHub repo); build: `npm run build`, publish: `dist/portfolio-website/browser`, plugin: `@netlify/angular-runtime@4.0.0`, Node 24.18.0
 ├── server.ts                → Express server
 ├── package.json             → Dependencies and scripts
@@ -70,6 +71,7 @@ portfolio-website/
 | `src/app/animations/` | Animation utilities                                     | fade.animation.ts, slide.animation.ts                              |
 | `public/`             | Static assets and images                                | Various project/certificate images                                 |
 | `ai-system/`          | AI development framework                                | protocols/, agents/, commands/                                     |
+| `ai-system/standards/` | Engineering principles and copy standards                | engineering-principles.md                                           |
 | `ai-system/designs/`  | Visual design contracts (HTML)                          | od-1-home.html → od-7-shell.html, od-system.html                   |
 
 ---
