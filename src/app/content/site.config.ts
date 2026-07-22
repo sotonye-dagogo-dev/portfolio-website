@@ -7,7 +7,7 @@ export const siteConfig: SiteConfig = {
   availability: 'Available for new opportunities',
   firstName: 'Sotonye',
   lastName: 'Dagogo',
-  cvUrl: 'https://outlook.office.com/path-to-cv', /* REPLACE with actual CV URL */
+  cvUrl: 'https://1drv.ms/b/c/740863ef2517674a/IQBpInWKaA5rQpHZjxn4NmxOAR0-p4-8pCfOrkjFRvlCLzE', /* REPLACE with actual CV URL */
   experienceStartYear: 2020,
   cta: {
     primary: { label: 'View My Work', route: '/projects' },
