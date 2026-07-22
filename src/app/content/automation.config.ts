@@ -23,7 +23,7 @@ export const automationFeatures: AutomationFeature[] = [
     name: 'default-template',
     purpose: 'Zero-config starter template with pre-configured AI agent instructions, CI/CD, and design system integration.',
     tags: ['Starter', 'Boilerplate', 'CLI'],
-    repo: 'Sotonye0808/default-template',
+    repo: 'sotonye-dagogo-dev/default-template',
     repoUrl: 'https://github.com/Sotonye0808/default-template',
   },
   {
@@ -31,7 +31,7 @@ export const automationFeatures: AutomationFeature[] = [
     name: '.github-workflows',
     purpose: 'Reusable CI/CD workflows for automated testing, deployment, and AI-assisted code review pipelines.',
     tags: ['CI/CD', 'GitHub Actions', 'Automation'],
-    repo: 'Sotonye0808/.github-workflows',
+    repo: 'sotonye-dagogo-dev/.github-workflows',
     repoUrl: 'https://github.com/Sotonye0808/.github-workflows',
   },
 ];
