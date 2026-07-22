@@ -56,6 +56,6 @@ export const contactLinksConfig: ContactLink[] = [
 
 export const currentlyConfig: CurrentlyItem[] = [
   { label: 'Availability', value: 'Open to opportunities' },
-  { label: 'Current Role', value: 'Technical Lead at HICC & Founder' },
+  { label: 'Current Role', value: 'Technical Lead & Founder' },
   { label: 'Location', value: 'Nigeria · Remote' },
 ];
