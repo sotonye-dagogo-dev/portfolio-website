@@ -4,10 +4,10 @@ const enterpriseProjects: ProjectEntry[] = [
   {
     image: 'enterpriseProjects/along.png',
     title: 'Along App',
-    description: 'An MVP personal safety and connectivity platform currently in active development. Features real-time location sharing, emergency alerting, and social presence features built with Next.js and Firebase.',
-    githubLink: 'https://github.com/sotonye-dagogo-dev/along-app',
+    description: 'Along (WIP) is a social platform where travelers can share multi-stop route posts, discover new destinations, and connect with fellow travelers.',
+    githubLink: undefined,
     liveLink: 'https://along1.vercel.app',
-    techStack: ['NextJS', 'TypeScript', 'Firebase', 'Tailwind'],
+    techStack: ['NextJS', 'TypeScript', 'Tailwind'],
     featured: true,
     tier: 'flagship',
   },

@@ -20,10 +20,10 @@ export const siteConfig: SiteConfig = {
 };
 
 export const statsConfig: StatItem[] = [
-  { label: 'Projects', value: '10+' },
-  { label: 'Technologies', value: '25+' },
+  { label: 'Projects', value: '20+', dynamic: true  },
+  { label: 'Technologies', value: '20+', dynamic: true  },
   { label: 'Years Experience', value: '6+', dynamic: true },
-  { label: 'Certificates', value: '6+' },
+  { label: 'Certificates', value: '6+', dynamic: true  },
 ];
 
 export const quickNavConfig: QuickNavItem[] = [
