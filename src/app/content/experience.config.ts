@@ -28,10 +28,25 @@ export const experienceConfig: ExperienceEntry[] = [
     organization: 'Along',
     dateRange: '2024 - Present',
     description: [
+      'Building the future of urban transit intelligence in West Africa.',
+      'Integrated traffic-aware maps and real-time route optimization for multi-stop journeys.',
       'Building an AI-assisted engineering platform that streamlines the software delivery lifecycle.',
       'Designed and implemented ai-system template architecture for metadata-driven development.',
     ],
-    tags: ['System Design', 'AI/LLM', 'Automation', 'TypeScript'],
+    tags: ['Travel Intelligence', 'Navigation', 'Routes and Maps', 'Automation', 'TypeScript'],
+    isCurrent: true,
+  },
+  {
+    role: 'Founder & Technical Lead',
+    organization: 'Crellab',
+    dateRange: '2026 - Present',
+    description: [
+      'Integrated Google Drive automated portfolio management for creators to showcase their work seamlessly.',
+      'Developed Escrow payment system for secure transactions between buyers and sellers.',
+      'Building an AI-assisted engineering platform that streamlines the software delivery lifecycle.',
+      'Designed and implemented ai-system template architecture for metadata-driven development.',
+    ],
+    tags: ['Escrow', 'Creatives', 'Automation', 'TypeScript'],
     isCurrent: true,
   },
   {
